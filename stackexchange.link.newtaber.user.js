@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            StackExchange link newtaber
 // @namespace       https://github.com/almaceleste/userscripts
-// @version         0.2
+// @version         0.3
 // @description     this code opens links from posts, answers, comments and user signatures in the new tab instead of the annoying in-place opening
 // @description:ru  этот код открывает ссылки из постов, ответов, комментариев и подписей пользователей в новой вкладке вместо надоедливого открытия в текущей
 // @author          (ɔ) Paola Captanovska
@@ -21,7 +21,7 @@
 (function() {
     'use strict';
 
-    $('.post-text a, .comment-text a, .user-details a').each(function() {
+    $('.post-text a, .comment-copy a, .user-details a').each(function() {
         $(this).click(function(event) {
             event.preventDefault();
             event.stopPropagation();
