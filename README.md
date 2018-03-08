@@ -1,2 +1,45 @@
 # userscripts
-userscripts repo for use with Greasemonkey/Tampermonkey or other userscript extension
+
+## About
+
+userscripts repo for using with Greasemonkey/Tampermonkey or other userscript extension
+
+## Download / Install
+
+ 1. Install userscript extension for your browser from [Tampermonkey](https://tampermonkey.net/) website or any else userscript extension at your choise  
+ 2. Open script you want to install and click `Raw` button  
+ 3. Click `Install` in your browser extension window (maybe different in your extension)  
+ 4. Refresh opened pages  
+ 5. Enjoy  
+
+## Platform
+
+| Browser | OS                             |
+|---      |---                             |
+| Chrome  | Linux, Windows, Mac, Chrome OS |
+| Firefox | Linux, Windows, Mac            |
+| Opera   | Linux, Windows, Mac            |
+| Edge    | Windows                        |
+| Safari  | Mac                            |
+| Dolphin | Android                        | 
+* if you find an error in this table please contact me to fix it
+
+## License
+
+I created my scripts under Copyleft ideology
+
+## Code
+
+userscript with external libraries 
+
+## List of scripts 
+
+#### StackExchange link newtaber
+
+I needed to open links from posts and answers in the new tab instead of annoying in-place opening without `<Ctrl>` button or anything else just in ordinary way. 
+
+Because I did not find any sufficient solution of my problem I wrote own userscript which do what I want. If you have same issue you can install it from my repo:  
+[StackExchange link newtaber](https://github.com/almaceleste/userscripts/raw/master/stackexchange.link.newtaber.user.js)  
+
+This script should work in all StackExchange sites. 
+
