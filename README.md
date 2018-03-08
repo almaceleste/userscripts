@@ -39,7 +39,7 @@ userscript with external libraries
 I needed to open links from posts and answers in the new tab instead of annoying in-place opening without `<Ctrl>` button or anything else just in ordinary way. 
 
 Because I did not find any sufficient solution of my problem I wrote own userscript which do what I want. If you have same issue you can install it from my repo:  
-[StackExchange link newtaber](https://github.com/almaceleste/userscripts/raw/master/stackexchange.link.newtaber.user.js)  
+[StackExchange link newtaber](https://github.com/almaceleste/userscripts/raw/master/StackExchange_link_newtaber.user.js)  
 
 This script should work in all StackExchange sites. 
 
