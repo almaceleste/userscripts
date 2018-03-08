@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name            StackExchange link newtaber
 // @namespace       https://github.com/almaceleste/userscripts
-// @version         0.3
+// @version         0.3.1
 // @description     this code opens links from posts, answers, comments and user signatures in the new tab instead of the annoying in-place opening
 // @description:ru  этот код открывает ссылки из постов, ответов, комментариев и подписей пользователей в новой вкладке вместо надоедливого открытия в текущей
 // @author          (ɔ) Paola Captanovska
+// @license         GPL-3.0+; http://www.gnu.org/licenses/gpl-3.0.txt
 // @match           https://*.stackexchange.com/questions/*
 // @match           https://*.stackoverflow.com/questions/*
 // @match           https://askubuntu.com/questions/*
