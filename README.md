@@ -41,5 +41,6 @@ I needed to open links from posts and answers in the new tab instead of annoying
 Because I did not find any sufficient solution of my problem I wrote own userscript which do what I want. If you have same issue you can install it from my repo:  
 [StackExchange link newtaber](https://github.com/almaceleste/userscripts/raw/master/StackExchange_link_newtaber.user.js)  
 
-This script should work in all StackExchange sites. 
+* This script should work in all StackExchange sites.  
+* Use settings to choose which links will be affected. 
 
