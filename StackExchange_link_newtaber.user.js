@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            StackExchange link newtaber
 // @namespace       almaceleste
-// @version         0.3.5
+// @version         0.3.6
 // @description     this code opens links from posts, answers, comments and user signatures in the new tab instead of the annoying in-place opening
 // @description:ru  этот код открывает ссылки из постов, ответов, комментариев и подписей пользователей в новой вкладке вместо надоедливого открытия в текущей
 // @author          (ɔ) Paola Captanovska
@@ -14,7 +14,10 @@
 // @downloadURL     https://github.com/almaceleste/userscripts/raw/master/StackExchange_link_newtaber.user.js
 // @downloadURL     https://openuserjs.org/install/almaceleste/StackExchange_link_newtaber.user.js
 
-// @grant           none
+// @require         https://openuserjs.org/src/libs/sizzle/GM_config.js
+// @grant           GM_getValue
+// @grant           GM_setValue
+// @grant           GM_registerMenuCommand
 
 // @match           https://*.stackexchange.com/questions/*
 // @match           https://*.stackoverflow.com/questions/*
@@ -29,10 +32,71 @@
 // @author almaceleste
 // ==/OpenUserJS==
 
+const postlink = '.post-text a';
+const commentlink = '.comment-copy a';
+const userdetailslink = '.user-details a';
+
+const windowcss = 'background-color: lightgray;';
+const iframecss = 'height: 21em; width: 30em; border: 1px solid; border-radius: 3px; position: fixed; z-index: 999;';
+
+GM_registerMenuCommand('StackExchange link newtaber Settings', opencfg);
+
+function opencfg()
+{
+	GM_config.open();
+	newtaberCfg.style = iframecss;
+}
+
+GM_config.init(
+{
+    id: 'newtaberCfg',
+    title: 'StackExchange link newtaber Settings',
+    fields:
+    {
+        postlink:
+        {
+            section: ['Link types', 'Choose link types to open in new tab'],
+            label: 'post links',
+            labelPos: 'right',
+            type: 'checkbox',
+            default: true,
+        },
+        commentlink:
+        {
+            label: 'comment links',
+            labelPos: 'right',
+            type: 'checkbox',
+            default: true,
+        },
+        userdetailslink:
+        {
+            label: 'userdetails links',
+            labelPos: 'right',
+            type: 'checkbox',
+            default: true,
+        },
+    },
+    css: '#newtaberCfg { ' + windowcss + ' }',
+    events:
+    {
+        save: function() {
+            GM_config.close();
+        }
+    },
+});
+
 (function() {
     'use strict';
 
-    $('.post-text a, .comment-copy a, .user-details a').each(function() {
+    var links = [];
+
+    if(GM_config.get('postlink')) links.push(postlink);
+    if(GM_config.get('commentlink')) links.push(commentlink);
+    if(GM_config.get('userdetailslink')) links.push(userdetailslink);
+
+    var pattern = links.join(', ');
+
+    $(pattern).each(function() {
         $(this).click(function(event) {
             event.preventDefault();
             event.stopPropagation();
