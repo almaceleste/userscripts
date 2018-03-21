@@ -27,7 +27,7 @@ userscripts repo for using with Greasemonkey/Tampermonkey or other userscript ex
 
 ## License
 
-I created my scripts under Copyleft ideology
+I created my scripts under [AGPLv3](https://www.gnu.org/licenses/agpl.html)
 
 ## Code
 
