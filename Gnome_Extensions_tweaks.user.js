@@ -6,7 +6,7 @@
 // @description:ru  этот код открывает страницы расширений в новой вкладке и изменяет сортировку списка расширений
 // @author          (ɔ) Paola Captanovska
 // @license         GPL-3.0+; http://www.gnu.org/licenses/gpl-3.0.txt
-// @icon            https://extensions.gnome.org/extension-data/icons/icon_1312.png
+// @icon            https://cdn1.iconfinder.com/data/icons/system-shade-circles/512/gnome-128.png
 
 // @homepageURL     https://greasyfork.org/en/users/174037-almaceleste
 // @homepageURL     https://openuserjs.org/users/almaceleste
