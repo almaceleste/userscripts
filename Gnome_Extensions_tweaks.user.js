@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name            Gnome Extensions tweaks
 // @namespace       almaceleste
-// @version         0.1
-// @description     this code opens extension pages in the new tab and changes sorting of extensions list
+// @version         0.2
+// @description     this code opens extension pages in the new tab and changes sorting of the extensions list
 // @description:ru  этот код открывает страницы расширений в новой вкладке и изменяет сортировку списка расширений
 // @author          (ɔ) Paola Captanovska
 // @license         GPL-3.0+; http://www.gnu.org/licenses/gpl-3.0.txt
-// @icon            https://gitlab.gnome.org/uploads/-/system/group/avatar/8/gnomelogo.png
+// @icon            https://extensions.gnome.org/extension-data/icons/icon_1312.png
 
 // @homepageURL     https://greasyfork.org/en/users/174037-almaceleste
 // @homepageURL     https://openuserjs.org/users/almaceleste
