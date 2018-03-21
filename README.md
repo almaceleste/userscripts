@@ -2,7 +2,8 @@
 
 ## About
 
-userscripts repo for using with Greasemonkey/Tampermonkey or other userscript extension
+userscripts repo for using with Greasemonkey/Tampermonkey or other userscript extension  
+[![](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.me/almaceleste "Donate|Paypal")
 
 ## Download / Install
 
