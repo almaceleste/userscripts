@@ -44,3 +44,6 @@ Because I did not find any sufficient solution of my problem I wrote own userscr
 * This script should work in all StackExchange sites.  
 * Use settings to choose which links will be affected. 
 
+#### Gnome Extensions tweaks
+This script opens the extension pages in the new tab and and changes default sorting of the extensions list on the `Extensions` nav button  
+[Gnome Extensions tweaks](https://github.com/almaceleste/userscripts/raw/master/Gnome_Extensions_tweaks.user.js)
