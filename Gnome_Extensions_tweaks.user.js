@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Gnome Extensions tweaks
 // @namespace       almaceleste
-// @version         0.2
+// @version         0.3
 // @description     this code opens extension pages in the new tab and changes sorting of the extensions list
 // @description:ru  этот код открывает страницы расширений в новой вкладке и изменяет сортировку списка расширений
 // @author          (ɔ) Paola Captanovska
