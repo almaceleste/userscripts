@@ -14,15 +14,20 @@ userscripts repo for using with Greasemonkey/Tampermonkey or other userscript ex
  You could install this scripts from my [external repos](#external-repos) as well. 
 
 ## Platform
-| Browser | OS                             |
+[//]: # (| Browser | OS                             |
 |---      |---                             |
 | Chrome  | Linux, Windows, Mac, Chrome OS |
 | Firefox | Linux, Windows, Mac            |
 | Opera   | Linux, Windows, Mac            |
 | Edge    | Windows                        |
 | Safari  | Mac                            |
-| Dolphin | Android                        | 
-* if you find an error in this table please contact me to fix it
+| Dolphin | Android                        | )
+[//]: # (* if you find an error in this table please contact me to fix it  )
+![windows](https://img.shields.io/badge/Windows-Chrome,_Firefox,_Opera,_Edge-lightgrey.svg)  
+![Mac](https://img.shields.io/badge/Mac-Chrome,_Firefox,_Opera,_Safari-lightgrey.svg)  
+![Linux](https://img.shields.io/badge/Linux-Chrome,_Firefox,_Opera-lightgrey.svg)  
+![ChromeOS](https://img.shields.io/badge/ChromeOS-Chrome-lightgrey.svg)  
+![Android](https://img.shields.io/badge/Android-Dolphin-lightgrey.svg)  
 
 ## License
 I created my scripts under [AGPLv3](https://www.gnu.org/licenses/agpl.html)
