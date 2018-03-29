@@ -14,15 +14,6 @@ userscripts repo for using with Greasemonkey/Tampermonkey or other userscript ex
  You could install this scripts from my [external repos](#external-repos) as well. 
 
 ## Platform
-[//]: # (| Browser | OS                             |
-|---      |---                             |
-| Chrome  | Linux, Windows, Mac, Chrome OS |
-| Firefox | Linux, Windows, Mac            |
-| Opera   | Linux, Windows, Mac            |
-| Edge    | Windows                        |
-| Safari  | Mac                            |
-| Dolphin | Android                        | )
-[//]: # (* if you find an error in this table please contact me to fix it  )
 [![Chrome](https://img.shields.io/badge/Chrome-Linux,_Windows,_Mac,_Chrome_OS-lightgrey.svg)](https://tampermonkey.net/?browser=chrome)  
 [![Firefox](https://img.shields.io/badge/Firefox-Linux,_Windows,_Mac-lightgrey.svg)](https://tampermonkey.net/?browser=firefox)  
 [![Opera](https://img.shields.io/badge/Opera-Linux,_Windows,_Mac-lightgrey.svg)](https://tampermonkey.net/?browser=opera)  
