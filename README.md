@@ -2,7 +2,7 @@
 
 ## About
 userscripts repo for using with Greasemonkey/Tampermonkey or other userscript extension  
-[![](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.me/almaceleste "Donate | Paypal")
+[![](https://img.shields.io/badge/Paypal-donate%20me-blue.svg?longCache=true&colorA=778899&colorB=00bfff&logo=paypal)](https://www.paypal.me/almaceleste "paypal | donate me")  
 
 ## Download / Install
  1. Install userscript extension for your browser from [Tampermonkey](https://tampermonkey.net/) website or any else userscript extension at your choise  
@@ -32,8 +32,8 @@ userscript with external libraries ([jQuery](https://jquery.com/), [GM_config](h
 
 ## List of scripts 
 #### External repos
-[![](https://img.shields.io/badge/OpenUserJS-almaceleste-green.svg)](https://openuserjs.org/users/almaceleste/scripts "OpenUserJS | almaceleste")  
-[![](https://img.shields.io/badge/Greasy%20Fork-almaceleste-green.svg)](https://greasyfork.org/en/users/174037-almaceleste "Greasy Fork | almaceleste")
+[![](https://img.shields.io/badge/OpenUserJS-almaceleste-green.svg?longCache=true&colorA=778899&colorB=00bfff)](https://openuserjs.org/users/almaceleste/scripts "openuserjs | almaceleste")  
+[![](https://img.shields.io/badge/Greasy%20Fork-almaceleste-green.svg?longCache=true&colorA=778899&colorB=00bfff)](https://greasyfork.org/en/users/174037-almaceleste "greasy fork | almaceleste")  
 
 #### StackExchange link newtaber
 I needed to open links from posts and answers in the new tab instead of annoying in-place opening without `<Ctrl>` button or anything else just in ordinary way. 
