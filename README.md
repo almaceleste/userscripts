@@ -33,7 +33,7 @@ userscript with external libraries ([jQuery](https://jquery.com/), [GM_config](h
 ## List of scripts 
 #### External repos
 [![](https://img.shields.io/badge/OpenUserJS-almaceleste-green.svg?longCache=true&colorA=778899&colorB=00bfff)](https://openuserjs.org/users/almaceleste/scripts "openuserjs | almaceleste")  
-[![](https://img.shields.io/badge/Greasy%20Fork-almaceleste-green.svg?longCache=true&colorA=778899&colorB=00bfff)](https://greasyfork.org/en/users/174037-almaceleste "greasy fork | almaceleste")  
+[![](https://img.shields.io/badge/Greasy_Fork-almaceleste-green.svg?longCache=true&colorA=778899&colorB=00bfff)](https://greasyfork.org/en/users/174037-almaceleste "greasy fork | almaceleste")  
 
 #### StackExchange link newtaber
 I needed to open links from posts and answers in the new tab instead of annoying in-place opening without `<Ctrl>` button or anything else just in ordinary way. 
