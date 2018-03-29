@@ -23,11 +23,13 @@ userscripts repo for using with Greasemonkey/Tampermonkey or other userscript ex
 | Safari  | Mac                            |
 | Dolphin | Android                        | )
 [//]: # (* if you find an error in this table please contact me to fix it  )
-![windows](https://img.shields.io/badge/Windows-Chrome,_Firefox,_Opera,_Edge-lightgrey.svg)  
-![Mac](https://img.shields.io/badge/Mac-Chrome,_Firefox,_Opera,_Safari-lightgrey.svg)  
-![Linux](https://img.shields.io/badge/Linux-Chrome,_Firefox,_Opera-lightgrey.svg)  
-![ChromeOS](https://img.shields.io/badge/ChromeOS-Chrome-lightgrey.svg)  
-![Android](https://img.shields.io/badge/Android-Dolphin-lightgrey.svg)  
+[![Chrome](https://img.shields.io/badge/Chrome-Linux,_Windows,_Mac,_Chrome_OS-lightgrey.svg)](https://tampermonkey.net/?browser=chrome)  
+[![Firefox](https://img.shields.io/badge/Firefox-Linux,_Windows,_Mac-lightgrey.svg)](https://tampermonkey.net/?browser=firefox)  
+[![Opera](https://img.shields.io/badge/Opera-Linux,_Windows,_Mac-lightgrey.svg)](https://tampermonkey.net/?browser=opera)  
+[![Edge](https://img.shields.io/badge/Edge-Windows-lightgrey.svg)](https://tampermonkey.net/?browser=edge)  
+[![Safari](https://img.shields.io/badge/Safari-Mac-lightgrey.svg)](https://tampermonkey.net/?browser=safari)  
+[![Dolphin](https://img.shields.io/badge/Dolphin-Android-lightgrey.svg)](https://tampermonkey.net/?browser=dolphin)  
+[![UC](https://img.shields.io/badge/UC-Android-lightgrey.svg)](https://tampermonkey.net/?browser=ucweb)  
 
 ## License
 I created my scripts under [AGPLv3](https://www.gnu.org/licenses/agpl.html)
