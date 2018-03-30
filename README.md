@@ -45,3 +45,7 @@ Because I did not find any sufficient solution of my problem I wrote own userscr
 #### Gnome Extensions tweaks
 This script opens the extension pages in the new tab and and changes default sorting of the extensions list on the `Extensions` nav button  
 [Gnome Extensions tweaks](https://github.com/almaceleste/userscripts/raw/master/Gnome_Extensions_tweaks.user.js)
+
+#### OpenSuse Software tweaks  
+This code opens package pages in new tab and minify hurge pacckage list on the [OpenSuse Software Search](https://software.opensuse.org/search) site.
+[OpenSuse Software tweaks](https://github.com/almaceleste/userscripts/raw/master/OpenSuse_Software_tweaks.user.js)
