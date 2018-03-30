@@ -47,5 +47,5 @@ This script opens the extension pages in the new tab and and changes default sor
 [Gnome Extensions tweaks](https://github.com/almaceleste/userscripts/raw/master/Gnome_Extensions_tweaks.user.js)
 
 #### OpenSuse Software tweaks  
-This code opens package pages in new tab and minify hurge pacckage list on the [OpenSuse Software Search](https://software.opensuse.org/search) site.
+This code opens package pages in new tab and minifies bulky pacckage list on the [OpenSuse Software Search](https://software.opensuse.org/search) site.
 [OpenSuse Software tweaks](https://github.com/almaceleste/userscripts/raw/master/OpenSuse_Software_tweaks.user.js)
