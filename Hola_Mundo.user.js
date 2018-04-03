@@ -17,6 +17,11 @@
 // @downloadURL     https://github.com/almaceleste/userscripts/raw/master/Hola_Mundo.user.js
 // @downloadURL     https://openuserjs.org/install/almaceleste/Hola_Mundo.user.js
 
+// @require         https://openuserjs.org/src/libs/sizzle/GM_config.js
+// @grant           GM_getValue
+// @grant           GM_setValue
+// @grant           GM_registerMenuCommand
+
 // @match           http*://*/*
 // ==/UserScript==
 
@@ -24,9 +29,50 @@
 // @author almaceleste
 // ==/OpenUserJS==
 
+const windowcss = '#holamundoCfg {background-color: lightblue;} #holamundoCfg .reset_holder {float: left; position: relative; bottom: -1em;} #holamundoCfg .saveclose_buttons {margin: .7em;}';
+const iframecss = 'height: 18.3em; width: 30em; border: 1px solid; border-radius: 3px; position: fixed; z-index: 999;';
+
+GM_registerMenuCommand('Hola Mundo Settings', opencfg);
+
+function opencfg()
+{
+	GM_config.open();
+	holamundoCfg.style = iframecss;
+}
+
+GM_config.init(
+{
+    id: 'holamundoCfg',
+    title: 'Hola Mundo',
+    fields:
+    {
+        hola:
+        {
+            section: ['Words', 'Words of greating to write in console'],
+            label: 'first word',
+            labelPos: 'right',
+            type: 'text',
+            default: 'hola',
+        },
+        mundo:
+        {
+            label: 'second word',
+            labelPos: 'right',
+            type: 'text',
+            default: 'mundo',
+        },
+    },
+    css: windowcss,
+    events:
+    {
+        save: function() {
+            GM_config.close();
+        }
+    },
+});
 
 (function() {
     'use strict';
 
-    console.log('¡hola mundo!');
+    console.log('¡' + GM_config.get('hola'), GM_config.get('mundo') +'!');
 })();
