@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name            Hola Mundo
 // @namespace       almaceleste
-// @version         0.1
+// @version         0.2
 // @description     this code does nothing only writes hola message to console
 // @description:ru  этот код не делает ничего, только пишет приветственное сообщение в консоль
 // @author          (ɔ) Paola Captanovska
-// @license         AGPL-3.0+; [AGPL 3.0](http://www.gnu.org/licenses/agpl)
+// @license         AGPL-3.0+; <a href='http://www.gnu.org/licenses/agpl'>AGPL 3.0</a>
 // @icon            https://cdn0.iconfinder.com/data/icons/typicons-2/24/message-32.png
 // @icon64          https://cdn0.iconfinder.com/data/icons/typicons-2/24/message-128.png
 
