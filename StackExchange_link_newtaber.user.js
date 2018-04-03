@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name            StackExchange link newtaber
 // @namespace       almaceleste
-// @version         0.3.7
+// @version         0.3.8
 // @description     this code opens links from posts, answers, comments and user signatures in the new tab instead of the annoying in-place opening
 // @description:ru  этот код открывает ссылки из постов, ответов, комментариев и подписей пользователей в новой вкладке вместо надоедливого открытия в текущей
 // @author          (ɔ) Paola Captanovska
-// @license         GPL-3.0+; http://www.gnu.org/licenses/gpl-3.0.txt
-// @icon            https://cdn1.iconfinder.com/data/icons/feather-2/24/external-link-128.png
+// @license         AGPL-3.0+; http://www.gnu.org/licenses/agpl.txt
+// @icon            https://cdn1.iconfinder.com/data/icons/simple-icons/32/stackexchange-32-black.png
+// @icon64          https://cdn1.iconfinder.com/data/icons/simple-icons/128/stackexchange-128-black.png
 
 // @homepageURL     https://greasyfork.org/en/users/174037-almaceleste
 // @homepageURL     https://openuserjs.org/users/almaceleste
