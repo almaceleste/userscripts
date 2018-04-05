@@ -31,7 +31,7 @@
 // ==/OpenUserJS==
 
 const windowcss = '#allnewtaberCfg {background-color: lightblue;} #allnewtaberCfg .reset_holder {float: left; position: relative; bottom: -1em;} #allnewtaberCfg .saveclose_buttons {margin: .7em;}';
-const iframecss = 'height: 21.3em; width: 30em; border: 1px solid; border-radius: 3px; position: fixed; z-index: 999;';
+const iframecss = 'height: 17.3em; width: 30em; border: 1px solid; border-radius: 3px; position: fixed; z-index: 999;';
 
 var host = window.location.hostname;
 var flat = host.replace(/\..*/, '');
