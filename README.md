@@ -50,3 +50,8 @@ This code opens package pages in new tab and minifies bulky pacckage list on the
 #### [![](https://cdn1.iconfinder.com/data/icons/feather-2/24/external-link-16.png) External link newtaber](../../raw/master/External_link_newtaber.user.js 'install')  
 This code opens external links in new tab on all sites (at the moment does not support dynamic lists of links such as search results).  
 * Use settings to exclude parent, neighbor and child sites  
+
+## Support on Beerpay
+Hey dude! Help me out for a couple of :beers:!
+
+[![Beerpay](https://beerpay.io/almaceleste/userscripts/badge.svg?style=beer-square)](https://beerpay.io/almaceleste/userscripts)  [![Beerpay](https://beerpay.io/almaceleste/userscripts/make-wish.svg?style=flat-square)](https://beerpay.io/almaceleste/userscripts?focus=wish)
