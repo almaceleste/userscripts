@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name            StackExchange link newtaber
 // @namespace       almaceleste
-// @version         0.3.8
+// @version         0.3.9
 // @description     this code opens links from posts, answers, comments and user signatures in the new tab instead of the annoying in-place opening
 // @description:ru  этот код открывает ссылки из постов, ответов, комментариев и подписей пользователей в новой вкладке вместо надоедливого открытия в текущей
 // @author          (ɔ) Paola Captanovska
-// @license         AGPL-3.0+; http://www.gnu.org/licenses/agpl.txt
+// @license         AGPL-3.0; http://www.gnu.org/licenses/agpl.txt
 // @icon            https://cdn1.iconfinder.com/data/icons/simple-icons/32/stackexchange-32-black.png
 // @icon64          https://cdn1.iconfinder.com/data/icons/simple-icons/128/stackexchange-128-black.png
 
@@ -40,7 +40,7 @@ const commentlink = '.comment-copy a';
 const userdetailslink = '.user-details a';
 
 const windowcss = '#newtaberCfg {background-color: lightblue;} #newtaberCfg .reset_holder {float: left; position: relative; bottom: -1em;} #newtaberCfg .saveclose_buttons {margin: .7em;}';
-const iframecss = 'height: 19.2em; width: 30em; border: 1px solid; border-radius: 3px; position: fixed; z-index: 999;';
+const iframecss = 'height: 17.2em; width: 30em; border: 1px solid; border-radius: 3px; position: fixed; z-index: 999;';
 
 GM_registerMenuCommand('StackExchange link newtaber Settings', opencfg);
 
@@ -53,7 +53,7 @@ function opencfg()
 GM_config.init(
 {
     id: 'newtaberCfg',
-    title: 'StackExchange link newtaber Settings',
+    title: 'StackExchange link newtaber',
     fields:
     {
         postlink:
