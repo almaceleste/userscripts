@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            External link newtaber
 // @namespace       almaceleste
-// @version         0.1
+// @version         0.1.1
 // @description     this code opens external links in new tab on all sites (at the moment does not support dynamic lists of links such as search results)
 // @description:ru  этот код открывает внешние ссылки в новой вкладке на всех сайтах (в данный момент не поддерживает динамические списки ссылок, такие как результаты поимковых запросов)
 // @author          (ɔ) Paola Captanovska
@@ -17,7 +17,7 @@
 // @downloadURL     https://github.com/almaceleste/userscripts/raw/master/External_link_newtaber.user.js
 // @downloadURL     https://openuserjs.org/install/almaceleste/External_link_newtaber.user.js
 
-// @runat           document.end
+// @run-at          document.end
 // @require         https://openuserjs.org/src/libs/sizzle/GM_config.js
 // @grant           GM_getValue
 // @grant           GM_setValue
@@ -123,11 +123,8 @@ GM_config.init(
         }
         else {patternhost = new RegExp('.+\.' + host + '$');}                  // *.w.abc.x           => .+\.w\.abc\.x$
     }
-    // console.log(root, patternroot);
-    // console.log(host, patternhost);
 
     window.onload = function(){
-        // console.log(host);
         var anchors= document.getElementsByTagName('a');
 
         for (var i = 0; i < anchors.length; i++) {
@@ -135,7 +132,6 @@ GM_config.init(
             if (target && target !== ''){
                 if (!patternroot.test(target) && !patternhost.test(target)){
                     anchors[i].target = '_blank';
-                    console.log(target);
                 }
             }
         }
