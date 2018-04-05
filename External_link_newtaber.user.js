@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            External link newtaber
 // @namespace       almaceleste
-// @version         0.1.1
+// @version         0.1.2
 // @description     this code opens external links in new tab on all sites (at the moment does not support dynamic lists of links such as search results)
 // @description:ru  этот код открывает внешние ссылки в новой вкладке на всех сайтах (в данный момент не поддерживает динамические списки ссылок, такие как результаты поимковых запросов)
 // @author          (ɔ) Paola Captanovska
