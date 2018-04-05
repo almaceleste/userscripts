@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name            OpenSuse Software tweaks
 // @namespace       almaceleste
-// @version         0.1
+// @version         0.1.1
 // @description     this code opens package pages in new tab and minify hurge pacckage list
 // @description:ru  этот код открывает страницы пакетов в новой вкладке и уменьшает список найденных пакетов
 // @author          (ɔ) Paola Captanovska
-// @license         AGPL-3.0+; http://www.gnu.org/licenses/agpl.txt
-// @icon            https://cdn1.iconfinder.com/data/icons/system-shade-circles/512/opensuse-128.png
+// @license         AGPL-3.0; http://www.gnu.org/licenses/agpl.txt
+// @icon            https://cdn1.iconfinder.com/data/icons/system-shade-circles/512/opensuse-32.png
+// @icon64          https://cdn1.iconfinder.com/data/icons/system-shade-circles/512/opensuse-128.png
 
 // @homepageURL     https://greasyfork.org/en/users/174037-almaceleste
 // @homepageURL     https://openuserjs.org/users/almaceleste
@@ -40,7 +41,7 @@ const card = '.col-md-4';
 const windowcss = '#osstweaksCfg {background-color: lightblue;} #osstweaksCfg .reset_holder {float: left; position: relative; bottom: -1em;} #osstweaksCfg .saveclose_buttons {margin: .7em;}';
 const iframecss = 'height: 16.7em; width: 30em; border: 1px solid; border-radius: 3px; position: fixed; z-index: 999;';
 
-GM_registerMenuCommand('OpenSuse Software tweaks', opencfg);
+GM_registerMenuCommand('OpenSuse Software tweaks Settings', opencfg);
 
 function opencfg()
 {
@@ -51,7 +52,7 @@ function opencfg()
 GM_config.init(
 {
     id: 'osstweaksCfg',
-    title: 'OpenSuse Software tweaks Settings',
+    title: 'OpenSuse Software tweaks',
     fields:
     {
         packagelink:
