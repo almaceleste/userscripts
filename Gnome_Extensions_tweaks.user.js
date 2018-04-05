@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name            Gnome Extensions tweaks
 // @namespace       almaceleste
-// @version         0.3
+// @version         0.3.1
 // @description     this code opens extension pages in the new tab and changes sorting of the extensions list
 // @description:ru  этот код открывает страницы расширений в новой вкладке и изменяет сортировку списка расширений
 // @author          (ɔ) Paola Captanovska
-// @license         GPL-3.0+; http://www.gnu.org/licenses/gpl-3.0.txt
-// @icon            https://cdn1.iconfinder.com/data/icons/system-shade-circles/512/gnome-128.png
+// @license         AGPL-3.0; http://www.gnu.org/licenses/agpl.txt
+// @icon            https://cdn1.iconfinder.com/data/icons/system-shade-circles/512/gnome-32.png
+// @icon64          https://cdn1.iconfinder.com/data/icons/system-shade-circles/512/gnome-128.png
 
 // @homepageURL     https://greasyfork.org/en/users/174037-almaceleste
 // @homepageURL     https://openuserjs.org/users/almaceleste
@@ -16,6 +17,7 @@
 // @downloadURL     https://github.com/almaceleste/userscripts/raw/master/Gnome_Extensions_tweaks.user.js
 // @downloadURL     https://openuserjs.org/install/almaceleste/Gnome_Extensions_tweaks.user.js
 
+// @run-at          document.end
 // @require         https://openuserjs.org/src/libs/sizzle/GM_config.js
 // @grant           GM_getValue
 // @grant           GM_setValue
@@ -35,9 +37,9 @@ const extensionlink = 'a.title-link';
 const navbarbtn = '#navbar-wrapper a:contains("Extensions")';
 
 const windowcss = '#getweaksCfg {background-color: lightblue;} #getweaksCfg .reset_holder {float: left; position: relative; bottom: -1em;} #getweaksCfg .saveclose_buttons {margin: .7em;}';
-const iframecss = 'height: 19.7em; width: 30em; border: 1px solid; border-radius: 3px; position: fixed; z-index: 999;';
+const iframecss = 'height: 17.5em; width: 30em; border: 1px solid; border-radius: 3px; position: fixed; z-index: 999;';
 
-GM_registerMenuCommand('Gnome Extensions tweaks', opencfg);
+GM_registerMenuCommand('Gnome Extensions tweaks Settings', opencfg);
 
 function opencfg()
 {
@@ -48,7 +50,7 @@ function opencfg()
 GM_config.init(
 {
     id: 'getweaksCfg',
-    title: 'Gnome Extensions tweaks Settings',
+    title: 'Gnome Extensions tweaks',
     fields:
     {
         extensionlink:
