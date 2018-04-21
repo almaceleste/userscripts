@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            External link newtaber
 // @namespace       almaceleste
-// @version         0.1.2
+// @version         0.2
 // @description     this code opens external links in new tab on all sites (at the moment does not support dynamic lists of links such as search results)
 // @description:ru  этот код открывает внешние ссылки в новой вкладке на всех сайтах (в данный момент не поддерживает динамические списки ссылок, такие как результаты поимковых запросов)
 // @author          (ɔ) Paola Captanovska
@@ -17,11 +17,12 @@
 // @downloadURL     https://github.com/almaceleste/userscripts/raw/master/External_link_newtaber.user.js
 // @downloadURL     https://openuserjs.org/install/almaceleste/External_link_newtaber.user.js
 
-// @run-at          document.end
+// @run-at          document-start
 // @require         https://openuserjs.org/src/libs/sizzle/GM_config.js
 // @grant           GM_getValue
 // @grant           GM_setValue
 // @grant           GM_registerMenuCommand
+// @grant           GM_openInTab
 
 // @match           http*://*/*
 // ==/UserScript==
@@ -31,7 +32,7 @@
 // ==/OpenUserJS==
 
 const windowcss = '#allnewtaberCfg {background-color: lightblue;} #allnewtaberCfg .reset_holder {float: left; position: relative; bottom: -1em;} #allnewtaberCfg .saveclose_buttons {margin: .7em;}';
-const iframecss = 'height: 17.3em; width: 30em; border: 1px solid; border-radius: 3px; position: fixed; z-index: 999;';
+const iframecss = 'height: 30.1em; width: 30em; border: 1px solid; border-radius: 3px; position: fixed; z-index: 999;';
 
 var host = window.location.hostname;
 var flat = host.replace(/\..*/, '');
@@ -89,6 +90,28 @@ GM_config.init(
             type: 'checkbox',
             default: true,
         },
+        background:
+        {
+            section: ['Options', 'Other options'],
+            label: 'open new tab in background',
+            labelPos: 'right',
+            type: 'checkbox',
+            default: false,
+        },
+        insert:
+        {
+            label: 'insert new tab next to the current instead of the right end',
+            labelPos: 'right',
+            type: 'checkbox',
+            default: true,
+        },
+        setParent:
+        {
+            label: 'return to the current tab after new tab closed',
+            labelPos: 'right',
+            type: 'checkbox',
+            default: true,
+        },
     },
     css: windowcss,
     events:
@@ -107,6 +130,8 @@ GM_config.init(
     var patternhost = empty;
     host = host.replace(/\./g, '\\\.');
     root = root.replace(/\./g, '\\\.');
+    var background = GM_config.get('background');
+    var options = {active: !GM_config.get('background'), insert: GM_config.get('insert'), setParent: GM_config.get('setParent')};
 
     if (GM_config.get('root')){patternroot = new RegExp('^' + root + '$');}    // abc.x               => ^abc\.x$
     if (GM_config.get('next')){
@@ -128,12 +153,23 @@ GM_config.init(
         var anchors= document.getElementsByTagName('a');
 
         for (var i = 0; i < anchors.length; i++) {
-            var target = anchors[i].host;
-            if (target && target !== ''){
-                if (!patternroot.test(target) && !patternhost.test(target)){
-                    anchors[i].target = '_blank';
+            var a = anchors[i];
+            // console.log('href', a.href, a);
+            var target = a.host;
+            if (a.hasAttribute('href')){
+                if (target && !empty.test(target)){
+                    if (!patternroot.test(target) && !patternhost.test(target)){
+                        // a.target = '_blank';
+                        a.addEventListener('click', newtaber);
+                    }
                 }
             }
         }
     };
+
+    function newtaber(e){
+        e.preventDefault();
+        e.stopPropagation();
+        GM_openInTab(this.href, options);
+    }
 })();
