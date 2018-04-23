@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name            External link newtaber
 // @namespace       almaceleste
-// @version         0.2
+// @version         0.2.1
 // @description     this code opens external links in new tab on all sites (at the moment does not support dynamic lists of links such as search results)
 // @description:ru  этот код открывает внешние ссылки в новой вкладке на всех сайтах (в данный момент не поддерживает динамические списки ссылок, такие как результаты поимковых запросов)
 // @author          (ɔ) Paola Captanovska
 // @license         AGPL-3.0; http://www.gnu.org/licenses/agpl.txt
 // @icon            https://cdn1.iconfinder.com/data/icons/feather-2/24/external-link-32.png
-// @icon            https://cdn1.iconfinder.com/data/icons/feather-2/24/external-link-128.png
+// @icon64          https://cdn1.iconfinder.com/data/icons/feather-2/24/external-link-128.png
 
 // @homepageURL     https://greasyfork.org/en/users/174037-almaceleste
 // @homepageURL     https://openuserjs.org/users/almaceleste
