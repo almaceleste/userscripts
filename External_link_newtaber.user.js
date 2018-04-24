@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name            External link newtaber
 // @namespace       almaceleste
-// @version         0.2.1
-// @description     this code opens external links in new tab on all sites (at the moment does not support dynamic lists of links such as search results)
-// @description:ru  этот код открывает внешние ссылки в новой вкладке на всех сайтах (в данный момент не поддерживает динамические списки ссылок, такие как результаты поимковых запросов)
+// @version         0.2.2
+// @description     this code opens external links in new tab on all sites (now may work on dynamic lists of links such as search results)
+// @description:ru  этот код открывает внешние ссылки в новой вкладке на всех сайтах (теперь может работать с динамическими списками ссылок, такими как результаты поисковых запросов)
 // @author          (ɔ) Paola Captanovska
 // @license         AGPL-3.0; http://www.gnu.org/licenses/agpl.txt
 // @icon            https://cdn1.iconfinder.com/data/icons/feather-2/24/external-link-32.png
@@ -154,7 +154,6 @@ GM_config.init(
 
         for (var i = 0; i < anchors.length; i++) {
             var a = anchors[i];
-            // console.log('href', a.href, a);
             var target = a.host;
             if (a.hasAttribute('href')){
                 if (target && !empty.test(target)){
