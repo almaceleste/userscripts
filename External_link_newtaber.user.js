@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name            External link newtaber
 // @namespace       almaceleste
-// @version         0.2.2
+// @version         0.2.3
 // @description     this code opens external links in new tab on all sites (now may work on dynamic lists of links such as search results)
-// @description:ru  этот код открывает внешние ссылки в новой вкладке на всех сайтах (теперь может работать с динамическими списками ссылок, такими как результаты поисковых запросов)
+// @description:ru  этот код открывает внешние ссылки в новой вкладке на всех сайтах (теперь должно работать с динамическими списками ссылок, такими как результаты поисковых запросов)
 // @author          (ɔ) Paola Captanovska
 // @license         AGPL-3.0; http://www.gnu.org/licenses/agpl.txt
 // @icon            https://cdn1.iconfinder.com/data/icons/feather-2/24/external-link-32.png
-// @icon64          https://cdn1.iconfinder.com/data/icons/feather-2/24/external-link-128.png
+// @icon            https://cdn1.iconfinder.com/data/icons/feather-2/24/external-link-128.png
 
 // @homepageURL     https://greasyfork.org/en/users/174037-almaceleste
 // @homepageURL     https://openuserjs.org/users/almaceleste
@@ -17,7 +17,7 @@
 // @downloadURL     https://github.com/almaceleste/userscripts/raw/master/External_link_newtaber.user.js
 // @downloadURL     https://openuserjs.org/install/almaceleste/External_link_newtaber.user.js
 
-// @run-at          document-start
+// @run-at          document-end
 // @require         https://openuserjs.org/src/libs/sizzle/GM_config.js
 // @grant           GM_getValue
 // @grant           GM_setValue
@@ -149,11 +149,12 @@ GM_config.init(
         else {patternhost = new RegExp('.+\.' + host + '$');}                  // *.w.abc.x           => .+\.w\.abc\.x$
     }
 
-    window.onload = function(){
-        var anchors= document.getElementsByTagName('a');
-
+    // function main(){
+        var anchors = document.getElementsByTagName('a');
+        // alert('hola mundo');
         for (var i = 0; i < anchors.length; i++) {
             var a = anchors[i];
+            // console.log('href', a.href, a);
             var target = a.host;
             if (a.hasAttribute('href')){
                 if (target && !empty.test(target)){
@@ -164,11 +165,15 @@ GM_config.init(
                 }
             }
         }
-    };
+    // }
 
     function newtaber(e){
         e.preventDefault();
         e.stopPropagation();
         GM_openInTab(this.href, options);
     }
+
+    // window.onload = main;
+    // setTimeout(main(), 1000);
+    // document.getElementById('search').addListener('load', main());
 })();
