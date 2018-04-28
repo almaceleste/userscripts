@@ -35,20 +35,20 @@ userscript with external libraries ([jQuery](https://jquery.com/), [GM_config](h
 [![](https://img.shields.io/badge/Greasy_Fork-almaceleste-green.svg?longCache=true&colorA=778899&colorB=00bfff)](https://greasyfork.org/en/users/174037-almaceleste "greasy fork | almaceleste")  
 
 ## List of scripts 
-#### [![](https://cdn1.iconfinder.com/data/icons/simple-icons/16/stackexchange-16-black.png) StackExchange link newtaber](../../raw/master/StackExchange_link_newtaber.user.js 'install')  
+#### [![](https://cdn1.iconfinder.com/data/icons/simple-icons/16/stackexchange-16-black.png) StackExchange link newtaber](https://github.com/almaceleste/userscripts/raw/master/StackExchange_link_newtaber.user.js 'install')  
 This code opens links from posts and answers in the new tab instead of annoying in-place opening without `<Ctrl>` button or anything else just in ordinary way (works on the [StackExchange communities](https://stackexchange.org) sites)  
 * This script should work in all StackExchange communities sites.  
 * Use settings to choose which links will be affected.  
 
-#### [![](https://cdn1.iconfinder.com/data/icons/system-shade-circles/512/gnome-16.png) Gnome Extensions tweaks](../../raw/master/Gnome_Extensions_tweaks.user.js 'install')  
+#### [![](https://cdn1.iconfinder.com/data/icons/system-shade-circles/512/gnome-16.png) Gnome Extensions tweaks](https://github.com/almaceleste/userscripts/raw/master/Gnome_Extensions_tweaks.user.js 'install')  
 This script opens the extension pages in the new tab and and changes default sorting of the extensions list on the `Extensions` nav button (works on the [Gnome Extensions](https://extensions.gnome.org) site)  
 * Use settings to choose sorting type of extensions list.    
 
-#### [![](https://cdn1.iconfinder.com/data/icons/system-shade-circles/512/opensuse-16.png) OpenSuse Software tweaks](../../raw/master/OpenSuse_Software_tweaks.user.js 'install')  
+#### [![](https://cdn1.iconfinder.com/data/icons/system-shade-circles/512/opensuse-16.png) OpenSuse Software tweaks](https://github.com/almaceleste/userscripts/raw/master/OpenSuse_Software_tweaks.user.js 'install')  
 This code opens package pages in new tab and minifies bulky pacckage list on the [OpenSuse Software Search](https://software.opensuse.org/search) site.  
 * Use settings to choose tweaks  
 
-#### [![](https://cdn1.iconfinder.com/data/icons/feather-2/24/external-link-16.png) External link newtaber](../../raw/master/External_link_newtaber.user.js 'install')  
+#### [![](https://cdn1.iconfinder.com/data/icons/feather-2/24/external-link-16.png) External link newtaber](https://github.com/almaceleste/userscripts/raw/master/External_link_newtaber.user.js 'install')  
 This code opens external links in new tab on all sites (at the moment does not support dynamic lists of links such as search results).  
 * Use settings to exclude parent, neighbor and child sites  
 * Added settings to open new tab in background, set position of new tab and return to the parent tab on close
