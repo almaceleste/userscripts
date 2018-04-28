@@ -30,11 +30,11 @@ userscripts repo for using with Greasemonkey/Tampermonkey or other userscript ex
 ## Code
 userscript with external libraries ([jQuery](https://jquery.com/), [GM_config](https://github.com/sizzlemctwizzle/GM_config/wiki))
 
-## List of scripts 
-#### External repos
+## External repos
 [![](https://img.shields.io/badge/OpenUserJS-almaceleste-green.svg?longCache=true&colorA=778899&colorB=00bfff)](https://openuserjs.org/users/almaceleste/scripts "openuserjs | almaceleste")  
 [![](https://img.shields.io/badge/Greasy_Fork-almaceleste-green.svg?longCache=true&colorA=778899&colorB=00bfff)](https://greasyfork.org/en/users/174037-almaceleste "greasy fork | almaceleste")  
 
+## List of scripts 
 #### [![](https://cdn1.iconfinder.com/data/icons/simple-icons/16/stackexchange-16-black.png) StackExchange link newtaber](../../raw/master/StackExchange_link_newtaber.user.js 'install')  
 This code opens links from posts and answers in the new tab instead of annoying in-place opening without `<Ctrl>` button or anything else just in ordinary way (works on the [StackExchange communities](https://stackexchange.org) sites)  
 * This script should work in all StackExchange communities sites.  
