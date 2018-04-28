@@ -1,0 +1,50 @@
+.details {
+    position: absolute;
+    top: 1.5em;
+    right: 0;
+    width: 100%;
+}
+.optiondesc {
+    min-width: 5em !important;
+}
+.script_tab_head {
+    position: absolute;
+}
+.tv {
+    position: absolute;
+}
+.tv_container_fit {
+    top: 2.3em;
+    bottom: 1.5em;
+    right: .1em;
+}
+.tr_tabs {
+    background: none !important;
+}
+.tv_tabs_align {
+    float: right;
+}
+/* chrome: for x-resolution 1280+ */
+@supports (-webkit-appearance:none) {
+    .updateurl {
+        float: right;
+        padding-bottom: 10px;
+    }
+    @media screen and (min-width: 1280px) {
+        .CodeMirror-menu {
+            left: 15em;
+            top: 0;
+            width: auto;
+            margin-top: -33px;
+        }
+        .editormenu {
+            padding-bottom: 10px;
+        }
+        .editor_outer {
+            top: 48px;
+        }
+        .updateurl_input {
+            width: 500px;
+        }
+    }
+}
