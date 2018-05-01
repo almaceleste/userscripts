@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Hola Mundo
 // @namespace       almaceleste
-// @version         0.3.1
+// @version         0.3.2
 // @description     this code does nothing only writes hola message to console
 // @description:ru  этот код не делает ничего, только пишет приветственное сообщение в консоль
 // @author          (ɔ) Paola Captanovska
