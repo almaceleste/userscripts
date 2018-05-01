@@ -1,10 +1,3 @@
-# userscripts
-
-## About
-userscripts repo for using with Greasemonkey/Tampermonkey or other userscript extension  
-[![](https://img.shields.io/badge/Paypal-donate_me-blue.svg?longCache=true&logo=paypal)](https://www.paypal.me/almaceleste "paypal | donate me") 
-[![](https://img.shields.io/beerpay/almaceleste/userscripts.svg?longCache=true&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAL1QTFRF////5VVV5VVV5VVV5VVV63l55VVV5VVV5VVV5VVV////5VVV52Rk5VVV+t3d5VVV+t7e7oiI5VVV63195VVV5VVV++fn++Tk98rK++Li/fX15VVV87Cw7Xd375CQ86en7YyM7oeH75SU75iY/vv76mxs/vr66nFx7Ht78q2t9bu775aW6Wpq7YeH6F9f6GBg5lhY5llZ5VVV5lpa52Bg6Gpq6nV17ICA8KCg98rK+NTU+t/f/Orq/fT0////rl8lpQAAADJ0Uk5TABAgMEBMUGBwgICQnqCgsLO3wMzQ4ODk6Oju8PDz8/T19vb29vf3+Pj4+fv8/P39/v7M0GNzAAABHUlEQVQ4y52TWVODMBSFbyDSIkZsBLTi2ta6b8dSl5b7/3+WD0BJMJUZz1Nm8s3c5ZxL1MqPgdgn8qQgl/wcAPJAA1AuJIYh3f31lIaloYp941/k+K3cqDOES2ELhE4gaYHACcBoYu/65mnFvLqyAK9pUe7sM/Msy2a8njy2gKwWlAJYfj4UADAdM790gMSu+8H3NiCAUApjzpPyzWpSAr415ylPqsfrqAHsRSzm5cXZM4DzXQMwnVqOmUsAXxtAEtlWFXd8i3c+oLrJQRfAYs7faz6s1pRCEXWXXBxnR5d1KCLkgpxWpHVWgET+aVaEbaI+wtskzp2o2qztieoHBn1Am1r9T0DZZ+k4nWbOoA8gEYRKa6OQ1joKJRH9AFdugk7QRy6mAAAAAElFTkSuQmCC)](https://beerpay.io/almaceleste/userscripts "beerpay | beer me") 
-
 ## Wiki
 [How to install userscripts](https://github.com/almaceleste/userscripts/wiki/How-to-install-userscripts)  
 [How to setup Tampermonkey dashboard custom style](https://github.com/almaceleste/userscripts/wiki/How-to-setup-Tampermonkey-dashboard-custom-style)
@@ -47,7 +40,7 @@ This code opens external links in new tab on all sites (at the moment does not s
 * Use settings to exclude parent, neighbor and child sites  
 * Added settings to open new tab in background, set position of new tab and return to the parent tab on close
 
-## Support on Beerpay
-Hey dude! Help me out for a couple of :beers:!
-
-[![Beerpay](https://beerpay.io/almaceleste/userscripts/badge.svg?style=beer-square)](https://beerpay.io/almaceleste/userscripts)  [![Beerpay](https://beerpay.io/almaceleste/userscripts/make-wish.svg?style=flat-square)](https://beerpay.io/almaceleste/userscripts?focus=wish)
+## Support me
+[![Beerpay](https://beerpay.io/almaceleste/userscripts/badge.svg?style=beer-square)](https://beerpay.io/almaceleste/userscripts) [![Beerpay](https://beerpay.io/almaceleste/userscripts/make-wish.svg?style=flat-square)](https://beerpay.io/almaceleste/userscripts?focus=wish)
+[![](https://img.shields.io/badge/Paypal-donate_me-blue.svg?longCache=true&logo=paypal)](https://www.paypal.me/almaceleste "paypal | donate me") 
+<!--[![](https://img.shields.io/beerpay/almaceleste/userscripts.svg?longCache=true&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAL1QTFRF////5VVV5VVV5VVV5VVV63l55VVV5VVV5VVV5VVV////5VVV52Rk5VVV+t3d5VVV+t7e7oiI5VVV63195VVV5VVV++fn++Tk98rK++Li/fX15VVV87Cw7Xd375CQ86en7YyM7oeH75SU75iY/vv76mxs/vr66nFx7Ht78q2t9bu775aW6Wpq7YeH6F9f6GBg5lhY5llZ5VVV5lpa52Bg6Gpq6nV17ICA8KCg98rK+NTU+t/f/Orq/fT0////rl8lpQAAADJ0Uk5TABAgMEBMUGBwgICQnqCgsLO3wMzQ4ODk6Oju8PDz8/T19vb29vf3+Pj4+fv8/P39/v7M0GNzAAABHUlEQVQ4y52TWVODMBSFbyDSIkZsBLTi2ta6b8dSl5b7/3+WD0BJMJUZz1Nm8s3c5ZxL1MqPgdgn8qQgl/wcAPJAA1AuJIYh3f31lIaloYp941/k+K3cqDOES2ELhE4gaYHACcBoYu/65mnFvLqyAK9pUe7sM/Msy2a8njy2gKwWlAJYfj4UADAdM790gMSu+8H3NiCAUApjzpPyzWpSAr415ylPqsfrqAHsRSzm5cXZM4DzXQMwnVqOmUsAXxtAEtlWFXd8i3c+oLrJQRfAYs7faz6s1pRCEXWXXBxnR5d1KCLkgpxWpHVWgET+aVaEbaI+wtskzp2o2qztieoHBn1Am1r9T0DZZ+k4nWbOoA8gEYRKa6OQ1joKJRH9AFdugk7QRy6mAAAAAElFTkSuQmCC)](https://beerpay.io/almaceleste/userscripts "beerpay | beer me")--> 
