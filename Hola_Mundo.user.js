@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Hola Mundo
 // @namespace       almaceleste
-// @version         0.3
+// @version         0.3.1
 // @description     this code does nothing only writes hola message to console
 // @description:ru  этот код не делает ничего, только пишет приветственное сообщение в консоль
 // @author          (ɔ) Paola Captanovska
@@ -13,8 +13,8 @@
 // @homepageURL     https://openuserjs.org/users/almaceleste
 // @homepageURL     https://github.com/almaceleste/userscripts
 // @supportURL      https://github.com/almaceleste/userscripts/issues
-// @updateURL       https://github.com/almaceleste/userscripts/raw/master/Hola_Mundo.meta.js
-// @downloadURL     https://github.com/almaceleste/userscripts/raw/master/Hola_Mundo.user.js
+// @updateURL       https://github.com/almaceleste/userscripts/raw/master/src/Hola_Mundo.meta.js
+// @downloadURL     https://github.com/almaceleste/userscripts/raw/master/src/Hola_Mundo.user.js
 // @downloadURL     https://openuserjs.org/install/almaceleste/Hola_Mundo.user.js
 
 // @require         https://openuserjs.org/src/libs/sizzle/GM_config.js
