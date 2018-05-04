@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            StackExchange link newtaber
 // @namespace       almaceleste
-// @version         0.3.9
+// @version         0.4
 // @description     this code opens links from posts, answers, comments and user signatures in the new tab instead of the annoying in-place opening
 // @description:ru  этот код открывает ссылки из постов, ответов, комментариев и подписей пользователей в новой вкладке вместо надоедливого открытия в текущей
 // @author          (ɔ) Paola Captanovska
@@ -13,8 +13,8 @@
 // @homepageURL     https://openuserjs.org/users/almaceleste
 // @homepageURL     https://github.com/almaceleste/userscripts
 // @supportURL      https://github.com/almaceleste/userscripts/issues
-// @updateURL       https://github.com/almaceleste/userscripts/raw/master/StackExchange_link_newtaber.meta.js
-// @downloadURL     https://github.com/almaceleste/userscripts/raw/master/StackExchange_link_newtaber.user.js
+// @updateURL       https://github.com/almaceleste/userscripts/raw/master/src/StackExchange_link_newtaber.meta.js
+// @downloadURL     https://github.com/almaceleste/userscripts/raw/master/src/StackExchange_link_newtaber.user.js
 // @downloadURL     https://openuserjs.org/install/almaceleste/StackExchange_link_newtaber.user.js
 
 // @require         https://openuserjs.org/src/libs/sizzle/GM_config.js
@@ -99,11 +99,12 @@ GM_config.init(
 
     var pattern = links.join(', ');
 
-    $(pattern).each(function() {
-        $(this).click(function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            window.open(this.href, '_blank');
-        });
-    });
+    // $(pattern).each(function() {
+        // $(this).click(function(event) {
+            // event.preventDefault();
+            // event.stopPropagation();
+            // window.open(this.href, '_blank');
+        // });
+    // });
+    $(pattern).attr('target', '_blank');
 })();
