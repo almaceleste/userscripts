@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            External link newtaber
 // @namespace       almaceleste
-// @version         0.2.3
+// @version         0.2.4
 // @description     this code opens external links in new tab on all sites (now may work on dynamic lists of links such as search results)
 // @description:ru  этот код открывает внешние ссылки в новой вкладке на всех сайтах (теперь должно работать с динамическими списками ссылок, такими как результаты поисковых запросов)
 // @author          (ɔ) Paola Captanovska
@@ -13,8 +13,8 @@
 // @homepageURL     https://openuserjs.org/users/almaceleste
 // @homepageURL     https://github.com/almaceleste/userscripts
 // @supportURL      https://github.com/almaceleste/userscripts/issues
-// @updateURL       https://github.com/almaceleste/userscripts/raw/master/External_link_newtaber.meta.js
-// @downloadURL     https://github.com/almaceleste/userscripts/raw/master/External_link_newtaber.user.js
+// @updateURL       https://github.com/almaceleste/userscripts/raw/master/src/External_link_newtaber.meta.js
+// @downloadURL     https://github.com/almaceleste/userscripts/raw/master/src/External_link_newtaber.user.js
 // @downloadURL     https://openuserjs.org/install/almaceleste/External_link_newtaber.user.js
 
 // @run-at          document-end
