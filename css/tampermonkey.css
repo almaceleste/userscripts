@@ -26,12 +26,6 @@ tr.entry .shortcut {
 }
 /* for x-resolution 1280+ */
 @media screen and (min-width: 1280px) {
-    .CodeMirror-menu {
-        left: 15em;
-        top: 0;
-        width: auto;
-        margin-top: -33px;
-    }
     .updateurl_input {
         width: 500px;
     }
