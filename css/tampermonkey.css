@@ -4,9 +4,6 @@
     right: 0;
     width: 100%;
 }
-.optiondesc {
-    min-width: 5em !important;
-}
 .script_tab_head {
     position: absolute;
 }
@@ -21,30 +18,27 @@
 .tr_tabs {
     background: none !important;
 }
+tr.entry .shortcut {
+    color: gray;
+}
 .tv_tabs_align {
     float: right;
 }
-/* chrome: for x-resolution 1280+ */
-@supports (-webkit-appearance:none) {
-    .updateurl {
-        float: right;
-        padding-bottom: 10px;
+/* for x-resolution 1280+ */
+@media screen and (min-width: 1280px) {
+    .CodeMirror-menu {
+        left: 15em;
+        top: 0;
+        width: auto;
+        margin-top: -33px;
     }
-    @media screen and (min-width: 1280px) {
-        .CodeMirror-menu {
-            left: 15em;
-            top: 0;
-            width: auto;
-            margin-top: -33px;
-        }
-        .editormenu {
-            padding-bottom: 10px;
-        }
-        .editor_outer {
-            top: 48px;
-        }
-        .updateurl_input {
-            width: 500px;
-        }
+    .updateurl_input {
+        width: 500px;
+    }
+}
+/* for x-resolution 1366+ */
+@media screen and (min-width: 1366px) {
+    .updateurl_input {
+        width: 700px;
     }
 }
