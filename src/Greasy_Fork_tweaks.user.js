@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.1
+// @version         0.2
 // @description     this code opens scripts pages in new tab from lists and compacts user interface
 // @description:ru  этот код открывает страницы скриптов в новой вкладке из списков и делает интерфейс более компактным
 // @author          (ɔ) Paola Captanovska
