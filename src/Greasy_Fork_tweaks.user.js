@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.2
+// @version         0.2.1
 // @description     this code opens scripts pages in new tab from lists and compacts user interface
 // @description:ru  этот код открывает страницы скриптов в новой вкладке из списков и делает интерфейс более компактным
 // @author          (ɔ) Paola Captanovska
-// @license         AGPL-3.0; http://www.gnu.org/licenses/agpl.txt
+// @license         AGPL-3.0-or-later; http://www.gnu.org/licenses/agpl.txt
 // @icon            https://greasyfork.org/assets/blacklogo16-bc64b9f7afdc9be4cbfa58bdd5fc2e5c098ad4bca3ad513a27b15602083fd5bc.png
 // @icon64          https://greasyfork.org/assets/blacklogo96-e0c2c76180916332b7516ad47e1e206b42d131d36ff4afe98da3b1ba61fd5d6c.png
 
