@@ -22,6 +22,10 @@ this is repo of my userscripts. I use some external libraries ([jQuery](https://
 [![](https://img.shields.io/badge/Greasy_Fork-almaceleste-green.svg?longCache=true&colorA=778899&colorB=00bfff)](https://greasyfork.org/en/users/174037-almaceleste "greasy fork | almaceleste")  
 
 ### list of scripts 
+#### [![](https://cdn4.iconfinder.com/data/icons/logos-brands-5/24/trello-16.png) Trello card details](https://github.com/almaceleste/userscripts/raw/master/src/Trello_card_details.user.js 'install')  
+this code adds the creation date and the creator name and account link to the Trello card (works on the [Trello](https://trello.com) site)  
+* use settings to choose which information to show.  
+
 #### [![](https://cdn1.iconfinder.com/data/icons/simple-icons/16/stackexchange-16-black.png) StackExchange link newtaber](https://github.com/almaceleste/userscripts/raw/master/src/StackExchange_link_newtaber.user.js 'install')  
 this code opens links from posts and answers in the new tab instead of annoying in-place opening without `<Ctrl>` button or anything else just in ordinary way (works on the [StackExchange communities](https://stackexchange.org) sites)  
 * this script should work in all StackExchange communities sites.  
