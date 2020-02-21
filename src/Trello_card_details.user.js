@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Trello card details
 // @namespace       almaceleste
-// @version         0.1.0
+// @version         0.2.0
 // @description     this code adds the creation date and the creator name and account link to the Trello card
 // @description:ru  этот код добавляет дату создания и имя создателя и ссылку на его профиль на карту Trello
 // @author          (ɔ) Paola Captanovska
@@ -34,6 +34,9 @@
 
 const cardwindow = 'div.window-wrapper';
 const cardheader = 'div.window-header';
+const attachments = 'div.js-attachment-list';
+const attachmentlink = 'a.attachment-thumbnail-preview';
+const attachmentdetails = 'p.attachment-thumbnail-details';
 const options = { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' };
 
 const windowcss = '#trellocardDetailsCfg {background-color: lightblue;} #trellocardDetailsCfg .reset_holder {float: left; position: relative; bottom: -1em;} #trellocardDetailsCfg .saveclose_buttons {margin: .7em;}';
@@ -83,6 +86,13 @@ GM_config.init(
             type: 'checkbox',
             default: true,
         },
+        attachment:
+        {
+            label: 'add these details to the attachments',
+            labelPos: 'right',
+            type: 'checkbox',
+            default: true,
+        },
     },
     css: windowcss,
     events:
@@ -108,13 +118,14 @@ GM_config.init(
     }
 
     $(cardwindow).arrive(cardheader, function(){
+        const header = $(this);
         const jsonUrl = window.location.href + '.json';
         get(jsonUrl, function(json) {
             const card = JSON.parse(json);
             card.actions.forEach(action => {
                 if (action.type == 'createCard'){
                     if ($('#card-creator').length == 0){
-                        var details = $('<div></div>').attr('id', 'card-creator').attr('style', 'float: right');
+                        const details = $('<div></div>').attr('id', 'card-creator').attr('style', 'float: right');
                         var content = '<span>created ';
                         if (GM_config.get('creationDate')){
                             const date = new Date(action.date);
@@ -131,10 +142,40 @@ GM_config.init(
                             content = content + '(<a href="/' + username + '">@' + username + '</a>)';
                         }
                         details.append(content);
-                        $(cardwindow + ' ' + cardheader).append(details);
+                        header.append(details);
                     }
                 }
+
             });
+
+            function addAttachmentDetails(item){
+                // console.log(item);
+                // const attachment = $(this);
+                const attachment = $(item);
+                const href = attachment.attr('href');
+                card.actions.forEach(action => {
+                    if (action.type == 'addAttachmentToCard'){
+                        if (href == action.data.attachment.url){
+                            const details = $('<div></div>').addClass('attachment-creator').attr('style', 'float: right');
+                            var content = '<span>by ';
+                            if (GM_config.get('creatorName')){
+                                content = content + action.memberCreator.fullName + ' </span>';
+                            }
+                            if (GM_config.get('creatorAccount')){
+                                const username = action.memberCreator.username;
+                                content = content + '(<a href="/' + username + '">@' + username + '</a>)';
+                            }
+                            details.append(content);
+                            attachment.parent().children(attachmentdetails).append(details);
+                        }
+                    }
+                })
+            }
+
+            if (GM_config.get('attachment')){
+                addAttachmentDetails($(attachments).find(attachmentlink));
+                $(attachments).arrive(attachmentlink, addAttachmentDetails);
+            }
         });
     });
 
