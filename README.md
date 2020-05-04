@@ -23,10 +23,11 @@ this is repo of my userscripts. I use some external libraries ([jQuery](https://
 
 ### list of scripts 
 #### [![](https://s.ytimg.com/yts/img/favicon-vfl8qSV2F.ico) Youtube Player Always On Top](https://github.com/almaceleste/userscripts/raw/master/src/Youtube_Player_Always_On_Top.user.js 'install')  
-makes youtube player visible during scroll  
+makes the youtube player visible while scrolling - minimizes the player box from a large box in the center to a small box in the upper left corner and allows you to read comments and watch video at the same time 
 * use settings to choose what will be on top, minimized box' size, border and background.  
-> **known issue**
-> * in the minimized view the progress bar shows the correct visible info, but on hover shows wrong time and tooltip preview and on click moves to the that position but not expected (it's cause of the deep youtube code, and I don't know how to fix it yet) 
+
+**known issue**
+* when minimized, the progress bar displays the correct visible info, but when you hover over it shows the wrong time and a tooltip preview and when you click it moves to the this position rather than the expected one (this is the reason for youtube's deep code, and I don't know how to fix this yet)  
 
 #### [![](https://cdn4.iconfinder.com/data/icons/logos-brands-5/24/trello-16.png) Trello card details](https://github.com/almaceleste/userscripts/raw/master/src/Trello_card_details.user.js 'install')  
 this code adds the creation date and the creator name and account link to the Trello card (works on the [Trello](https://trello.com) site)  
