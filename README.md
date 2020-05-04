@@ -55,5 +55,6 @@ this code opens scripts pages in new tab from lists and compacts user interface.
 * opening script page in new tab with options of background loading, tab position and parent linkage  
 
 ### support me
-[![Beerpay](https://beerpay.io/almaceleste/userscripts/badge.svg?style=beer-square)](https://beerpay.io/almaceleste/userscripts) [![Beerpay](https://beerpay.io/almaceleste/userscripts/make-wish.svg?style=flat-square)](https://beerpay.io/almaceleste/userscripts?focus=wish)
+<!-- [![Beerpay](https://beerpay.io/almaceleste/userscripts/badge.svg?style=beer-square)](https://beerpay.io/almaceleste/userscripts) [![Beerpay](https://beerpay.io/almaceleste/userscripts/make-wish.svg?style=flat-square)](https://beerpay.io/almaceleste/userscripts?focus=wish) -->
+[![Ko-fi](/assets/img/Ko-fi_logo_transparent.png)](https://ko-fi.com/almaceleste "bye me cofee")
 [![](https://img.shields.io/badge/Paypal-donate_me-blue.svg?longCache=true&logo=paypal)](https://www.paypal.me/almaceleste "paypal | donate me") 
