@@ -22,6 +22,10 @@ this is repo of my userscripts. I use some external libraries ([jQuery](https://
 [![](https://img.shields.io/badge/Greasy_Fork-almaceleste-green.svg?longCache=true&colorA=778899&colorB=00bfff)](https://greasyfork.org/en/users/174037-almaceleste "greasy fork | almaceleste")  
 
 ### list of scripts 
+#### [![](https://s.ytimg.com/yts/img/favicon-vfl8qSV2F.ico) Youtube Player Always On Top](https://github.com/almaceleste/userscripts/raw/master/src/Youtube_Player_Always_On_Top.user.js 'install')  
+makes youtube player visible during scroll  
+* use settings to choose what will be on top, minimized box' size, border and background.  
+
 #### [![](https://cdn4.iconfinder.com/data/icons/logos-brands-5/24/trello-16.png) Trello card details](https://github.com/almaceleste/userscripts/raw/master/src/Trello_card_details.user.js 'install')  
 this code adds the creation date and the creator name and account link to the Trello card (works on the [Trello](https://trello.com) site)  
 * use settings to choose which information to show.  
