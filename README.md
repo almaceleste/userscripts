@@ -56,6 +56,7 @@ this code opens external links in new tab on all sites (at the moment does not s
 * use settings to exclude parent, neighbor and child sites  
 * added settings to open new tab in background, set position of new tab and return to the parent tab on close
 
+[![Greasy Fork tweaks](assets/img/gft-small.png)](assets/img/gft-big.png 'Greasy Fork tweaks')
 #### [![](https://greasyfork.org/assets/blacklogo16-bc64b9f7afdc9be4cbfa58bdd5fc2e5c098ad4bca3ad513a27b15602083fd5bc.png) Greasy Fork tweaks](https://github.com/almaceleste/userscripts/raw/master/src/Greasy_Fork_tweaks.user.js 'install')  
 this code opens scripts pages in new tab from lists and compacts user interface.  
 * script version number in the list of scripts and compact script information  
