@@ -1,5 +1,5 @@
 ### about
-this is repo of my userscripts. I use some external libraries ([jQuery](https://jquery.com/), [GM_config](https://github.com/sizzlemctwizzle/GM_config/wiki)) in this userscripts. 
+this is the repo of my userscripts. I use some external libraries ([jQuery](https://jquery.com/), [arrive.js](https://github.com/uzairfarooq/arrive), [GM_config](https://github.com/sizzlemctwizzle/GM_config/wiki)) in my userscripts. 
 
 #### license  
 [![license](https://img.shields.io/github/license/almaceleste/userscripts.svg?longCache=true)](https://github.com/almaceleste/userscripts/blob/master/LICENSE)
