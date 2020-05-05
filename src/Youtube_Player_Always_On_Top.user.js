@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Youtube Player Always On Top
 // @namespace       almaceleste
-// @version         0.1.1
+// @version         0.1.2
 // @description     this code makes the youtube player visible while scrolling
 // @description:ru  этот код делает плеер youtube видимым при прокрутке
 // @author          (ɔ) Paola Captanovska
@@ -13,7 +13,7 @@
 // @homepageURL     https://openuserjs.org/users/almaceleste
 // @homepageURL     https://github.com/almaceleste/userscripts
 // @supportURL      https://github.com/almaceleste/userscripts/issues
-// @updateURL       https://github.com/almaceleste/userscripts/raw/master/src/Youtube_Player_Always_On_Top.meta.js
+// @updateURL       https://github.com/almaceleste/userscripts/raw/master/src/Youtube_Player_Always_On_Top.user.js
 // @downloadURL     https://github.com/almaceleste/userscripts/raw/master/src/Youtube_Player_Always_On_Top.user.js
 // @downloadURL     https://openuserjs.org/install/almaceleste/Youtube_Player_Always_On_Top.user.js
 
