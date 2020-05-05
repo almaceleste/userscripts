@@ -26,6 +26,10 @@ this is repo of my userscripts. I use some external libraries ([jQuery](https://
 makes the youtube player visible while scrolling - minimizes the player box from a large box in the center to a small box in the upper left corner and allows you to read comments and watch video at the same time 
 * use settings to choose what will be on top, minimized box' size, border and background.  
 
+**features**
+* you could make the player smaller/bigger when scroll up/down
+* you could use the minimize/maximize button in the upper right corner of the player for the same result
+
 **known issue**
 * when minimized, the progress bar displays the correct visible info, but when you hover over it shows the wrong time and a tooltip preview and when you click it moves to the this position rather than the expected one (this is the reason for youtube's deep code, and I don't know how to fix this yet)  
 
