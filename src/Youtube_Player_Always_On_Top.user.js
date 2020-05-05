@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name            Youtube Player Always On Top
 // @namespace       almaceleste
-// @version         0.1.0
-// @description     this code makes youtube player visible during scroll
+// @version         0.1.1
+// @description     this code makes the youtube player visible while scrolling
 // @description:ru  этот код делает плеер youtube видимым при прокрутке
 // @author          (ɔ) Paola Captanovska
 // @license         AGPL-3.0-or-later; http://www.gnu.org/licenses/agpl.txt
