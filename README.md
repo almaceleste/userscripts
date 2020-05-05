@@ -35,6 +35,7 @@ makes the youtube player visible while scrolling - minimizes the player box from
 * when minimized, the progress bar displays the correct visible info, but when you hover over it shows the wrong time and a tooltip preview and when you click it moves to the this position rather than the expected one (this is the reason for youtube's deep code, and I don't know how to fix this yet)  
 
 #### [![](https://cdn4.iconfinder.com/data/icons/logos-brands-5/24/trello-16.png) Trello card details](https://github.com/almaceleste/userscripts/raw/master/src/Trello_card_details.user.js 'install')  
+[![Trello card details](assets/img/tcd-small.png)](assets/img/tcd-big.png 'Trello card details')  
 adds the creation date and the creator name and account link to the Trello card (works on the [Trello](https://trello.com) site)  
 * use settings to choose which information to show.  
 
