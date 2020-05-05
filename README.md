@@ -22,7 +22,7 @@ this is repo of my userscripts. I use some external libraries ([jQuery](https://
 [![](https://img.shields.io/badge/Greasy_Fork-almaceleste-green.svg?longCache=true&colorA=778899&colorB=00bfff)](https://greasyfork.org/en/users/174037-almaceleste "greasy fork | almaceleste")  
 
 ### list of scripts 
-![maximized](assets/img/ytpaot-maximized-small.png) ![minimized](assets/img/ytpaot-minimized-small.png)
+[![maximized](assets/img/ytpaot-maximized-small.png)](assets/img/ytpaot-maximized-big.png 'maximized player box') [![minimized](assets/img/ytpaot-minimized-small.png)](assets/img/ytpaot-minimized-big.png 'minimized player box')
 #### [![](https://s.ytimg.com/yts/img/favicon-vfl8qSV2F.ico) Youtube Player Always On Top](https://github.com/almaceleste/userscripts/raw/master/src/Youtube_Player_Always_On_Top.user.js 'install')  
 makes the youtube player visible while scrolling - minimizes the player box from a large box in the center to a small box in the upper left corner and allows you to read comments and watch video at the same time 
 * use settings to choose what will be on top, minimized box' size, border and background.  
