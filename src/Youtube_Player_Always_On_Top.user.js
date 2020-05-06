@@ -237,7 +237,7 @@ function doThings(){
         position: 'fixed',
         top: `${player.top}px`,
         willChange: 'transform',
-        zIndex: '2200'
+        zIndex: '2000' // '2200'
     });
     $(video.id).css({
         willChange: 'transform'
