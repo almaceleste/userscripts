@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Youtube Player Always On Top
 // @namespace       almaceleste
-// @version         0.2.0
+// @version         0.3.0
 // @description     this code makes the youtube player visible while scrolling
 // @description:ru  этот код делает плеер youtube видимым при прокрутке
 // @author          (ɔ) Paola Captanovska
@@ -37,6 +37,9 @@ var video = {};
 var info = {};
 var header = {};
 var progressbar = {};
+var options = {
+    existing: true
+};
 const chat = '#chat';
 const leftside = '#content #columns > #primary > #primary-inner';
 const rightside = '#secondary-inner';
@@ -432,11 +435,22 @@ function animate(id, start, end){
     });
 }
 
+function waitForVideo(){
+    $(document).arrive(video.id, options, () => {
+        video.exists = true;
+        video.height = $(video.id).height();
+        video.width = $(video.id).width();
+        if (player.minimized){
+            minimize();
+        }
+        else {
+            maximize();
+        }
+    });
+}
+
 (function() {
     'use strict';
-    let options = {
-        existing: true
-    };
     // onload
     $(document).arrive(player.id, options, () => {
         doThings();
@@ -454,6 +468,7 @@ function animate(id, start, end){
             />
         </svg>`;
 
+        // add minimize/maximize button
         $('<div id="ytp-minimize-button" title="Minimize"></div>').insertBefore(player.buttons).css({
             cursor: 'pointer',
             display: 'none',
@@ -512,14 +527,15 @@ function animate(id, start, end){
         });
     });
 
-    $(document).arrive(video.id, options, () => {
-        video.exists = true;
-        video.height = $(video.id).height();
-        video.width = $(video.id).width();
-        maximize();
-    });
+    waitForVideo();
 
     $(window).on({
+        fullscreenchange: () => {
+            // console.log('fullscreenchange:', window.fullscreenElement, document.fullscreen);
+            if (!document.fullscreenElement){
+                waitForVideo();
+            }
+        },
         resize: () => {
             if (video.exists) {
                 let options = {
