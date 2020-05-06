@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Youtube Player Always On Top
 // @namespace       almaceleste
-// @version         0.1.3
+// @version         0.2.0
 // @description     this code makes the youtube player visible while scrolling
 // @description:ru  этот код делает плеер youtube видимым при прокрутке
 // @author          (ɔ) Paola Captanovska
@@ -519,38 +519,38 @@ function animate(id, start, end){
         maximize();
     });
 
-    $(window).resize(() => {
-        if (video.exists) {
-            let options = {
-                attributes: true,
-                attributeFilter: ['style'],
-                attributeOldValue: true
-            }
-            let element = document.querySelector(video.id);
-            let observer = new MutationObserver((mutations) => {
-                mutations.forEach((m) => {
-                    if (!video.inProcess){
-                        video.height = $(video.id).height();
-                        video.width = $(video.id).width();
+    $(window).on({
+        resize: () => {
+            if (video.exists) {
+                let options = {
+                    attributes: true,
+                    attributeFilter: ['style'],
+                    attributeOldValue: true
+                }
+                let element = document.querySelector(video.id);
+                let observer = new MutationObserver((mutations) => {
+                    mutations.forEach((m) => {
                         if (!video.inProcess){
-                            doThings();
-                
-                            if (video.minimized){
-                                minimize();
-                            }
-                            else {
-                                maximize();
+                            video.height = $(video.id).height();
+                            video.width = $(video.id).width();
+                            if (!video.inProcess){
+                                doThings();
+                    
+                                if (video.minimized){
+                                    minimize();
+                                }
+                                else {
+                                    maximize();
+                                }
                             }
                         }
-                    }
-                    observer.disconnect();
-                })
-            });
-            observer.observe(element, options);
-        }
-    });
-
-    $(window).on('scroll', function(){
+                        observer.disconnect();
+                    })
+                });
+                observer.observe(element, options);
+            }
+        },
+        scroll: () =>{
         let scrollTop = $(window).scrollTop();
         if (scrollTop > 50) {
             if (!player.minimized){
@@ -562,5 +562,5 @@ function animate(id, start, end){
                 maximize();
             }
         }
-    });
+    }});
 })();
