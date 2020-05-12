@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Youtube Player Always On Top
 // @namespace       almaceleste
-// @version         0.4.1
+// @version         0.5.0
 // @description     this code makes the youtube player visible while scrolling
 // @description:ru  этот код делает плеер youtube видимым при прокрутке
 // @author          (ɔ) Paola Captanovska
@@ -33,6 +33,7 @@
 // @author almaceleste
 // ==/OpenUserJS==
 
+let app = {};
 var player = {};
 var video = {};
 var info = {};
@@ -41,6 +42,7 @@ var progressbar = {};
 var options = {
     existing: true
 };
+const pattern = /^\/watch/;
 const chat = '#chat';
 const leftside = '#content #columns > #primary > #primary-inner';
 const rightside = '#secondary-inner';
@@ -69,7 +71,7 @@ player.ctxmenu = '.ytp-popup.ytp-contextmenu';
 player.optmenu = 'iron-dropdown.style-scope.ytd-popup-container';
 video.id = `${player.id} #ytd-player > #container video`;
 video.content = `${player.container} .ytp-iv-video-content`;
-video.inProcess = false;
+app.processing = false;
 video.minimized = false;
 info.id = `${leftside} > #info`;
 info.container = `${info.id} > #info-contents #container`;
@@ -226,7 +228,7 @@ function setProgress(){
     });
 }
 
-function doThings(){
+function prepare(){
     header.height = $(header.id).height();
     player.top = header.height;
     player.background = GM_config.get('background');
@@ -285,7 +287,7 @@ function doThings(){
 }
 
 function minimize(){
-    video.inProcess = true;
+    app.processing = true;
     let percent = GM_config.get('minimum');
     header.height = $(header.id).height();
     player.height = video.height*percent/100;
@@ -351,12 +353,12 @@ function minimize(){
     $(leftside).css({
         marginTop: `${margin}px`
     });
-    video.inProcess = false;
+    app.processing = false;
     player.minimized = true;
 }
 
 function maximize(){
-    video.inProcess = true;
+    app.processing = true;
     header.height = $(header.id).height();
     player.height = video.height;
     player.width = video.width;
@@ -421,7 +423,7 @@ function maximize(){
     $(leftside).css({
         marginTop: `${margin}px`
     });
-    video.inProcess = false;
+    app.processing = false;
     player.minimized = false;
 }
 
@@ -450,149 +452,174 @@ function waitForVideo(){
     });
 }
 
+function matchPath(pattern){
+    const pathname = window.location.pathname;
+    if (pathname.match(pattern)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+
+}
+
+function createButton(){
+    let padding = $(player.cardsbutton).css('padding-top');
+    let size = $(player.cardsbutton).width();
+    if (!size) {
+        size = 36;
+    }
+    size = size;
+
+    let svg = `<svg height='100%' version='1.1' viewBox='0 0 ${size} ${size}' width='100%'>
+        <rect fill='none' stroke='white' stroke-width='3' stroke-linejoin='round'
+            x='${size/8}' y='${size/4}' height='${size/2}' width='${size*6/8}'
+        />
+    </svg>`;
+
+    // add minimize/maximize button
+    $('<div id="ytp-minimize-button" title="Minimize"></div>').insertBefore(player.buttons).css({
+        cursor: 'pointer',
+        display: 'none',
+        height: `${size}px`,
+        paddingTop: padding,
+        width: `${size}px`,
+    }).append(svg).on({
+        mouseenter: () => {
+            if (player.minimized){
+                animate(player.minimizebutton, 0.7, 1);
+            }
+            else {
+                animate(player.minimizebutton, 1, 0.7);
+            }
+        },
+        mouseleave: () => {
+            if (player.minimized){
+                animate(player.minimizebutton, 1, 0.7);
+            }
+            else {
+                animate(player.minimizebutton, 0.7, 1);
+            }
+        },
+        click: () => {
+        if (player.minimized) {
+            maximize();
+        }
+        else {
+            minimize();
+        }
+    }});
+}
+
 (function() {
     'use strict';
     // onload
-    $(document).arrive(player.id, options, () => {
-        doThings();
-
-        let padding = $(player.cardsbutton).css('padding-top');
-        let size = $(player.cardsbutton).width();
-        if (!size) {
-            size = 36;
+    $(document).ready(() => {
+        if (matchPath(pattern)){
+            app.watch = true;
+            doThings();
         }
-        size = size;
-
-        let svg = `<svg height='100%' version='1.1' viewBox='0 0 ${size} ${size}' width='100%'>
-            <rect fill='none' stroke='white' stroke-width='3' stroke-linejoin='round'
-                x='${size/8}' y='${size/4}' height='${size/2}' width='${size*6/8}'
-            />
-        </svg>`;
-
-        // add minimize/maximize button
-        $('<div id="ytp-minimize-button" title="Minimize"></div>').insertBefore(player.buttons).css({
-            cursor: 'pointer',
-            display: 'none',
-            height: `${size}px`,
-            paddingTop: padding,
-            width: `${size}px`,
-        }).append(svg).on({
-            mouseenter: () => {
-                if (player.minimized){
-                    animate(player.minimizebutton, 0.7, 1);
+        else {
+            app.watch = false;
+            $(window).on({
+                transitionend: (e) => {
+                    const c = 'yt-page-navigation-progress';
+                    if (e.target.id = 'progress' && e.target.classList.contains(c)) {
+                        if (matchPath(pattern)) {
+                            app.watch = true;
+                            doThings();
+                        }
+                        else {
+                            app.watch = false;
+                        }
+                    }
                 }
-                else {
-                    animate(player.minimizebutton, 1, 0.7);
-                }
-            },
-            mouseleave: () => {
-                if (player.minimized){
-                    animate(player.minimizebutton, 1, 0.7);
-                }
-                else {
-                    animate(player.minimizebutton, 0.7, 1);
-                }
-            },
-            click: () => {
-            if (player.minimized) {
-                maximize();
-            }
-            else {
-                minimize();
-            }
-        }});
+            });
+        }
     });
 
-    // $(document).arrive('#scriptTag', options, () => {
-    //     let json = JSON.parse(document.getElementById('scriptTag').innerText);
-    //     console.log('duration:', json.duration);
-    // });
-
-    $(document).arrive(player.controls, options, () => {
-        var scrubberInterval;
-        $(player.id).on({
-            mouseenter: () => {
-                scrubberInterval = setInterval(() => {
-                    setProgress();
-                }, 250);
-                $(player.minimizebutton).css({
-                    'display': 'block'
-                });
-            },
-            mouseleave: () => {
-                clearInterval(scrubberInterval);
-                $(player.minimizebutton).css({
-                    'display': 'none'
-                });
-            }
+    function doThings(){
+        $(document).arrive(player.id, options, () => {
+            prepare();
+            waitForVideo();
+            createButton();
         });
-    });
-
-    waitForVideo();
-
-    $(window).on({
-        fullscreenchange: () => {
-            // console.log('fullscreenchange:', window.fullscreenElement, document.fullscreen);
-            if (!document.fullscreenElement){
-                waitForVideo();
-            }
-        },
-        resize: () => {
-            if (video.exists) {
-                let options = {
-                    attributes: true,
-                    attributeFilter: ['style'],
-                    attributeOldValue: true
+    
+        // $(document).arrive('#scriptTag', options, () => {
+        //     let json = JSON.parse(document.getElementById('scriptTag').innerText);
+        //     console.log('duration:', json.duration);
+        // });
+    
+        $(document).arrive(player.controls, options, () => {
+            var scrubberInterval;
+            $(player.id).on({
+                mouseenter: () => {
+                    scrubberInterval = setInterval(() => {
+                        setProgress();
+                    }, 250);
+                    $(player.minimizebutton).css({
+                        'display': 'block'
+                    });
+                },
+                mouseleave: () => {
+                    clearInterval(scrubberInterval);
+                    $(player.minimizebutton).css({
+                        'display': 'none'
+                    });
                 }
-                let element = document.querySelector(video.id);
-                let observer = new MutationObserver((mutations) => {
-                    mutations.forEach((m) => {
-                        if (!video.inProcess){
-                            video.height = $(video.id).height();
-                            video.width = $(video.id).width();
-                            if (!video.inProcess){
-                                doThings();
-                    
-                                if (video.minimized){
-                                    minimize();
-                                }
-                                else {
-                                    maximize();
+            });
+        });
+    
+        $(window).on({
+            fullscreenchange: () => {
+                // console.log('fullscreenchange:', window.fullscreenElement, document.fullscreen);
+                if (!document.fullscreenElement){
+                    waitForVideo();
+                }
+            },
+            resize: () => {
+                if (video.exists) {
+                    let options = {
+                        attributes: true,
+                        attributeFilter: ['style'],
+                        attributeOldValue: true
+                    }
+                    let element = document.querySelector(video.id);
+                    let observer = new MutationObserver((mutations) => {
+                        mutations.forEach((m) => {
+                            if (!app.processing){
+                                video.height = $(video.id).height();
+                                video.width = $(video.id).width();
+                                if (!app.processing){
+                                    prepare();
+                        
+                                    if (video.minimized){
+                                        minimize();
+                                    }
+                                    else {
+                                        maximize();
+                                    }
                                 }
                             }
-                        }
-                        observer.disconnect();
-                    })
-                });
-                observer.observe(element, options);
-            }
-        },
-        scroll: () =>{
-            let scrollTop = $(window).scrollTop();
-            if (scrollTop > 50) {
-                if (!player.minimized){
-                    minimize();
+                            observer.disconnect();
+                        })
+                    });
+                    observer.observe(element, options);
                 }
-            }
-            else {
-                if (player.minimized) {
-                    maximize();
-                }
-            }
-        },
-        transitionend: (e) => {
-            if (e.target.id = 'progress') {
-                if (!video.inProcess){
-                    doThings();
-        
-                    if (video.minimized){
+            },
+            scroll: () =>{
+                let scrollTop = $(window).scrollTop();
+                if (scrollTop > 50) {
+                    if (!player.minimized){
                         minimize();
                     }
-                    else {
+                }
+                else {
+                    if (player.minimized) {
                         maximize();
                     }
                 }
             }
-        }
-    });
+        });
+    }
 })();
