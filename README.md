@@ -32,6 +32,7 @@ makes the youtube player visible while scrolling - minimizes the player box from
 * use settings to choose what will be on top, minimized box' size, border and background.  
 
 **known issue**
+* ~~does not work when you open video from the youtube channel in the same tab~~
 * when minimized, the progress bar displays the correct visible info, but when you hover over it shows the wrong time and a tooltip preview and when you click it moves to the this position rather than the expected one (this is the reason for youtube's deep code, and I don't know how to fix this yet)  
 
 #### [![](https://cdn4.iconfinder.com/data/icons/logos-brands-5/24/trello-16.png) Trello card details](https://github.com/almaceleste/userscripts/raw/master/src/Trello_card_details.user.js 'install')  
