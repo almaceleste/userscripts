@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Youtube Player Always On Top
 // @namespace       almaceleste
-// @version         0.4.0
+// @version         0.4.1
 // @description     this code makes the youtube player visible while scrolling
 // @description:ru  этот код делает плеер youtube видимым при прокрутке
 // @author          (ɔ) Paola Captanovska
@@ -25,6 +25,7 @@
 // @grant           GM_registerMenuCommand
 // @grant           GM_openInTab
 
+// @match           https://www.youtube.com/*
 // @match           https://www.youtube.com/watch*
 // ==/UserScript==
 
