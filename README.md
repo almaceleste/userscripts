@@ -35,6 +35,17 @@ makes the youtube player visible while scrolling - minimizes the player box from
 * ~~does not work when you open video from the youtube channel in the same tab~~
 * when minimized, the progress bar displays the correct visible info, but when you hover over it shows the wrong time and a tooltip preview and when you click it moves to the this position rather than the expected one (this is the reason for youtube's deep code, and I don't know how to fix this yet)  
 
+#### [![](https://cdn1.iconfinder.com/data/icons/jumpicon-basic-ui-line-1/32/-_Eye-Show-View-Watch-See-16.png) Watch Transition](https://github.com/almaceleste/userscripts/raw/master/src/Watch_Transition.user.js 'install')  
+[![collapsed](assets/img/	
+wt-collapsed-small.png)](assets/img/	
+wt-collapsed-big.png 'collapsed message') [![expanded](assets/img/wt-expanded-small.png)](assets/img/	
+wt-expanded-big.png 'expanded message')  
+some modern sites, like Youtube and others, use ajax transitions for inner-site navigation as opposed to regular navigation. it makes difficult to write scripts which are related to the site url.  
+this script watches for a transition event and prints it to the console 
+
+**features**
+* use settings to choose what kind of events to watch, the method of logging events, font style, color and background.  
+
 #### [![](https://cdn4.iconfinder.com/data/icons/logos-brands-5/24/trello-16.png) Trello card details](https://github.com/almaceleste/userscripts/raw/master/src/Trello_card_details.user.js 'install')  
 [![Trello card details](assets/img/tcd-small.png)](assets/img/tcd-big.png 'Trello card details')  
 adds the creation date and the creator name and account link to the Trello card (works on the [Trello](https://trello.com) site)  
