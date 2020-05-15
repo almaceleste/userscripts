@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Watch Transition
 // @namespace       almaceleste
-// @version         0.1.0
+// @version         0.1.1
 // @description     watches for a transition event and prints it to the console
 // @description:ru  отслеживает событие transition и выводит его в консоль
 // @author          (ɔ) Paola Captanovska
@@ -46,7 +46,7 @@ const windowcss = `
     #wtCfg_field_url {
         background: none !important;
         border: none;
-        cursor: pointer;      
+        cursor: pointer;
         padding: 0 !important;
         text-decoration: underline;
     }
@@ -397,7 +397,7 @@ function log(type, event){
         default:
             console.log(`%ctransition${type}:`, style, event.originalEvent);
             break;
-    };
+    }
 }
 
 (function() {
