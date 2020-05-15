@@ -2,7 +2,7 @@
 // @name            Watch Transition
 // @namespace       almaceleste
 // @version         0.1.0
-// @description     watches for a transition event and prints it to console
+// @description     watches for a transition event and prints it to the console
 // @description:ru  отслеживает событие transition и выводит его в консоль
 // @author          (ɔ) Paola Captanovska
 // @license         AGPL-3.0; http://www.gnu.org/licenses/agpl
