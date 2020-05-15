@@ -5,7 +5,7 @@
 // @description     watches for a transition event and prints it to the console
 // @description:ru  отслеживает событие transition и выводит его в консоль
 // @author          (ɔ) Paola Captanovska
-// @license         AGPL-3.0; http://www.gnu.org/licenses/agpl
+// @license         AGPL-3.0-or-later; http://www.gnu.org/licenses/agpl
 // @icon            https://cdn1.iconfinder.com/data/icons/jumpicon-basic-ui-line-1/32/-_Eye-Show-View-Watch-See-16.png
 // @icon64          https://cdn1.iconfinder.com/data/icons/jumpicon-basic-ui-line-1/32/-_Eye-Show-View-Watch-See-64.png
 
