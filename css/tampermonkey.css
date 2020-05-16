@@ -1,38 +1,36 @@
-.details {
-    position: absolute;
-    top: 1.5em;
-    right: 0;
-    width: 100%;
-}
 .script_tab_head {
     position: absolute;
+}
+.dark .tr_tabs {
+    background: none !important;
 }
 .tv {
     position: absolute;
 }
 .tv_container_fit {
-    top: 2.3em;
-    bottom: 1.5em;
-    right: .1em;
-}
-.tr_tabs {
-    background: none !important;
-}
-tr.entry .shortcut {
-    color: gray;
+    top: 0;
 }
 .tv_tabs_align {
     float: right;
 }
+.tv_tabs_fill {
+    height: 4em;
+}
 /* for x-resolution 1280+ */
 @media screen and (min-width: 1280px) {
     .updateurl_input {
-        width: 500px;
+        width: 700px;
     }
 }
-/* for x-resolution 1366+ */
-@media screen and (min-width: 1366px) {
+/* for x-resolution 1600+ */
+@media screen and (min-width: 1600px) {
     .updateurl_input {
-        width: 700px;
+        width: 1000px;
+    }
+}
+/* for x-resolution 1920+ */
+@media screen and (min-width: 1920px) {
+    .updateurl_input {
+        width: 1300px;
     }
 }
