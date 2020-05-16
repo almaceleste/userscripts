@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Watch Transition
 // @namespace       almaceleste
-// @version         0.1.1
+// @version         0.2.0
 // @description     watches for a transition event and prints it to the console
 // @description:ru  отслеживает событие transition и выводит его в консоль
 // @author          (ɔ) Paola Captanovska
@@ -56,7 +56,7 @@ const windowcss = `
     }
 `;
 const iframecss = `
-    height: 33.5em;
+    height: 34.5em;
     width: 25em;
     border: 1px solid;
     border-radius: 3px;
@@ -73,7 +73,7 @@ function opencfg(){
 
 GM_config.init({
     id: 'wtCfg',
-    title: 'Watch Transition',
+    title: `Watch Transition ${GM_info.script.version}`,
     fields: {
         run: {
             section: ['', 'Watch events'],
@@ -103,6 +103,33 @@ GM_config.init({
             title: 'fired when a CSS transition has finished playing (most useful)',
             type: 'checkbox',
             default: true,
+        },
+        property: {
+            label: 'print event property',
+            labelPos: 'left',
+            type: 'select',
+            title: 'print one preferred event property before the whole event',
+            options: [
+                'none',
+                'bubbles',
+                'cancelBubble',
+                'cancelable',
+                'composed',
+                'currentTarget',
+                'defaultPrevented',
+                'elapsedTime',
+                'eventPhase',
+                'isTrusted',
+                'path',
+                'propertyName',
+                'pseudoElement',
+                'returnValue',
+                'srcElement',
+                'target',
+                'timestamp',
+                'type'
+            ],
+            default: 'target',
         },
         italic: {
             section: ['', 'Style Settings'],
@@ -370,32 +397,41 @@ function log(type, event){
         font-style: ${GM_config.get('italic') ? 'italic' : 'unset'};
         font-weight: ${GM_config.get('bold') ? 'bold' : 'unset'};
     `;
+    let property = GM_config.get('property');
+
+    if (property != 'none') {
+        property = event.originalEvent[property];
+    }
+    else {
+        property = '';
+    }
+
     switch (GM_config.get('method')) {
         case 'debug':
-            console.debug(`%ctransition${type}:`, style, event.originalEvent);
+            console.debug(`%ctransition${type}:`, style, property, event.originalEvent);
             break;
         case 'dir':
-            console.log(`%ctransition${type}:`, style);
+            console.log(`%ctransition${type}:`, style, property);
             console.dir(event.originalEvent);
             break;
         case 'dirxml':
-            console.log(`%ctransition${type}:`, style);
+            console.log(`%ctransition${type}:`, style, property);
             console.dirxml(event.originalEvent);
             break;
         case 'error':
-            console.error(`%ctransition${type}:`, style, event.originalEvent);
+            console.error(`%ctransition${type}:`, style, property, event.originalEvent);
             break;
         case 'info':
-            console.info(`%ctransition${type}:`, style, event.originalEvent);
+            console.info(`%ctransition${type}:`, style, property, event.originalEvent);
             break;
         case 'log':
-            console.log(`%ctransition${type}:`, style, event.originalEvent);
+            console.log(`%ctransition${type}:`, style, property, event.originalEvent);
             break;
         case 'warn':
-            console.warn(`%ctransition${type}:`, style, event.originalEvent);
+            console.warn(`%ctransition${type}:`, style, property, event.originalEvent);
             break;
         default:
-            console.log(`%ctransition${type}:`, style, event.originalEvent);
+            console.log(`%ctransition${type}:`, style, property, event.originalEvent);
             break;
     }
 }
