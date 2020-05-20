@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            OpenUserCSS Tweaks
 // @namespace       almaceleste
-// @version         0.2.0
+// @version         0.2.1
 // @description     some useful tweaks, that make working with the OpenUserCSS.org more convenient
 // @description:ru  некоторые полезные настройки, которые делают работу с OpenUserCSS.org более удобной 
 // @author          (ɔ) Paola Captanovska
@@ -25,8 +25,7 @@
 // @grant           GM_registerMenuCommand
 // @grant           GM_openInTab
 
-// @match           http*://*.openusercss.org/*
-// @match           http*://*.openusercss.org/profile/*
+// @match           http*://openusercss.org/*
 // ==/UserScript==
 
 // ==OpenUserJS==
