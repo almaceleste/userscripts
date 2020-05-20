@@ -193,7 +193,7 @@ GM_config.init({
             section: ['', 'Miscellaneous Settings'],
             label: 'fix image size',
             labelPos: 'right',
-            title: 'some images do not fit into the image container, and the site crops them. this option restores these images and resizes the container to fit them more accurately. \nanother gain: these images support image zoom extensions',
+            title: 'some images do not fit in the image container, and the site crops them. this option restores these images and resizes the container for more accurate placement. \nanother advantage: these images support image zoom extensions',
             type: 'checkbox',
             default: true,
         },
