@@ -54,6 +54,7 @@ some useful tweaks, that make working with the OpenUserCSS.org more convenient
 * changes the view to a more compact
 * highlights the themes on hover
 * on the profile page: displays statistics by default, adds screenshots of themes, adds an edit button to go to the edit page directly from the profile page
+* on the edit page: removes variables (cause they is buggy now), makes the header (with save button) always available (sticky position)
 * changes the start page to the search page cause the start page often throws an error
 * use settings to enable/disable these options.  
 
