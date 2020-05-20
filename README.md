@@ -43,6 +43,20 @@ this script watches for a transition event and prints it to the console
 **features**
 * use settings to choose what kind of events to watch, the method of logging events, font style, color and background.  
 
+#### [![](https://openusercss.org/img/openusercss.icon-x16.png) OpenUserCSS Tweaks](https://github.com/almaceleste/userscripts/raw/master/src/OpenUserCSS_Tweaks.user.js 'install')  
+[![search](assets/img/ouct-search-small.png)](assets/img/ouct-search-big.png 'search page') [![theme](assets/img/ouct-theme-small.png)](assets/img/ouct-theme-big.png 'theme page') [![profile](assets/img/ouct-profile-small.png)](assets/img/ouct-profile-big.png 'profile page')  
+some useful tweaks, that make working with the OpenUserCSS.org more convenient 
+
+**features**
+* displays version information for the themes on the profile page
+* restores the images, that have been cropped by site, since they do not fit in the image container, and resizes the container for more accurate placement.  
+    another advantage: these images support image zoom extensions
+* changes the view to a more compact
+* highlights the themes on hover
+* on the profile page: displays statistics by default, adds screenshots of themes, adds an edit button to go to the edit page directly from the profile page
+* changes the start page to the search page cause the start page often throws an error
+* use settings to enable/disable these options.  
+
 #### [![](https://cdn4.iconfinder.com/data/icons/logos-brands-5/24/trello-16.png) Trello card details](https://github.com/almaceleste/userscripts/raw/master/src/Trello_card_details.user.js 'install')  
 [![Trello card details](assets/img/tcd-small.png)](assets/img/tcd-big.png 'Trello card details')  
 adds the creation date and the creator name and account link to the Trello card (works on the [Trello](https://trello.com) site)  
