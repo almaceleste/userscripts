@@ -5,7 +5,7 @@
 // @description     some useful tweaks, that make working with the OpenUserCSS.org more convenient
 // @description:ru  некоторые полезные настройки, которые делают работу с OpenUserCSS.org более удобной 
 // @author          (ɔ) Paola Captanovska
-// @license         AGPL-3.0; http://www.gnu.org/licenses/agpl
+// @license         AGPL-3.0-or-later; http://www.gnu.org/licenses/agpl
 // @icon            https://openusercss.org/img/openusercss.icon-x16.png
 // @icon64          https://openusercss.org/img/openusercss.icon-x640.png
 
