@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            OpenUserCSS Tweaks
 // @namespace       almaceleste
-// @version         0.1.0
+// @version         0.2.0
 // @description     some useful tweaks, that make working with the OpenUserCSS.org more convenient
 // @description:ru  некоторые полезные настройки, которые делают работу с OpenUserCSS.org более удобной 
 // @author          (ɔ) Paola Captanovska
@@ -40,19 +40,22 @@ const profile = {};
 const theme = {};
 const site = {};
 const search = {};
+const edit = {};
 // create regex patterns for the site pages
 profile.path = /^\/profile/;
-theme.path = /^\/theme/;
+theme.path = /^\/theme\/(?!edit)/;
 site.path = /^\/$/;
 search.path = /^\/search/;
+edit.path = /^\/theme\/edit/;
 // create paths for the elements
 site.layout = '#__layout > .ouc-ancestor';
 site.navbar = `${site.layout} > .ouc-navbar-wrapper > .ouc-navbar`;
 site.routeroot = `${site.layout} > .ouc-app-root > .ouc-route-root`;
-site.level = `${site.routeroot} .container .section > .level`;
-site.main = `${site.routeroot} .container .section > .columns`;
-site.columnleft = `${site.main} > .column:nth-child(1)`;
-site.columnright = `${site.main} > .column:nth-child(2)`;
+site.section = `${site.routeroot} .container .section`;
+site.level = `${site.section} > .level`;
+site.main = `${site.section} > .columns`;
+site.columnleft = `${site.main} > .column:nth-of-type(1)`;
+site.columnright = `${site.main} > .column:nth-of-type(2)`;
 profile.account = `${site.navbar} > .container > .navbar-menu > .navbar-end > a:first-of-type`;
 profile.statsbutton = '#showStatsToggle';
 profile.donatebutton = `${site.columnright} > .ouc-user-donation-wrapper a`;
@@ -64,6 +67,14 @@ search.theme = profile.theme;
 search.author = `${site.columnleft} > .columns > .column`;
 theme.card = `${site.columnleft} .box`;
 theme.image = `${theme.card} .ouc-responsive-image-wrapper .ouc-responsive-image`;
+edit.form = `${site.section} > .ouc-new-theme-form`;
+edit.theme = `${edit.form} > .card:nth-of-type(1)`;
+edit.variables = `${edit.form} > .card:nth-of-type(2) > .card-content`;
+edit.variable = `${edit.variables} > div.field.box`;
+edit.header = `${edit.theme} > .card-header`;
+edit.content = `${edit.theme} > .card-content`;
+edit.screenshots = `${edit.content} > .field:nth-of-type(4)`;
+edit.image = `${edit.screenshots} > .columns > .column:nth-of-type(2) .ouc-responsive-image-wrapper > .ouc-responsive-image`;
 const card = '.card';
 const cardheader = '.card-header';
 const box = '.box';
@@ -99,7 +110,7 @@ const windowcss = `
     }
 `;
 const iframecss = `
-    height: 26.5em;
+    height: 30.5em;
     width: 25em;
     border: 1px solid;
     border-radius: 3px;
@@ -182,10 +193,25 @@ GM_config.init({
             type: 'checkbox',
             default: true,
         },
-        edit: {
+        editbutton: {
             label: 'edit button',
             labelPos: 'right',
             title: 'add the edit buttons to edit theme directly from the profile page',
+            type: 'checkbox',
+            default: true,
+        },
+        deletevariables: {
+            section: ['', 'Edit Page Settings'],
+            label: 'do not create variables',
+            labelPos: 'right',
+            title: '',
+            type: 'checkbox',
+            default: true,
+        },
+        editsticky: {
+            label: 'sticky header',
+            labelPos: 'right',
+            title: '',
             type: 'checkbox',
             default: true,
         },
@@ -332,7 +358,7 @@ function doProfile(){
                     width: `${width*2/3}px`,
                 })
             }
-            if (GM_config.get('edit')) {
+            if (GM_config.get('editbutton')) {
                 let width = $(c).width();
                 let u = getData(d, 'url');
                 u = u.replace(/^(\/theme)\/(.*)$/, '$1/edit/$2');
@@ -380,6 +406,22 @@ function doProfile(){
 
         $(document).unbindArrive(profile.theme);
     });
+}
+
+function doEdit(){
+    if (GM_config.get('deletevariables')){
+        $(document).arrive(edit.variable, options, (v) => {
+            $(v).remove();
+        });
+    }
+    if (GM_config.get('editsticky')){
+        const top = $(site.navbar).height();
+        $(edit.header).css({
+            position: 'sticky',
+            top: `${top}px`,
+            zIndex: '100',
+        });
+    }
 }
 
 function fiximages(path){
@@ -467,7 +509,13 @@ function doThings(){
                     $(document).unbindArrive(search.author);
                 });
                 break;
+            case edit.path.test(pathname):
+                // console.log('doThings:', edit.path, pathname);
+                doEdit();
+                fiximages(edit.image);
+                break;
             default:
+                // console.log('doThings:', 'default', pathname);
                 break;
         }
 
