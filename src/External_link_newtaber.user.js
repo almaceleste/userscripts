@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            External link newtaber
 // @namespace       almaceleste
-// @version         0.3.0
+// @version         0.3.1
 // @description     opens external links in a new tab on all sites (now can work with dynamic link lists, such as search results)
 // @description:ru  открывает внешние ссылки в новой вкладке на всех сайтах (теперь должно работать с динамическими списками ссылок, такими как результаты поисковых запросов)
 // @author          (ɔ) Paola Captanovska
@@ -17,7 +17,6 @@
 // @downloadURL     https://github.com/almaceleste/userscripts/raw/master/src/External_link_newtaber.user.js
 // @downloadURL     https://openuserjs.org/install/almaceleste/External_link_newtaber.user.js
 
-// @run-at          document-end
 // @require         https://openuserjs.org/src/libs/sizzle/GM_config.js
 // @grant           GM_getValue
 // @grant           GM_setValue
@@ -52,6 +51,7 @@ const windowcss = `
         font-size: .8em !important;
     }
     #${configId} button,
+    #${configId} input,
     #${configId} select,
     #${configId} select option,
     #${configId} .section_desc {
