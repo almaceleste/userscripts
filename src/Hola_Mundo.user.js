@@ -2,7 +2,7 @@
 // @name            Hola Mundo
 // @namespace       almaceleste
 // @version         0.4.3
-// @description     this code does nothing, just writes a welcome message to the console (contains an example of using GM_config)
+// @description     this code does nothing, just writes a welcome message to the console (contains an example of using the GM_config library)
 // @description:ru  этот код не делает ничего, только пишет приветственное сообщение в консоль (содержит пример использования GM_config)
 // @author          (ɔ) Paola Captanovska
 // @license         AGPL-3.0-or-later; http://www.gnu.org/licenses/agpl
