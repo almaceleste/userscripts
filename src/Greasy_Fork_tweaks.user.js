@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.3.0
+// @version         0.3.1
 // @description     opens pages of scripts from lists in a new tab and makes the user interface more compact, informative and interactive
 // @description:ru  открывает страницы скриптов из списков в новой вкладке и делает пользовательский интерфейс более компактным, информативным и интерактивным
 // @author          (ɔ) Paola Captanovska
@@ -67,6 +67,7 @@ const windowcss = `
         font-size: .8em !important;
     }
     #${configId} button,
+    #${configId} input,
     #${configId} select,
     #${configId} select option,
     #${configId} .section_desc {
