@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Gnome Extensions tweaks
 // @namespace       almaceleste
-// @version         0.4.0
+// @version         0.4.1
 // @description     opens extension pages in the new tab and changes a sort type of the extensions list
 // @description:ru  открывает страницы расширений в новой вкладке и изменяет сортировку списка расширений
 // @author          (ɔ) Paola Captanovska
@@ -13,8 +13,8 @@
 // @homepageURL     https://openuserjs.org/users/almaceleste
 // @homepageURL     https://github.com/almaceleste/userscripts
 // @supportURL      https://github.com/almaceleste/userscripts/issues
-// @updateURL       https://github.com/almaceleste/userscripts/raw/master/Gnome_Extensions_tweaks.meta.js
-// @downloadURL     https://github.com/almaceleste/userscripts/raw/master/Gnome_Extensions_tweaks.user.js
+// @updateURL       https://github.com/almaceleste/userscripts/raw/master/src/Gnome_Extensions_tweaks.meta.js
+// @downloadURL     https://github.com/almaceleste/userscripts/raw/master/src/Gnome_Extensions_tweaks.user.js
 // @downloadURL     https://openuserjs.org/install/almaceleste/Gnome_Extensions_tweaks.user.js
 
 // @require         https://code.jquery.com/jquery-3.3.1.js
