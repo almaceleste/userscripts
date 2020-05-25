@@ -12,7 +12,7 @@
 // ==UserLibrary==
 // @name            GM_configstyle
 // @namespace       almaceleste
-// @version         0.1.0
+// @version         0.1.1
 // @description     contains a style of the GM_config window
 // @description:ru  содержит стиль окна GM_config 
 // @license         AGPL-3.0-or-later; http://www.gnu.org/licenses/agpl
@@ -53,7 +53,7 @@ GM_configstyle.style = (style, configId) => {
         #${defaultId} select option,
         #${defaultId} .section_desc {
             background-color: #333;
-            border: 1px soldefaultId #222;
+            border: 1px solid #222;
         }
         #${defaultId} button{
             height: 1.65em !important;
@@ -63,7 +63,7 @@ GM_configstyle.style = (style, configId) => {
         }
         #${defaultId}.section_header {
             background-color: #454545;
-            border: 1px soldefaultId #222;
+            border: 1px solid #222;
             font-size: 1em !important;
         }
         #${defaultId} .field_label {
@@ -71,7 +71,7 @@ GM_configstyle.style = (style, configId) => {
         }
         #${defaultId}_buttons_holder {
             position: fixed;
-            wdefaultIdth: 97%;
+            width: 97%;
             bottom: 0;
         }
         #${defaultId} .reset_holder {
@@ -95,7 +95,7 @@ GM_configstyle.style = (style, configId) => {
         }
     `;
     
-        switch (style) {
+    switch (style) {
         case 'medium':
             return medium;
             break;
