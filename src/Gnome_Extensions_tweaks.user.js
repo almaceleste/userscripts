@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Gnome Extensions tweaks
 // @namespace       almaceleste
-// @version         0.4.2
+// @version         0.4.3
 // @description     opens extension pages in the new tab and changes a sort type of the extensions list
 // @description:ru  открывает страницы расширений в новой вкладке и изменяет сортировку списка расширений
 // @author          (ɔ) Paola Captanovska
@@ -50,6 +50,12 @@ const windowcss = `
     #${configId} .section_desc {
         color: whitesmoke !important;
     }
+    #${configId} a,
+    #${configId} button,
+    #${configId} input,
+    #${configId} .section_desc {
+        font-size: .8em !important;
+    }
     #${configId} button,
     #${configId} select,
     #${configId} select option,
@@ -62,6 +68,14 @@ const windowcss = `
     }
     #${configId}_header {
         font-size: 1.3em !important;
+    }
+    #${configId}.section_header {
+        background-color: #454545;
+        border: 1px solid #222;
+        font-size: 1em !important;
+    }
+    #${configId} .field_label {
+        font-size: .7em !important;
     }
     #${configId}_buttons_holder {
         position: fixed;
@@ -76,14 +90,14 @@ const windowcss = `
     #${configId} .saveclose_buttons {
         margin: .7em;
     }
-    #${configId}_field_url {
+    #${configId}_field_support {
         background: none !important;
         border: none;
         cursor: pointer;      
         padding: 0 !important;
         text-decoration: underline;
     }
-    #${configId}_field_url:hover,
+    #${configId}_field_support:hover,
     #${configId}_resetLink:hover {
         filter: drop-shadow(0 0 1px dodgerblue);
     }
@@ -120,7 +134,7 @@ GM_config.init({
             options: ['name', 'recent', 'downloads', 'popularity'],
             default: 'recent',
         },
-        url: {
+        support: {
             section: ['', 'Support'],
             label: 'almaceleste.github.io',
             title: 'more info on almaceleste.github.io',
