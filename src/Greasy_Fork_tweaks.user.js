@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.3.1
+// @version         0.3.2
 // @description     opens pages of scripts from lists in a new tab and makes the user interface more compact, informative and interactive
 // @description:ru  открывает страницы скриптов из списков в новой вкладке и делает пользовательский интерфейс более компактным, информативным и интерактивным
 // @author          (ɔ) Paola Captanovska
@@ -13,7 +13,7 @@
 // @homepageURL     https://openuserjs.org/users/almaceleste
 // @homepageURL     https://github.com/almaceleste/userscripts
 // @supportURL      https://github.com/almaceleste/userscripts/issues
-// @updateURL       https://github.com/almaceleste/userscripts/raw/master/src/Greasy_Fork_tweaks.meta.js
+// @updateURL       https://github.com/almaceleste/userscripts/raw/master/src/Greasy_Fork_tweaks.user.js
 // @downloadURL     https://github.com/almaceleste/userscripts/raw/master/src/Greasy_Fork_tweaks.user.js
 // @downloadURL     https://openuserjs.org/install/almaceleste/Greasy_Fork_tweaks.user.js
 
@@ -103,10 +103,10 @@ const windowcss = `
     }
     #${configId}_field_support {
         background: none !important;
-        border: none;
-        cursor: pointer;      
+        border: none !important;
+        cursor: pointer !important;      
         padding: 0 !important;
-        text-decoration: underline;
+        text-decoration: underline !important;
     }
     #${configId}_field_support:hover,
     #${configId}_resetLink:hover {
