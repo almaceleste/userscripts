@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Hola Mundo
 // @namespace       almaceleste
-// @version         0.4.1
+// @version         0.4.2
 // @description     this code does nothing, just writes a welcome message to the console (contains an example of using GM_config)
 // @description:ru  этот код не делает ничего, только пишет приветственное сообщение в консоль (содержит пример использования GM_config)
 // @author          (ɔ) Paola Captanovska
@@ -86,10 +86,10 @@ const windowcss = `
     }
     #${configId}_field_support {
         background: none !important;
-        border: none;
-        cursor: pointer;      
+        border: none !important;
+        cursor: pointer !important;      
         padding: 0 !important;
-        text-decoration: underline;
+        text-decoration: underline !important;
     }
     #${configId}_field_support:hover,
     #${configId}_resetLink:hover {
