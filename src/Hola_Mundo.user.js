@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Hola Mundo
 // @namespace       almaceleste
-// @version         0.4.2
+// @version         0.4.3
 // @description     this code does nothing, just writes a welcome message to the console (contains an example of using GM_config)
 // @description:ru  этот код не делает ничего, только пишет приветственное сообщение в консоль (содержит пример использования GM_config)
 // @author          (ɔ) Paola Captanovska
@@ -13,7 +13,7 @@
 // @homepageURL     https://openuserjs.org/users/almaceleste
 // @homepageURL     https://github.com/almaceleste/userscripts
 // @supportURL      https://github.com/almaceleste/userscripts/issues
-// @updateURL       https://github.com/almaceleste/userscripts/raw/master/src/Hola_Mundo.meta.js
+// @updateURL       https://github.com/almaceleste/userscripts/raw/master/src/Hola_Mundo.user.js
 // @downloadURL     https://github.com/almaceleste/userscripts/raw/master/src/Hola_Mundo.user.js
 // @downloadURL     https://openuserjs.org/install/almaceleste/Hola_Mundo.user.js
 
