@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Gnome Extensions tweaks
 // @namespace       almaceleste
-// @version         0.4.5
+// @version         0.4.6
 // @description     opens extension pages in the new tab and changes a sort type of the extensions list
 // @description:ru  открывает страницы расширений в новой вкладке и изменяет сортировку списка расширений
 // @author          (ɔ) Paola Captanovska
@@ -93,10 +93,10 @@ const windowcss = `
     }
     #${configId}_field_support {
         background: none !important;
-        border: none;
-        cursor: pointer;      
+        border: none !important;
+        cursor: pointer !important;      
         padding: 0 !important;
-        text-decoration: underline;
+        text-decoration: underline !important;
     }
     #${configId}_field_support:hover,
     #${configId}_resetLink:hover {
