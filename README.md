@@ -90,8 +90,8 @@ opens scripts pages in new tab from lists and compacts user interface.
 
 #### [![](https://cdn0.iconfinder.com/data/icons/typicons-2/24/message-16.png) Hola Mundo](https://github.com/almaceleste/userscripts/raw/master/src/Hola_Mundo.user.js 'install')  
 [![Hola Mundo](assets/img/hm-small.png)](assets/img/hm-big.png 'Hola Mundo')  
-this code does nothing, just writes a welcome message to the console (contains an example of using GM_config library).  
-* very simple userscript that illustrates using of GM_config library in userscript and some common userscript mechanics  
+this code does nothing, just writes a welcome message to the console (contains an example of using the GM_config library).  
+* very simple userscript that illustrates using of the GM_config library in userscript and some common userscript mechanics  
 
 ### support me
 <!-- [![Beerpay](https://beerpay.io/almaceleste/userscripts/badge.svg?style=beer-square)](https://beerpay.io/almaceleste/userscripts) [![Beerpay](https://beerpay.io/almaceleste/userscripts/make-wish.svg?style=flat-square)](https://beerpay.io/almaceleste/userscripts?focus=wish) -->
