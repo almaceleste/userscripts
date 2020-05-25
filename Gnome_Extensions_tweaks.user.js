@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name            Gnome Extensions tweaks
 // @namespace       almaceleste
-// @version         0.3.1
-// @description     this code opens extension pages in the new tab and changes sorting of the extensions list
-// @description:ru  этот код открывает страницы расширений в новой вкладке и изменяет сортировку списка расширений
+// @version         0.4.0
+// @description     opens extension pages in the new tab and changes a sort type of the extensions list
+// @description:ru  открывает страницы расширений в новой вкладке и изменяет сортировку списка расширений
 // @author          (ɔ) Paola Captanovska
 // @license         AGPL-3.0; http://www.gnu.org/licenses/agpl.txt
 // @icon            https://cdn1.iconfinder.com/data/icons/system-shade-circles/512/gnome-32.png
@@ -17,7 +17,7 @@
 // @downloadURL     https://github.com/almaceleste/userscripts/raw/master/Gnome_Extensions_tweaks.user.js
 // @downloadURL     https://openuserjs.org/install/almaceleste/Gnome_Extensions_tweaks.user.js
 
-// @run-at          document.end
+// @require         https://code.jquery.com/jquery-3.3.1.js
 // @require         https://openuserjs.org/src/libs/sizzle/GM_config.js
 // @grant           GM_getValue
 // @grant           GM_setValue
@@ -36,44 +36,106 @@ const extensionslist = 'extensions';
 const extensionlink = 'a.title-link';
 const navbarbtn = '#navbar-wrapper a:contains("Extensions")';
 
-const windowcss = '#getweaksCfg {background-color: lightblue;} #getweaksCfg .reset_holder {float: left; position: relative; bottom: -1em;} #getweaksCfg .saveclose_buttons {margin: .7em;}';
-const iframecss = 'height: 17.5em; width: 30em; border: 1px solid; border-radius: 3px; position: fixed; z-index: 999;';
+const configId = 'getweaksCfg';
+const windowcss = `
+    #${configId} {
+        background-color: darkslategray;
+        color: whitesmoke;
+    }
+    #${configId} a,
+    #${configId} button,
+    #${configId} input,
+    #${configId} select,
+    #${configId} select option,
+    #${configId} .section_desc {
+        color: whitesmoke !important;
+    }
+    #${configId} button,
+    #${configId} select,
+    #${configId} select option,
+    #${configId} .section_desc {
+        background-color: #333;
+        border: 1px solid #222;
+    }
+    #${configId} button{
+        height: 1.65em !important;
+    }
+    #${configId}_header {
+        font-size: 1.3em !important;
+    }
+    #${configId}_buttons_holder {
+        position: fixed;
+        width: 97%;
+        bottom: 0;
+    }
+    #${configId} .reset_holder {
+        float: left;
+        position: relative;
+        bottom: -1em;
+    }
+    #${configId} .saveclose_buttons {
+        margin: .7em;
+    }
+    #${configId}_field_url {
+        background: none !important;
+        border: none;
+        cursor: pointer;      
+        padding: 0 !important;
+        text-decoration: underline;
+    }
+    #${configId}_field_url:hover,
+    #${configId}_resetLink:hover {
+        filter: drop-shadow(0 0 1px dodgerblue);
+    }
+`;
+const iframecss = `
+    height: 15em;
+    width: 30em;
+    border: 1px solid;
+    border-radius: 3px;
+    position: fixed;
+    z-index: 999;
+`;
 
-GM_registerMenuCommand('Gnome Extensions tweaks Settings', opencfg);
-
-function opencfg()
-{
+GM_registerMenuCommand(`${GM_info.script.name} Settings`, () => {
 	GM_config.open();
-	getweaksCfg.style = iframecss;
-}
+    GM_config.frame.style = iframecss;
+});
 
-GM_config.init(
-{
-    id: 'getweaksCfg',
-    title: 'Gnome Extensions tweaks',
-    fields:
-    {
-        extensionlink:
-        {
-            section: ['Link types', 'Choose link types to open in new tab'],
-            label: 'extension links',
+GM_config.init({
+    id: `${configId}`,
+    title: `${GM_info.script.name} ${GM_info.script.version}`,
+    fields: {
+        extensionlink: {
+            section: ['', 'Settings'],
+            label: 'open extension links in new tab',
             labelPos: 'right',
             type: 'checkbox',
             default: true,
         },
-        sorting:
-        {
-            section: ['List sorting', 'Choose list sorting'],
-            label: 'sorting links',
+        sorttype: {
+            label: 'extension list sort type',
             labelPos: 'left',
             type: 'select',
             options: ['name', 'recent', 'downloads', 'popularity'],
             default: 'recent',
         },
+        url: {
+            section: ['', 'Support'],
+            label: 'almaceleste.github.io',
+            title: 'more info on almaceleste.github.io',
+            type: 'button',
+            click: () => {
+                GM_openInTab('https://almaceleste.github.io', {
+                    active: true,
+                    insert: true,
+                    setParent: true
+                });
+            }
+        },
     },
     css: windowcss,
-    events:
-    {
+    events: {
         save: function() {
             GM_config.close();
         }
@@ -83,10 +145,15 @@ GM_config.init(
 (function() {
     'use strict';
 
-    if(GM_config.get('extensionlink')) {
-        $(document).ready(function(){
+    const sorttype = '#sort=' + GM_config.get('sorttype');
+    if (window.location.pathname == '/'){
+        window.location.hash = sorttype;
+    }
+
+    $(document).ready(() => {
+        if(GM_config.get('extensionlink')) {
             var targetNode, callback, observer;
-            var config = {childList: true}; //, subtree: true};
+            var config = {childList: true};
             targetNode = document.getElementById(extensionsdiv);
             callback = function(e){
                 if(e.nodeName == 'UL' && e.className == extensionslist){
@@ -102,12 +169,6 @@ GM_config.init(
             });
 
             observer.observe(targetNode, config);
-        });
-    }
-
-    var sorting = '#sort=' + GM_config.get('sorting');
-    $(navbarbtn).each(function(){
-        var href = $(this).attr('href');
-        $(this).attr('href', href + sorting);
+        }
     });
 })();
