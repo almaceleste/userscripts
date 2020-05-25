@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.2.1
-// @description     this code opens scripts pages in new tab from lists and compacts user interface
-// @description:ru  этот код открывает страницы скриптов в новой вкладке из списков и делает интерфейс более компактным
+// @version         0.3.0
+// @description     opens pages of scripts from lists in a new tab and makes the user interface more compact, informative and interactive
+// @description:ru  открывает страницы скриптов из списков в новой вкладке и делает пользовательский интерфейс более компактным, информативным и интерактивным
 // @author          (ɔ) Paola Captanovska
 // @license         AGPL-3.0-or-later; http://www.gnu.org/licenses/agpl.txt
 // @icon            https://greasyfork.org/assets/blacklogo16-bc64b9f7afdc9be4cbfa58bdd5fc2e5c098ad4bca3ad513a27b15602083fd5bc.png
@@ -17,7 +17,6 @@
 // @downloadURL     https://github.com/almaceleste/userscripts/raw/master/src/Greasy_Fork_tweaks.user.js
 // @downloadURL     https://openuserjs.org/install/almaceleste/Greasy_Fork_tweaks.user.js
 
-// @run-at          document-end
 // @require         https://code.jquery.com/jquery-3.3.1.js
 // @require         https://code.jquery.com/ui/1.12.1/jquery-ui.js
 // @require         https://openuserjs.org/src/libs/sizzle/GM_config.js
@@ -34,9 +33,6 @@
 // @author almaceleste
 // ==/OpenUserJS==
 
-const windowcss = '#greasyforktweaksCfg {background-color: lightblue;} #greasyforktweaksCfg .reset_holder {float: left; position: relative; bottom: -1em;} #greasyforktweaksCfg .saveclose_buttons {margin: .7em;}';
-const iframecss = 'height: 30.1em; width: 30em; border: 1px solid; border-radius: 3px; position: fixed; z-index: 999;';
-
 const listitem = '.script-list li';
 const separator = '.name-description-separator';
 const scriptversion = 'data-script-version';
@@ -50,98 +46,169 @@ const controlpanel = '#control-panel';
 const discussions = '#user-discussions-on-scripts-written';
 const scriptsets = 'h3:contains("Script Sets")';
 
+const configId = 'greasyforktweaksCfg';
+const windowcss = `
+    #${configId} {
+        background-color: darkslategray;
+        color: whitesmoke;
+    }
+    #${configId} a,
+    #${configId} button,
+    #${configId} input,
+    #${configId} select,
+    #${configId} select option,
+    #${configId} .section_desc {
+        color: whitesmoke !important;
+    }
+    #${configId} a,
+    #${configId} button,
+    #${configId} input,
+    #${configId} .section_desc {
+        font-size: .8em !important;
+    }
+    #${configId} button,
+    #${configId} select,
+    #${configId} select option,
+    #${configId} .section_desc {
+        background-color: #333;
+        border: 1px solid #222;
+    }
+    #${configId} button{
+        height: 1.65em !important;
+    }
+    #${configId}_header {
+        font-size: 1.3em !important;
+    }
+    #${configId}.section_header {
+        background-color: #454545;
+        border: 1px solid #222;
+        font-size: 1em !important;
+    }
+    #${configId} .field_label {
+        font-size: .7em !important;
+    }
+    #${configId}_buttons_holder {
+        position: fixed;
+        width: 97%;
+        bottom: 0;
+    }
+    #${configId} .reset_holder {
+        float: left;
+        position: relative;
+        bottom: -1em;
+    }
+    #${configId} .saveclose_buttons {
+        margin: .7em;
+    }
+    #${configId}_field_support {
+        background: none !important;
+        border: none;
+        cursor: pointer;      
+        padding: 0 !important;
+        text-decoration: underline;
+    }
+    #${configId}_field_support:hover,
+    #${configId}_resetLink:hover {
+        filter: drop-shadow(0 0 1px dodgerblue);
+    }
+`;
+const iframecss = `
+    height: 29em;
+    width: 30em;
+    border: 1px solid;
+    border-radius: 3px;
+    position: fixed;
+    z-index: 999;
+`;
 
-GM_registerMenuCommand('Greasy Fork tweaks Settings', opencfg);
-
-function opencfg()
-{
+GM_registerMenuCommand(`${GM_info.script.name} Settings`, () => {
 	GM_config.open();
-	greasyforktweaksCfg.style = iframecss;
-}
+    GM_config.frame.style = iframecss;
+});
 
-GM_config.init(
-{
-    id: 'greasyforktweaksCfg',
-    title: 'Greasy Fork tweaks',
-    fields:
-    {
-        version:
-        {
-            section: ['Script list', 'Script list options (common and user lists)'],
+GM_config.init({
+    id: `${configId}`,
+    title: `${GM_info.script.name} ${GM_info.script.version}`,
+    fields: {
+        version: {
+            section: ['', 'Script list options (own and other pages)'],
             label: 'add script version number in the list of scripts',
             labelPos: 'right',
             type: 'checkbox',
             default: true,
         },
-        compact:
-        {
+        compact: {
             label: 'compact script information',
             labelPos: 'right',
             type: 'checkbox',
             default: true,
         },
-        userprofile:
-        {
-            section: ['User page', 'User page options (my page and other users`)'],
+        userprofile: {
+            section: ['', 'User page options (own page and other users`)'],
             label: 'collapse user profile info on user page',
             labelPos: 'right',
             type: 'checkbox',
             default: true,
         },
-        controlpanel:
-        {
+        controlpanel: {
             label: 'collapse control panel on user page',
             labelPos: 'right',
             type: 'checkbox',
             default: true,
         },
-        discussions:
-        {
+        discussions: {
             label: 'collapse discussions on user page',
             labelPos: 'right',
             type: 'checkbox',
             default: true,
         },
-        scriptsets:
-        {
+        scriptsets: {
             label: 'collapse script sets on user page',
             labelPos: 'right',
             type: 'checkbox',
             default: true,
         },
-        newtab:
-        {
-            section: ['New tab', 'Open script page in new tab'],
+        newtab: {
+            section: ['', 'Other options'],
             label: 'open script page in new tab',
             labelPos: 'right',
             type: 'checkbox',
             default: true,
         },
-        background:
-        {
+        background: {
             label: 'open new tab in background',
             labelPos: 'right',
             type: 'checkbox',
             default: false,
         },
-        insert:
-        {
+        insert: {
             label: 'insert new tab next to the current instead of the right end',
             labelPos: 'right',
             type: 'checkbox',
             default: true,
         },
-        setParent:
-        {
+        setParent: {
             label: 'return to the current tab after new tab closed',
             labelPos: 'right',
             type: 'checkbox',
             default: true,
         },
+        support: {
+            section: ['', 'Support'],
+            label: 'almaceleste.github.io',
+            title: 'more info on almaceleste.github.io',
+            type: 'button',
+            click: () => {
+                GM_openInTab('https://almaceleste.github.io', {
+                    active: true,
+                    insert: true,
+                    setParent: true
+                });
+            }
+        },
     },
     css: windowcss,
-    events:
-    {
+    events: {
         save: function() {
             GM_config.close();
         }
@@ -151,7 +218,7 @@ GM_config.init(
 (function() {
     'use strict';
 
-    var options = {active: !GM_config.get('background'), insert: GM_config.get('insert'), setParent: GM_config.get('setParent')};
+    const options = {active: !GM_config.get('background'), insert: GM_config.get('insert'), setParent: GM_config.get('setParent')};
 
     if (GM_config.get('version')){
         $(listitem).each(function(){
