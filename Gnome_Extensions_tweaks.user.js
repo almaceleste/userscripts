@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name            Gnome Extensions tweaks
 // @namespace       almaceleste
-// @version         0.4.1
+// @version         0.4.2
 // @description     opens extension pages in the new tab and changes a sort type of the extensions list
 // @description:ru  открывает страницы расширений в новой вкладке и изменяет сортировку списка расширений
 // @author          (ɔ) Paola Captanovska
-// @license         AGPL-3.0; http://www.gnu.org/licenses/agpl.txt
+// @license         AGPL-3.0-or-later; http://www.gnu.org/licenses/agpl.txt
 // @icon            https://cdn1.iconfinder.com/data/icons/system-shade-circles/512/gnome-32.png
 // @icon64          https://cdn1.iconfinder.com/data/icons/system-shade-circles/512/gnome-128.png
 
