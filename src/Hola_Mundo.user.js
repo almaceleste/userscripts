@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name            Hola Mundo
 // @namespace       almaceleste
-// @version         0.4.0
+// @version         0.4.1
 // @description     this code does nothing, just writes a welcome message to the console (contains an example of using GM_config)
 // @description:ru  этот код не делает ничего, только пишет приветственное сообщение в консоль (содержит пример использования GM_config)
 // @author          (ɔ) Paola Captanovska
-// @license         AGPL-3.0; http://www.gnu.org/licenses/agpl
+// @license         AGPL-3.0-or-later; http://www.gnu.org/licenses/agpl
 // @icon            https://cdn0.iconfinder.com/data/icons/typicons-2/24/message-32.png
 // @icon64          https://cdn0.iconfinder.com/data/icons/typicons-2/24/message-128.png
 
