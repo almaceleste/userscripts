@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            External link newtaber
 // @namespace       almaceleste
-// @version         0.3.1
+// @version         0.3.2
 // @description     opens external links in a new tab on all sites (now can work with dynamic link lists, such as search results)
 // @description:ru  открывает внешние ссылки в новой вкладке на всех сайтах (теперь должно работать с динамическими списками ссылок, такими как результаты поисковых запросов)
 // @author          (ɔ) Paola Captanovska
@@ -87,10 +87,10 @@ const windowcss = `
     }
     #${configId}_field_support {
         background: none !important;
-        border: none;
-        cursor: pointer;      
+        border: none !important;
+        cursor: pointer !important;      
         padding: 0 !important;
-        text-decoration: underline;
+        text-decoration: underline !important;
     }
     #${configId}_field_support:hover,
     #${configId}_resetLink:hover {
