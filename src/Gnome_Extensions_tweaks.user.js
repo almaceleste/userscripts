@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Gnome Extensions tweaks
 // @namespace       almaceleste
-// @version         0.4.4
+// @version         0.4.5
 // @description     opens extension pages in the new tab and changes a sort type of the extensions list
 // @description:ru  открывает страницы расширений в новой вкладке и изменяет сортировку списка расширений
 // @author          (ɔ) Paola Captanovska
