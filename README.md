@@ -77,7 +77,8 @@ opens package pages in new tab and minifies bulky pacckage list on the [OpenSuse
 * use settings to choose tweaks  
 
 #### [![](https://cdn1.iconfinder.com/data/icons/feather-2/24/external-link-16.png) External link newtaber](https://github.com/almaceleste/userscripts/raw/master/src/External_link_newtaber.user.js 'install')  
-[![External link newtaber](assets/img/eln-small.png)](assets/img/eln-big.png opens external links in new tab on all sites (at the moment does not support dynamic lists of links such as search results).  
+[![External link newtaber](assets/img/eln-small.png)](assets/img/eln-big.png)  
+opens external links in new tab on all sites (at the moment does not support dynamic lists of links such as search results).  
 * use settings to exclude parent, neighbor and child sites  
 * added settings to open new tab in background, set position of new tab and return to the parent tab on close
 
