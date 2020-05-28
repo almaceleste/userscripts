@@ -68,7 +68,7 @@ opens links from posts and answers in the new tab instead of annoying in-place o
 * this script should work in all StackExchange communities sites.  
 * use settings to choose which links will be affected.  
 
-#### [![](https://cdn1.iconfinder.com/data/icons/system-shade-circles/512/gnome-16.png) Gnome Extensions tweaks](https://github.com/almaceleste/userscripts/raw/master/Gnome_Extensions_tweaks.user.js 'install')  
+#### [![](https://cdn1.iconfinder.com/data/icons/system-shade-circles/512/gnome-16.png) Gnome Extensions tweaks](https://github.com/almaceleste/userscripts/raw/master/src/Gnome_Extensions_tweaks.user.js 'install')  
 opens the extension pages in the new tab and and changes default sorting of the extensions list on the `Extensions` nav button (works on the [Gnome Extensions](https://extensions.gnome.org) site)  
 * use settings to choose sorting type of extensions list.    
 
