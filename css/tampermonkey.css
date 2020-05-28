@@ -1,21 +1,92 @@
-.script_tab_head {
-    position: absolute;
-}
-.dark .tr_tabs {
-    background: none !important;
-}
-.tv {
-    position: absolute;
-}
+/* main page */
 .tv_container_fit {
-    top: 0;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 4.1em;
 }
 .tv_tabs_align {
     float: right;
 }
-.tv_tabs_fill {
-    height: 4em;
+.tr_tabs {
+    background: none !important;
+    height: 1px;
 }
+.tv_tabs_table {
+    bottom: -3px !important;
+    position: absolute !important;
+    right: 0 !important;
+}
+
+/* install/update page */
+.ask_action_buttons {
+    padding-bottom: 5px;
+}
+.editor_100 {
+    bottom: 3px;
+    left: 3px;
+    right: 3px;
+    position: absolute;
+    top: 3px;
+}
+.editor_400p_container_o {
+    min-height: unset;
+}
+.tv_content > .section:first-child {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+/* script code viewer */
+.viewer_bottom_tab {
+    height: 80%;
+    position: relative;
+    width: 100%;
+}
+.viewer_bottom_tab table,
+.viewer_bottom_tab tr,
+.viewer_bottom_tab td {
+    position: static !important;
+}
+.viewer_bottom_tab .tr_tabs_alt {
+    height: 0;
+}
+.viewer_bottom_tab .tv_tabs_fill_alt {
+    height: 0 !important;
+    position: relative !important;
+}
+.viewer_bottom_tab  .tv_tabs_table_alt {
+    display: inline-block !important;
+    left: unset !important;
+    position: absolute !important;
+    right: 0;
+    top: -23px !important;
+}
+.viewer_bottom_tab .tv_content {
+    height: 100% !important;
+    position: relative !important;
+    width: 100% !important;
+}
+/* install/update buttons */
+.viewer_last {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+}
+/* script info panel */
+.viewer_upper {
+    height: 19%;
+}
+.viewer_upper > div {
+    padding: .5em 0;
+}
+.viewer_upper > div > h3,h4 {
+    font-size: 1.2em !important;
+}
+
 /* for x-resolution 1280+ */
 @media screen and (min-width: 1280px) {
     .updateurl_input {
@@ -32,5 +103,12 @@
 @media screen and (min-width: 1920px) {
     .updateurl_input {
         width: 1300px;
+    }
+}
+
+/* mozilla & firefox */
+@-moz-document url-prefix(){
+    .viewer_upper > div {
+        font-size: 85%;
     }
 }
