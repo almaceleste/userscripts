@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.3.5
+// @version         0.3.6
 // @description     opens pages of scripts from lists in a new tab and makes the user interface more compact, informative and interactive
 // @description:ru  открывает страницы скриптов из списков в новой вкладке и делает пользовательский интерфейс более компактным, информативным и интерактивным
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -42,9 +42,11 @@ const totalinstalls = '.script-list-total-installs';
 const createddate = '.script-list-created-date';
 const updateddate = '.script-list-updated-date';
 const userprofile = '#user-profile';
-const controlpanel = '#control-panel';
-const discussions = '#user-discussions-on-scripts-written';
-const scriptsets = 'h3:contains("Script Sets")';
+
+const sections = {};
+sections.controlpanel = '#control-panel';
+sections.discussions = '#user-discussions-on-scripts-written';
+sections.scriptsets = 'section:has(h3:contains("Script Sets"))';
 
 const configId = 'greasyforktweaksCfg';
 const windowcss = `
@@ -216,7 +218,7 @@ GM_config.init({
     },
 });
 
-function collapse(element){
+function collapse(element, header){
     const arrow = $(`
         <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <style>
@@ -238,7 +240,7 @@ function collapse(element){
     $(element).css({
         cursor: 'pointer',
     })
-    .find('header h3').append(arrow);
+    .find(header).append(arrow);
     $(element).accordion({
         collapsible: true,
         active: false,
@@ -295,15 +297,13 @@ function collapse(element){
             })
         $(userprofile).slideUp();
     }
-    if (GM_config.get('controlpanel')){
-        collapse(controlpanel);
-    }
-    if (GM_config.get('discussions')){
-        collapse(discussions);
-    }
-    if (GM_config.get('scriptsets')){
-        collapse($(scriptsets).parents('section'));
-    }
+    
+    Object.keys(sections).forEach((section) => {
+        if (GM_config.get(section)) {
+            collapse(sections[section], 'header h3');
+        }
+    });
+
     if (GM_config.get('newtab')){
         $(listitem).each(function(){
             $(this).find(separator).prev('a').click(newtaber);
