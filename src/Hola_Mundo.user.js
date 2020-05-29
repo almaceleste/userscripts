@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Hola Mundo
 // @namespace       almaceleste
-// @version         0.5.2
+// @version         0.5.3
 // @description     does nothing, just writes a welcome message to the console. a very simple userscript that illustrates the use of the GM_config library, remote resources, themes and some common userscript mechanics
 // @description:ru  не делает ничего, просто пишет приветственное сообщение в консоль. очень простой пользовательский скрипт, который иллюстрирует использование библиотеки GM_config, удаленных ресурсов, тем и некоторых общих механик пользовательского скрипта
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -21,8 +21,8 @@
 // @grant           GM_getValue
 // @grant           GM_setValue
 // @grant           GM_registerMenuCommand
-// @grant           GM_getResourceText
 // @grant           GM_openInTab
+// @grant           GM_getResourceText
 
 // @resource        css https://github.com/almaceleste/userscripts/raw/master/css/default.css
 
