@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.3.10
+// @version         0.4.0
 // @description     opens pages of scripts from lists in a new tab and makes the user interface more compact, informative and interactive
 // @description:ru  открывает страницы скриптов из списков в новой вкладке и делает пользовательский интерфейс более компактным, информативным и интерактивным
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -24,6 +24,9 @@
 // @grant           GM_setValue
 // @grant           GM_registerMenuCommand
 // @grant           GM_openInTab
+// @grant           GM_getResourceText
+
+// @resource        css https://github.com/almaceleste/userscripts/raw/master/css/default.css
 
 // @match           https://greasyfork.org/*/users/*
 // @match           https://greasyfork.org/*/scripts*
@@ -53,72 +56,16 @@ sections.discussions = '#user-discussions-on-scripts-written';
 sections.scriptsets = 'section:has(h3:contains("Script Sets"))';
 
 const configId = 'greasyforktweaksCfg';
-const windowcss = `
-    #${configId} {
-        background-color: darkslategray;
-        color: whitesmoke;
-    }
-    #${configId} a,
-    #${configId} button,
-    #${configId} input,
-    #${configId} select,
-    #${configId} select option,
-    #${configId} .section_desc {
-        color: whitesmoke !important;
-    }
-    #${configId} a,
-    #${configId} button,
-    #${configId} input,
-    #${configId} .section_desc {
-        font-size: .8em !important;
-    }
-    #${configId} button,
-    #${configId} input,
-    #${configId} select,
-    #${configId} select option,
-    #${configId} .section_desc {
-        background-color: #333;
-        border: 1px solid #222;
-    }
-    #${configId} button{
-        height: 1.65em !important;
-    }
-    #${configId}_header {
-        font-size: 1.3em !important;
-    }
-    #${configId}.section_header {
-        background-color: #454545;
-        border: 1px solid #222;
-        font-size: 1em !important;
-    }
-    #${configId} .field_label {
-        font-size: .7em !important;
-    }
-    #${configId}_buttons_holder {
-        position: fixed;
-        width: 97%;
-        bottom: 0;
-    }
-    #${configId} .reset_holder {
-        float: left;
-        position: relative;
-        bottom: -1em;
-    }
-    #${configId} .saveclose_buttons {
-        margin: .7em;
-    }
-    #${configId}_field_support {
-        background: none !important;
-        border: none !important;
-        cursor: pointer !important;      
-        padding: 0 !important;
-        text-decoration: underline !important;
-    }
-    #${configId}_field_support:hover,
-    #${configId}_resetLink:hover {
-        filter: drop-shadow(0 0 1px dodgerblue);
-    }
-`;
+const iconUrl = GM_info.script.icon64;
+const pattern = {};
+pattern[`#${configId}`] = /#configId/g;
+pattern[`${iconUrl}`] = /iconUrl/g;
+
+let css = GM_getResourceText('css');
+Object.keys(pattern).forEach((key) => {
+    css = css.replace(pattern[key], key);
+});
+const windowcss = css;
 const iframecss = `
     height: 455px;
     width: 435px;
