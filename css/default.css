@@ -32,8 +32,14 @@
 }
 #configId_header::before {
     background: url(iconUrl);
+    background-size: 24px;
+    background-repeat: no-repeat;
     content: '';
+    display: inline-block;
     height: 24px;
+    padding-right: 5px;
+    position: absolute;
+    transform: translateX(-100%);
     width: 24px;
 }
 #configId.section_header {
