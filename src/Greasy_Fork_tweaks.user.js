@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.3.8
+// @version         0.3.9
 // @description     opens pages of scripts from lists in a new tab and makes the user interface more compact, informative and interactive
 // @description:ru  открывает страницы скриптов из списков в новой вкладке и делает пользовательский интерфейс более компактным, информативным и интерактивным
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -288,7 +288,7 @@ function compact(first, second){
 
     if (GM_config.get('version')){
         $(listitem).each(function(){
-            $(this).find(separator).after(($(this).attr(scriptversion)));
+            $(this).find(separator).before(` ${$(this).attr(scriptversion)}`);
         });
     }
     if (GM_config.get('compact')){
