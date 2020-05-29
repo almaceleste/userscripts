@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.3.4
+// @version         0.3.5
 // @description     opens pages of scripts from lists in a new tab and makes the user interface more compact, informative and interactive
 // @description:ru  открывает страницы скриптов из списков в новой вкладке и делает пользовательский интерфейс более компактным, информативным и интерактивным
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -217,13 +217,45 @@ GM_config.init({
 });
 
 function collapse(element){
-    const arrow = $('<span>▼</span>');
-    $(element)
-    .accordion({
-        collapsible: true,
-        active: false
+    const arrow = $(`
+        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <style>
+                .collapsed {
+                    transform: rotate(0deg);
+                }
+                .expanded {
+                    transform: rotate(180deg);
+                }
+            </style>
+            <text x='0' y='18'>▼</text>
+        </svg>
+    `).css({
+        fill: 'whitesmoke',
+        height: '20px',
+        width: '30px',
+    });
+
+    $(element).css({
+        cursor: 'pointer',
     })
     .find('header h3').append(arrow);
+    $(element).accordion({
+        collapsible: true,
+        active: false,
+        beforeActivate: () => {
+            if ($(arrow).hasClass('expanded')) {
+                $(arrow).animate({
+                    transform: 'rotate(0deg)',
+                });
+            }
+            else {
+                $(arrow).animate({
+                    transform: 'rotate(180deg)',
+                });
+            }
+            $(arrow).toggleClass('expanded');
+        }
+    });
 }
 
 (function() {
