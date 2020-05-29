@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.3.7
+// @version         0.3.8
 // @description     opens pages of scripts from lists in a new tab and makes the user interface more compact, informative and interactive
 // @description:ru  открывает страницы скриптов из списков в новой вкладке и делает пользовательский интерфейс более компактным, информативным и интерактивным
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -41,7 +41,6 @@ const dailyinstalls = '.script-list-daily-installs';
 const totalinstalls = '.script-list-total-installs';
 const createddate = '.script-list-created-date';
 const updateddate = '.script-list-updated-date';
-// const userprofile = '#user-profile';
 
 const userprofile = {};
 userprofile.path = '#user-profile';
@@ -271,6 +270,17 @@ function rotate(element){
     $(element).toggleClass('expanded');
 }
 
+function compact(first, second){
+    $('dt' + first).each(function(){
+        $(this).css('display','none');
+        $(this).siblings('dt' + second).find('span').append(' (' + $(this).find('span').text() + ')');
+    });
+    $('dd' + first).each(function(){
+        $(this).css('display','none');
+        $(this).siblings('dd' + second).find('span').append(' (' + $(this).find('span').text() + ')');
+    });
+}
+
 (function() {
     'use strict';
 
@@ -283,22 +293,8 @@ function rotate(element){
     }
     if (GM_config.get('compact')){
         $(scriptstats).children().css('width','auto');
-        $('dt' + totalinstalls).each(function(){
-            $(this).css('display','none');
-            $(this).siblings('dt' + dailyinstalls).find('span').append(' (' + $(this).find('span').text() + ')');
-        });
-        $('dd' + totalinstalls).each(function(){
-            $(this).css('display','none');
-            $(this).siblings('dd' + dailyinstalls).find('span').append(' (' + $(this).find('span').text() + ')');
-        });
-        $('dt' + updateddate).each(function(){
-            $(this).css('display','none');
-            $(this).siblings('dt' + createddate).find('span').append(' (' + $(this).find('span').text() + ')');
-        });
-        $('dd' + updateddate).each(function(){
-            $(this).css('display','none');
-            $(this).siblings('dd' + createddate).find('span').append(' (' + $(this).find('span').text() + ')');
-        });
+        compact(totalinstalls, dailyinstalls);
+        compact(updateddate, createddate);
     }
     if (GM_config.get('userprofile')){
         $(userprofile.header).css({
@@ -306,7 +302,7 @@ function rotate(element){
             })
             .click(function(){
                 $(userprofile.path).slideToggle();
-                rotate($(userprofile.header).find('svg'));
+                rotate($(this).find('svg'));
             });
         arrow($(userprofile.header));
         $(userprofile.path).slideUp();
