@@ -41,7 +41,11 @@ const dailyinstalls = '.script-list-daily-installs';
 const totalinstalls = '.script-list-total-installs';
 const createddate = '.script-list-created-date';
 const updateddate = '.script-list-updated-date';
-const userprofile = '#user-profile';
+// const userprofile = '#user-profile';
+
+const userprofile = {};
+userprofile.path = '#user-profile';
+userprofile.header = 'body > div.width-constraint > section:first-child > h2';
 
 const sections = {};
 sections.controlpanel = '#control-panel';
@@ -245,19 +249,23 @@ function collapse(element, header){
         collapsible: true,
         active: false,
         beforeActivate: () => {
-            if ($(arrow).hasClass('expanded')) {
-                $(arrow).animate({
-                    transform: 'rotate(0deg)',
-                });
-            }
-            else {
-                $(arrow).animate({
-                    transform: 'rotate(180deg)',
-                });
-            }
-            $(arrow).toggleClass('expanded');
+            rotate($(arrow));
         }
     });
+}
+
+function rotate(element){
+    if ($(element).hasClass('expanded')) {
+        $(element).animate({
+            transform: 'rotate(0deg)',
+        });
+    }
+    else {
+        $(element).animate({
+            transform: 'rotate(180deg)',
+        });
+    }
+    $(element).toggleClass('expanded');
 }
 
 (function() {
@@ -290,12 +298,13 @@ function collapse(element, header){
         });
     }
     if (GM_config.get('userprofile')){
-        $(userprofile).parent().children('h2')
+        $(userprofile.header)
             .append('<span>▼</span>')
             .click(function(){
-                $(userprofile).slideToggle();
+                $(userprofile.path).slideToggle();
             })
-        $(userprofile).slideUp();
+        $(userprofile.path).slideUp();
+
     }
     
     Object.keys(sections).forEach((section) => {
