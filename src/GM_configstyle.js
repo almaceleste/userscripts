@@ -24,7 +24,30 @@
 // @author almaceleste
 // ==/OpenUserJS==
 
-const GM_configstyle = {};
+const GM_configstyle = {
+    default: null,
+    dark: null,
+    light: null,
+    configId: null,
+
+    style: (style, configId) => {
+
+    }
+};
+
+function getstyle(url){
+    const name = url.split('/').pop().split('#').shift().split('?').shift();
+    const ext = name.split('.').pop();
+    if (ext !== 'css'){
+        console.error(`${GM_info.script.name}: ${url} is not css-file`);
+        return '';
+    }
+    fetch(url).then((response) => {
+        response.text().then((css) => {
+            return css;
+        });
+    });
+}
 
 GM_configstyle.style = (style, configId) => {
     const defaultId = (typeof configId === 'undefined') ? 'configCfg' : configId;
