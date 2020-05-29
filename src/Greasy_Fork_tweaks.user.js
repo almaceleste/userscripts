@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.3.2
+// @version         0.3.3
 // @description     opens pages of scripts from lists in a new tab and makes the user interface more compact, informative and interactive
 // @description:ru  открывает страницы скриптов из списков в новой вкладке и делает пользовательский интерфейс более компактным, информативным и интерактивным
-// @author          (ɔ) Paola Captanovska
+// @author          (ɔ) almaceleste  (https://almaceleste.github.io)
 // @license         AGPL-3.0-or-later; http://www.gnu.org/licenses/agpl.txt
 // @icon            https://greasyfork.org/assets/blacklogo16-bc64b9f7afdc9be4cbfa58bdd5fc2e5c098ad4bca3ad513a27b15602083fd5bc.png
 // @icon64          https://greasyfork.org/assets/blacklogo96-e0c2c76180916332b7516ad47e1e206b42d131d36ff4afe98da3b1ba61fd5d6c.png
@@ -113,13 +113,21 @@ const windowcss = `
         filter: drop-shadow(0 0 1px dodgerblue);
     }
 `;
+// const iframecss = `
+//     height: 29em;
+//     width: 30em;
+//     border: 1px solid;
+//     border-radius: 3px;
+//     position: fixed;
+//     z-index: 999;
+// `;
 const iframecss = `
-    height: 29em;
-    width: 30em;
+    height: 435px;
+    width: 435px;
     border: 1px solid;
     border-radius: 3px;
     position: fixed;
-    z-index: 999;
+    z-index: 9999;
 `;
 
 GM_registerMenuCommand(`${GM_info.script.name} Settings`, () => {
@@ -247,7 +255,7 @@ GM_config.init({
     }
     if (GM_config.get('userprofile')){
         $(userprofile).parent().children('h2')
-            .append('<span>&#9660</span>')
+            .append('<span>▼</span>')
             .click(function(){
                 $(userprofile).slideToggle();
             })
@@ -259,7 +267,7 @@ GM_config.init({
                 collapsible: true,
                 active: false
             })
-            .find('header h3').append('<span>&#9660</span>')
+            .find('header h3').append('<span>▼</span>')
     }
     if (GM_config.get('discussions')){
         $(discussions)
@@ -267,7 +275,7 @@ GM_config.init({
                 collapsible: true,
                 active: false
             })
-            .find('header h3').append('<span>&#9660</span>')
+            .find('header h3').append('<span>▼</span>')
     }
     if (GM_config.get('scriptsets')){
         $(scriptsets).parents('section')
@@ -275,7 +283,7 @@ GM_config.init({
                 collapsible: true,
                 active: false
             })
-            .find('header h3').append('<span>&#9660</span>')
+            .find('header h3').append('<span>▼</span>')
     }
     if (GM_config.get('newtab')){
         $(listitem).each(function(){
