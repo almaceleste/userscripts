@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.3.3
+// @version         0.3.4
 // @description     opens pages of scripts from lists in a new tab and makes the user interface more compact, informative and interactive
 // @description:ru  открывает страницы скриптов из списков в новой вкладке и делает пользовательский интерфейс более компактным, информативным и интерактивным
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -113,14 +113,6 @@ const windowcss = `
         filter: drop-shadow(0 0 1px dodgerblue);
     }
 `;
-// const iframecss = `
-//     height: 29em;
-//     width: 30em;
-//     border: 1px solid;
-//     border-radius: 3px;
-//     position: fixed;
-//     z-index: 999;
-// `;
 const iframecss = `
     height: 435px;
     width: 435px;
@@ -224,6 +216,16 @@ GM_config.init({
     },
 });
 
+function collapse(element){
+    const arrow = $('<span>▼</span>');
+    $(element)
+    .accordion({
+        collapsible: true,
+        active: false
+    })
+    .find('header h3').append(arrow);
+}
+
 (function() {
     'use strict';
 
@@ -262,28 +264,13 @@ GM_config.init({
         $(userprofile).slideUp();
     }
     if (GM_config.get('controlpanel')){
-        $(controlpanel)
-            .accordion({
-                collapsible: true,
-                active: false
-            })
-            .find('header h3').append('<span>▼</span>')
+        collapse(controlpanel);
     }
     if (GM_config.get('discussions')){
-        $(discussions)
-            .accordion({
-                collapsible: true,
-                active: false
-            })
-            .find('header h3').append('<span>▼</span>')
+        collapse(discussions);
     }
     if (GM_config.get('scriptsets')){
-        $(scriptsets).parents('section')
-            .accordion({
-                collapsible: true,
-                active: false
-            })
-            .find('header h3').append('<span>▼</span>')
+        collapse($(scriptsets).parents('section'));
     }
     if (GM_config.get('newtab')){
         $(listitem).each(function(){
