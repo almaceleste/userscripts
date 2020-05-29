@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.3.9
+// @version         0.3.10
 // @description     opens pages of scripts from lists in a new tab and makes the user interface more compact, informative and interactive
 // @description:ru  открывает страницы скриптов из списков в новой вкладке и делает пользовательский интерфейс более компактным, информативным и интерактивным
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -36,6 +36,7 @@
 const listitem = '.script-list li';
 const separator = '.name-description-separator';
 const scriptversion = 'data-script-version';
+const scriptrating = 'dd.script-list-ratings';
 const scriptstats = '.inline-script-stats';
 const dailyinstalls = '.script-list-daily-installs';
 const totalinstalls = '.script-list-total-installs';
@@ -119,7 +120,7 @@ const windowcss = `
     }
 `;
 const iframecss = `
-    height: 435px;
+    height: 455px;
     width: 435px;
     border: 1px solid;
     border-radius: 3px;
@@ -139,6 +140,12 @@ GM_config.init({
         version: {
             section: ['', 'Script list options (own and other pages)'],
             label: 'add script version number in the list of scripts',
+            labelPos: 'right',
+            type: 'checkbox',
+            default: true,
+        },
+        ratingscore: {
+            label: 'display script rating score',
             labelPos: 'right',
             type: 'checkbox',
             default: true,
@@ -289,6 +296,11 @@ function compact(first, second){
     if (GM_config.get('version')){
         $(listitem).each(function(){
             $(this).find(separator).before(` ${$(this).attr(scriptversion)}`);
+        });
+    }
+    if (GM_config.get('ratingscore')) {
+        $(scriptrating).each(function(){
+            $(this).children('span').after(` - ${$(this).attr('data-rating-score')}`);
         });
     }
     if (GM_config.get('compact')){
