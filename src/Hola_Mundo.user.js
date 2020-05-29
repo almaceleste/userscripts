@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Hola Mundo
 // @namespace       almaceleste
-// @version         0.5.3
+// @version         0.5.4
 // @description     does nothing, just writes a welcome message to the console. a very simple userscript that illustrates the use of the GM_config library, remote resources, themes and some common userscript mechanics
 // @description:ru  не делает ничего, просто пишет приветственное сообщение в консоль. очень простой пользовательский скрипт, который иллюстрирует использование библиотеки GM_config, удаленных ресурсов, тем и некоторых общих механик пользовательского скрипта
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -52,7 +52,7 @@ Object.keys(pattern).forEach((key) => {
 const windowcss = css;
 // main parameters of the settings window (frame). specific to each script due to the different amount of the parameters in each script
 const iframecss = `
-    height: 260px;
+    height: 265px;
     width: 435px;
     border: 1px solid;
     border-radius: 3px;
