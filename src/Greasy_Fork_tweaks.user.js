@@ -302,7 +302,6 @@ function rotate(element){
     }
     if (GM_config.get('userprofile')){
         $(userprofile.header)
-            // .append('<span>▼</span>')
             .click(function(){
                 $(userprofile.path).slideToggle();
                 rotate($(userprofile.header).find('svg'));
