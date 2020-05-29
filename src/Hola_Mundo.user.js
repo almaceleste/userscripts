@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name            Hola Mundo
 // @namespace       almaceleste
-// @version         0.4.3
-// @description     this code does nothing, just writes a welcome message to the console (contains an example of using the GM_config library)
-// @description:ru  этот код не делает ничего, только пишет приветственное сообщение в консоль (содержит пример использования GM_config)
-// @author          (ɔ) Paola Captanovska
+// @version         0.5.0
+// @description     does nothing, just writes a welcome message to the console. a very simple userscript that illustrates the use of the GM_config library, remote resources, themes and some common userscript mechanics
+// @description:ru  не делает ничего, просто пишет приветственное сообщение в консоль. очень простой пользовательский скрипт, который иллюстрирует использование библиотеки GM_config, удаленных ресурсов, тем и некоторых общих механик пользовательского скрипта
+// @author          (ɔ) almaceleste  (https://almaceleste.github.io)
 // @license         AGPL-3.0-or-later; http://www.gnu.org/licenses/agpl
 // @icon            https://cdn0.iconfinder.com/data/icons/typicons-2/24/message-32.png
 // @icon64          https://cdn0.iconfinder.com/data/icons/typicons-2/24/message-128.png
@@ -21,6 +21,9 @@
 // @grant           GM_getValue
 // @grant           GM_setValue
 // @grant           GM_registerMenuCommand
+// @grant           GM_getResourceText
+
+// @resource        css https://github.com/almaceleste/userscripts/raw/master/css/default.css
 
 // @match           http*://*/*
 // ==/UserScript==
@@ -29,73 +32,24 @@
 // @author almaceleste
 // ==/OpenUserJS==
 
+// set id that will used for an id of the settings window (frame)
 const configId = 'holamundoCfg';
-const windowcss = `
-    #${configId} {
-        background-color: darkslategray;
-        color: whitesmoke;
-    }
-    #${configId} a,
-    #${configId} button,
-    #${configId} input,
-    #${configId} select,
-    #${configId} select option,
-    #${configId} .section_desc {
-        color: whitesmoke !important;
-    }
-    #${configId} a,
-    #${configId} button,
-    #${configId} input,
-    #${configId} .section_desc {
-        font-size: .8em !important;
-    }
-    #${configId} button,
-    #${configId} input,
-    #${configId} select,
-    #${configId} select option,
-    #${configId} .section_desc {
-        background-color: #333;
-        border: 1px solid #222;
-    }
-    #${configId} button{
-        height: 1.65em !important;
-    }
-    #${configId}_header {
-        font-size: 1.3em !important;
-    }
-    #${configId}.section_header {
-        background-color: #454545;
-        border: 1px solid #222;
-        font-size: 1em !important;
-    }
-    #${configId} .field_label {
-        font-size: .7em !important;
-    }
-    #${configId}_buttons_holder {
-        position: fixed;
-        width: 97%;
-        bottom: 0;
-    }
-    #${configId} .reset_holder {
-        float: left;
-        position: relative;
-        bottom: -1em;
-    }
-    #${configId} .saveclose_buttons {
-        margin: .7em;
-    }
-    #${configId}_field_support {
-        background: none !important;
-        border: none !important;
-        cursor: pointer !important;      
-        padding: 0 !important;
-        text-decoration: underline !important;
-    }
-    #${configId}_field_support:hover,
-    #${configId}_resetLink:hover {
-        filter: drop-shadow(0 0 1px dodgerblue);
-    }
-`;
+// set url to a usercript icon in the settings window
+const iconUrl = GM_info.script.icon64;
+
+// set patterns for replacing specific selectors in a default, centralized css (for settings window)
+const pattern = {};
+pattern[`#${configId}`] = /#configId/g;
+pattern[`${iconUrl}`] = /iconUrl/g;
+
+// get remote default css
+let css = GM_getResourceText('css');
+// iterate patterns and replace found substrings with them
+Object.keys(pattern).forEach((key) => {
+    css = css.replace(pattern[key], key);
+});
+const windowcss = css;
+// main parameters of the settings window (frame). specific to each script due to the different amount of the parameters in each script
 const iframecss = `
     height: 19em;
     width: 30em;
@@ -105,11 +59,13 @@ const iframecss = `
     z-index: 999;
 `;
 
+// register settings menu in a userscript manager (Tampermonkey, Greasemonkey or other)
 GM_registerMenuCommand(`${GM_info.script.name} Settings`, () => {
 	GM_config.open();
     GM_config.frame.style = iframecss;
 });
 
+// definition of the settings parameters for the script
 GM_config.init({
     id: `${configId}`,
     title: `${GM_info.script.name} ${GM_info.script.version}`,
@@ -155,8 +111,22 @@ GM_config.init({
     },
 });
 
+// functions that are used in the main function
+function echo(message){
+    console.log(message);
+}
+
+// userscipt main function that started when page are loaded
 (function() {
     'use strict';
 
-    console.log(`${GM_config.get('exclamation') ? '¡' : ''}${GM_config.get('greeting')}, ${GM_config.get('appeal')}!`);
+    // set greeting message
+    let greeting;
+    // use checkbox parameter as boolean to determine whether an inverted exclamation mark is needed or not
+    greeting = `${GM_config.get('exclamation') ? '¡' : ''}`;
+    // add greeting words
+    greeting += `${GM_config.get('greeting')}, ${GM_config.get('appeal')}!`;
+    
+    // call messaging function
+    echo(greeting);
 })();
