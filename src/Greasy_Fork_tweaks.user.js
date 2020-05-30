@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.4.1
+// @version         0.4.2
 // @description     opens pages of scripts from lists in a new tab and makes the user interface more compact, informative and interactive
 // @description:ru  открывает страницы скриптов из списков в новой вкладке и делает пользовательский интерфейс более компактным, информативным и интерактивным
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -249,6 +249,8 @@ function newtaber(e){
     const newtab = GM_config.get('newtab');
 
     if (GM_config.get('userprofile')){
+        $(userprofile.path).slideUp();
+        arrow($(userprofile.header));
         $(userprofile.header).css({
                 cursor: 'pointer',
             })
@@ -256,8 +258,6 @@ function newtaber(e){
                 $(userprofile.path).slideToggle();
                 rotate($(this).find('svg'));
             });
-        arrow($(userprofile.header));
-        $(userprofile.path).slideUp();
     }
     
     Object.keys(sections).forEach((section) => {
