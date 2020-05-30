@@ -245,21 +245,9 @@ function newtaber(e){
 (function() {
     'use strict';
 
-    if (GM_config.get('version')){
-        $(listitem).each(function(){
-            $(this).find(separator).before(` ${$(this).attr(scriptversion)}`);
-        });
-    }
-    if (GM_config.get('ratingscore')) {
-        $(scriptrating).each(function(){
-            $(this).children('span').after(` - ${$(this).attr('data-rating-score')}`);
-        });
-    }
-    if (GM_config.get('compact')){
-        $(scriptstats).children().css('width','auto');
-        compact(totalinstalls, dailyinstalls);
-        compact(updateddate, createddate);
-    }
+    const version = GM_config.get('version');
+    const newtab = GM_config.get('newtab');
+
     if (GM_config.get('userprofile')){
         $(userprofile.header).css({
                 cursor: 'pointer',
@@ -277,10 +265,22 @@ function newtaber(e){
             collapse(sections[section], 'header h3');
         }
     });
-
-    if (GM_config.get('newtab')){
-        $(listitem).each(function(){
+    $(listitem).each(function(){
+        if (version){
+            $(this).find(separator).before(` ${$(this).attr(scriptversion)}`);
+        }
+        if (newtab){
             $(this).find(separator).prev('a').click(newtaber);
+        }
+    });
+    if (GM_config.get('ratingscore')) {
+        $(scriptrating).each(function(){
+            $(this).children('span').after(` - ${$(this).attr('data-rating-score')}`);
         });
+    }
+    if (GM_config.get('compact')){
+        $(scriptstats).children().css('width','auto');
+        compact(totalinstalls, dailyinstalls);
+        compact(updateddate, createddate);
     }
 })();
