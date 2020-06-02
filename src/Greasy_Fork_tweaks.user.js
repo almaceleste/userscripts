@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.5.0
+// @version         0.5.1
 // @description     opens pages of scripts from lists in a new tab and makes the user interface more compact, informative and interactive
 // @description:ru  открывает страницы скриптов из списков в новой вкладке и делает пользовательский интерфейс более компактным, информативным и интерактивным
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -36,7 +36,6 @@
 // @author almaceleste
 // ==/OpenUserJS==
 
-const state = {};
 const route = {};
 route.userpage = /^\/.*\/users\/.*/;
 route.scriptpage = /^\/.*\/scripts\/.*/;
@@ -517,7 +516,7 @@ function doUpdates(page){
             maxWidth: 'unset',
         });
         const stats = $(item).find(target);
-        if (typeof url == 'undefined') url = `${$(item).find(scripturl).attr('href')}/stats.json`;
+        if (page != 'script') url = `${$(item).find(scripturl).attr('href')}/stats.json`;
 
         const updatesperiods = GM_config.get('updatesperiods');
         if (Object.keys(updatesperiods).length > 0) {
