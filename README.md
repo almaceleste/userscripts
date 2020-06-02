@@ -96,6 +96,7 @@ opens scripts pages in new tab from lists and compacts user interface.
 [![Hola Mundo](assets/img/hm-small.png)](assets/img/hm-big.png 'Hola Mundo')  
 does nothing, just writes a welcome message to the console. 
 * a very simple userscript that illustrates the use of the GM_config library, remote resources, themes and some common userscript mechanics
+* if you need an example of the custom GM_config field see [Greasy Fork tweaks](#-greasy-fork-tweaks) script
 
 ### support me
 <!-- [![Beerpay](https://beerpay.io/almaceleste/userscripts/badge.svg?style=beer-square)](https://beerpay.io/almaceleste/userscripts) [![Beerpay](https://beerpay.io/almaceleste/userscripts/make-wish.svg?style=flat-square)](https://beerpay.io/almaceleste/userscripts?focus=wish) -->
