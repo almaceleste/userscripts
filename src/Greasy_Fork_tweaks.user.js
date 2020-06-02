@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.4.2
+// @version         0.5.0
 // @description     opens pages of scripts from lists in a new tab and makes the user interface more compact, informative and interactive
 // @description:ru  открывает страницы скриптов из списков в новой вкладке и делает пользовательский интерфейс более компактным, информативным и интерактивным
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -36,7 +36,14 @@
 // @author almaceleste
 // ==/OpenUserJS==
 
-const listitem = '.script-list li';
+const state = {};
+const route = {};
+route.userpage = /^\/.*\/users\/.*/;
+route.scriptpage = /^\/.*\/scripts\/.*/;
+route.searchpage = /^\/.*\/scripts$/;
+
+
+const listitem = '.script-list > li';
 const separator = '.name-description-separator';
 const scriptversion = 'data-script-version';
 const scriptrating = 'dd.script-list-ratings';
@@ -45,6 +52,8 @@ const dailyinstalls = '.script-list-daily-installs';
 const totalinstalls = '.script-list-total-installs';
 const createddate = '.script-list-created-date';
 const updateddate = '.script-list-updated-date';
+
+const scripturl = 'article h2 a';
 
 const userprofile = {};
 userprofile.path = '#user-profile';
@@ -67,7 +76,7 @@ Object.keys(pattern).forEach((key) => {
 });
 const windowcss = css;
 const iframecss = `
-    height: 455px;
+    height: 530px;
     width: 435px;
     border: 1px solid;
     border-radius: 3px;
@@ -96,6 +105,22 @@ GM_config.init({
             labelPos: 'right',
             type: 'checkbox',
             default: true,
+        },
+        updates: {
+            label: 'display update checks information',
+            labelPos: 'right',
+            type: 'checkbox',
+            default: true,
+        },
+        updatesperiods: {
+            type: 'multiselect',
+            options: {
+                daily: 1,
+                weekly: 7,
+                monthly: 30,
+                total: 0
+            },
+            default: {daily: 1, weekly: 7},
         },
         compact: {
             label: 'compact script information',
@@ -166,6 +191,126 @@ GM_config.init({
                 });
             }
         },
+    },
+    types: {
+        multiselect: {
+            default: {},
+            toNode: function() {
+                let field = this.settings,
+                    value = this.value,
+                    options = field.options,
+                    id = this.id,
+                    configId = this.configId,
+                    labelPos = field.labelPos,
+                    create = this.create;
+
+                // console.log('toNode:', field, value, options);
+                function addLabel(pos, labelEl, parentNode, beforeEl) {
+                    if (!beforeEl) beforeEl = parentNode.firstChild;
+                    switch (pos) {
+                        case 'right': case 'below':
+                            if (pos == 'below')
+                                parentNode.appendChild(create('br', {}));
+                            parentNode.appendChild(labelEl);
+                            break;
+                        default:
+                            if (pos == 'above')
+                                parentNode.insertBefore(create('br', {}), beforeEl);
+                            parentNode.insertBefore(labelEl, beforeEl);
+                    }
+                }
+
+                let retNode = create('div', { 
+                        className: 'config_var multiselect',
+                        id: `${configId}_${id}_var`,
+                        title: field.title || ''
+                    }),
+                    firstProp;
+            
+                // Retrieve the first prop
+                for (let i in field) { firstProp = i; break; }
+            
+                let label = field.label ? create('label', {
+                        className: 'field_label',
+                        id: `${configId}_${id}_field_label`,
+                        for: `${configId}_field_${id}`,
+                    }, field.label) : null;
+      
+                let wrap = create('ul', {
+                    id: `${configId}_field_${id}`
+                });
+                this.node = wrap;
+
+                for (const key in options) {
+                    // console.log('toNode:', key);
+                    const inputId = `${configId}_${id}_${key}_checkbox`;
+                    const li = wrap.appendChild(create('li', {
+                    }));
+                    li.appendChild(create('input', {
+                        checked: value.hasOwnProperty(key),
+                        id: inputId,
+                        type: 'checkbox',
+                        value: options[key],
+                    }));
+                    li.appendChild(create('label', {
+                        className: 'option_label',
+                        for: inputId,
+                    }, key));
+                }
+
+                retNode.appendChild(wrap);
+
+                if (label) {
+                    // If the label is passed first, insert it before the field
+                    // else insert it after
+                    if (!labelPos)
+                        labelPos = firstProp == "label" ? "left" : "right";
+              
+                    addLabel(labelPos, label, retNode);
+                }
+                
+                return retNode;
+            },
+            toValue: function() {
+                let node = this.node,
+                    id = node.id,
+                    options = this.settings.options,
+                    rval = {};
+
+                // console.log('toValue:', node, options, this);
+
+                if (!node) return rval;
+
+                let nodelist = node.querySelectorAll(`#${id} input:checked`);
+                // console.log('nodelist:', document.querySelectorAll(`#${id} input:checked`), nodelist);
+                nodelist.forEach((input) => {
+                    // console.log('toValue:', input);
+                    const value = input.value;
+                    const key = Object.keys(options).find((key) => options[key] == value);
+                    rval[key] = value;
+                });
+
+                // console.log('toValue:', rval);
+                return rval;
+            },
+            reset: function() {
+                let node = this.node,
+                    values = this.default;
+
+                // console.log('reset:', node, values, Object.values(values));
+                const inputs = node.getElementsByTagName('input');
+                for (const index in inputs) {
+                    const input = inputs[index];
+                    // console.log('reset:', input.value, Object.values(values).includes(input.value) || Object.values(values).includes(+input.value));
+                    if (Object.values(values).includes(input.value) || Object.values(values).includes(+input.value)) {
+                        if (!input.checked) input.click();
+                    }
+                    else {
+                        if (input.checked) input.click();
+                    }
+                }
+            }
+        }
     },
     css: windowcss,
     events: {
@@ -242,29 +387,105 @@ function newtaber(e){
     GM_openInTab(e.target.href, options);
 }
 
-(function() {
-    'use strict';
+function getjson(url){
+    fetch(url).then((response) => {
+        // console.log('getjson:', response);
+        response.json().then((json) => {
+            console.log('getjson:', json);
+        });
+    });
+}
 
-    const version = GM_config.get('version');
-    const newtab = GM_config.get('newtab');
-
-    if (GM_config.get('userprofile')){
-        $(userprofile.path).slideUp();
-        arrow($(userprofile.header));
-        $(userprofile.header).css({
-                cursor: 'pointer',
-            })
-            .click(function(){
-                $(userprofile.path).slideToggle();
-                rotate($(this).find('svg'));
-            });
+function sumlast(array, number, prop){
+    if (number != 0) {
+        array = array.slice(-number);
     }
-    
+    let result = array.reduce((sum, next) => {
+        return sum + next[prop];
+    }, 0);
+    return result;
+}
+
+function getupdates(url, target){
+    fetch(url).then((response) => {
+        response.json().then((json) => {
+            const data = Object.values(json);
+
+            const updatesperiods = GM_config.get('updatesperiods');
+
+            for (const period in updatesperiods) {
+                const updates = sumlast(data, updatesperiods[period], 'update_checks');
+                $('<span></span>', {
+                    title: period,
+                }).text(updates).appendTo(target);
+            }
+        });
+    });
+}
+
+function doCompact(){
+    if (GM_config.get('compact')){
+        $(scriptstats).children().css('width','auto');
+        compact(totalinstalls, dailyinstalls);
+        compact(updateddate, createddate);
+    }
+}
+
+function doRating(page){
+    switch (page) {
+        case 'user':
+        case 'search':
+            $(scriptrating).each(function(){
+                let rating = $(this).attr('data-rating-score');
+                $(this).children('span').after(` - ${rating}`);
+            });
+            break;
+        case 'script':
+            $(scriptrating).each(function(){
+                const author = '#script-stats > .script-show-author > span > a';
+                const url = `${window.location.origin}${$(author).attr('href')}`;
+                const scriptId = '#script-content > .script-in-sets > input[name="script_id"]';
+                const id = $(scriptId).val();
+
+                fetch(url).then((response) => {
+                    response.text().then((data) => {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(data, 'text/html');
+                        const el = doc.querySelector(`#user-script-list li[data-script-id="${id}"]`);
+
+                        $(this).children('span').after(` - ${el.dataset.scriptRatingScore}`);
+                    });
+                });
+            });
+            break;
+        default:
+            break;
+    }
+}
+
+function doCollapse(){
     Object.keys(sections).forEach((section) => {
         if (GM_config.get(section)) {
             collapse(sections[section], 'header h3');
         }
     });
+}
+
+function doProfile(){
+    $(userprofile.path).slideUp();
+    arrow($(userprofile.header));
+    $(userprofile.header).css({
+        cursor: 'pointer',
+    })
+    .click(function(){
+        $(userprofile.path).slideToggle();
+        rotate($(this).find('svg'));
+    });
+}
+
+function doList(){
+    const version = GM_config.get('version');
+    const newtab = GM_config.get('newtab');
     $(listitem).each(function(){
         if (version){
             $(this).find(separator).before(` ${$(this).attr(scriptversion)}`);
@@ -273,14 +494,107 @@ function newtaber(e){
             $(this).find(separator).prev('a').click(newtaber);
         }
     });
-    if (GM_config.get('ratingscore')) {
-        $(scriptrating).each(function(){
-            $(this).children('span').after(` - ${$(this).attr('data-rating-score')}`);
+}
+
+function doUpdates(page){
+    let list, target, url;
+    switch (page) {
+        case 'user':
+        case 'search':
+            list = listitem;
+            target = scriptstats;
+            break;        
+        case 'script':
+            list = `#script-meta`;
+            target = `#script-stats`;
+            url = `${window.location.href}/stats.json`;
+            break;
+        default:
+            break;
+    }
+    $(list).each((index, item) => {
+        $(item).css({
+            maxWidth: 'unset',
         });
+        const stats = $(item).find(target);
+        if (typeof url == 'undefined') url = `${$(item).find(scripturl).attr('href')}/stats.json`;
+
+        const updatesperiods = GM_config.get('updatesperiods');
+        if (Object.keys(updatesperiods).length > 0) {
+            const dt = $('<dt></dt>', {
+                class: 'script-list-update-checks',
+                style: 'cursor: default',
+                width: 'auto',
+            });
+            
+            let text = 'Updates (';
+            let title = 'Update checks (';
+            for (const period in updatesperiods) {
+                text += `${period.charAt(0)}|`;
+                title +=`${period}|`;
+            };
+            text = text.replace(/\|$/, '):');
+            title = title.replace(/\|$/, ')');
+            dt.text(text).attr('title', title).append(`
+            <style>
+                .inline-script-stats dt,dd,span {
+                    cursor: default;
+                    width: auto !important;
+                }
+                .script-list-update-checks span {
+                    padding: 0 5px;
+                }
+                .script-list-update-checks span:not(:last-child) {
+                    border-right: 1px dotted whitesmoke;
+                }
+            </style>`).appendTo($(stats));
+
+            const updatechecks = $('<dd></dd>', {
+                class: 'script-list-update-checks',
+            });
+            $(stats).append(updatechecks);
+
+            getupdates(url, $(updatechecks));
+        }
+    });
+}
+
+function router(path){
+    const updates = GM_config.get('updates');
+    const userprofile = GM_config.get('userprofile');
+    const ratingscore = GM_config.get('ratingscore');
+
+    switch (true) {
+        case route.userpage.test(path):
+            // console.log('router:', 'user', path);
+            if (userprofile) doProfile();
+            doCollapse();
+            doCompact();
+            if (ratingscore) doRating('user');
+            doList();
+            if (updates) doUpdates('user');
+            break;
+        case route.searchpage.test(path):
+            // console.log('router:', 'search', path);
+            if (ratingscore) doRating('search');
+            doCompact();
+            doList();
+            if (updates) doUpdates('search');
+            break;
+        case route.scriptpage.test(path):
+            // console.log('router:', 'script', path);
+            if (ratingscore) doRating('script');
+            if (updates) doUpdates('script');
+            break;
+        default:
+            break;
     }
-    if (GM_config.get('compact')){
-        $(scriptstats).children().css('width','auto');
-        compact(totalinstalls, dailyinstalls);
-        compact(updateddate, createddate);
-    }
+}
+
+(function() {
+    'use strict';
+
+    $(document).ready(() => {
+        router(window.location.pathname);
+    });
 })();
