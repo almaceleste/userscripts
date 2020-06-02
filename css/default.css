@@ -47,8 +47,15 @@
     border: 1px solid #222;
     font-size: 1em !important;
 }
-#configId .field_label {
+#configId .field_label,
+#configId .option_label {
     font-size: .7em !important;
+}
+#configId .multiselect > ul {
+    margin: 0;
+}
+#configId .multiselect > ul > li {
+    display: inline-block;
 }
 #configId_buttons_holder {
     position: fixed;
