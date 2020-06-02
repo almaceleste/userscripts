@@ -89,6 +89,8 @@ opens scripts pages in new tab from lists and compacts user interface.
 * rating score next to the rating counts
 * collapsed user profile info, control panel, discussions and script sets on user page
 * opening script page in new tab with options of background loading, tab position and parent linkage
+* update checks statistics
+* use settings to turn on/off this options
 
 #### [![](https://cdn0.iconfinder.com/data/icons/typicons-2/24/message-16.png) Hola Mundo](https://github.com/almaceleste/userscripts/raw/master/src/Hola_Mundo.user.js 'install')  
 [![Hola Mundo](assets/img/hm-small.png)](assets/img/hm-big.png 'Hola Mundo')  
