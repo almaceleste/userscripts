@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.5.2
+// @version         0.6.0
 // @description     various tweaks for greasyfork.org site for enhanced usability and additional features
 // @description:ru  различные твики для сайта greasyfork.org для повышения удобства использования и дополнительных функций
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -38,10 +38,10 @@
 
 const route = {};
 route.userpage = /^\/.*\/users\/.*/;
-route.scriptpage = /^\/.*\/scripts\/.*/;
+route.scriptpage = /^\/.*\/scripts\/[^\/]*$/; //(?!\/)*/; //.*/;
 route.searchpage = /^\/.*\/scripts$/;
 
-
+const maincontainer = 'body > .width-constraint';
 const listitem = '.script-list > li';
 const separator = '.name-description-separator';
 const scriptversion = 'data-script-version';
@@ -75,7 +75,7 @@ Object.keys(pattern).forEach((key) => {
 });
 const windowcss = css;
 const iframecss = `
-    height: 530px;
+    height: 590px;
     width: 435px;
     border: 1px solid;
     border-radius: 3px;
@@ -92,9 +92,15 @@ GM_config.init({
     id: `${configId}`,
     title: `${GM_info.script.name} ${GM_info.script.version}`,
     fields: {
+        width: {
+            section: ['', 'All pages options'],
+            label: 'page width',
+            labelPos: 'left',
+            type: 'text',
+            default: '70%',
+        },
         version: {
-            section: ['', 'Script list options (own and other pages)'],
-            label: 'add script version number in the list of scripts',
+            label: 'add script version number',
             labelPos: 'right',
             type: 'checkbox',
             default: true,
@@ -119,7 +125,23 @@ GM_config.init({
                 monthly: 30,
                 total: 0
             },
-            default: {daily: 1, weekly: 7},
+            default: {daily: 1, weekly: 7, monthly: 30, total: 0},
+        },
+        installs: {
+            label: 'display alternative installs information',
+            labelPos: 'right',
+            type: 'checkbox',
+            default: true,
+        },
+        installsperiods: {
+            type: 'multiselect',
+            options: {
+                daily: 1,
+                weekly: 7,
+                monthly: 30,
+                total: 0
+            },
+            default: {daily: 1, weekly: 7, monthly: 30, total: 0},
         },
         compact: {
             label: 'compact script information',
@@ -148,6 +170,12 @@ GM_config.init({
         },
         scriptsets: {
             label: 'collapse script sets on user page',
+            labelPos: 'right',
+            type: 'checkbox',
+            default: true,
+        },
+        displayimage: {
+            label: 'display script image (experimental)',
             labelPos: 'right',
             type: 'checkbox',
             default: true,
@@ -405,18 +433,16 @@ function sumlast(array, number, prop){
     return result;
 }
 
-function getupdates(url, target){
+function getjsondata(url, prop, periods, target){
     fetch(url).then((response) => {
         response.json().then((json) => {
             const data = Object.values(json);
 
-            const updatesperiods = GM_config.get('updatesperiods');
-
-            for (const period in updatesperiods) {
-                const updates = sumlast(data, updatesperiods[period], 'update_checks');
+            for (const period in periods) {
+                const result = sumlast(data, periods[period], prop);
                 $('<span></span>', {
                     title: period,
-                }).text(updates).appendTo(target);
+                }).text(result).appendTo(target);
             }
         });
     });
@@ -496,22 +522,22 @@ function doList(){
 }
 
 function doUpdates(page){
-    let list, target, url;
+    let parent, target, url;
     switch (page) {
         case 'user':
         case 'search':
-            list = listitem;
+            parent = listitem;
             target = scriptstats;
             break;        
         case 'script':
-            list = `#script-meta`;
+            parent = `#script-meta`;
             target = `#script-stats`;
             url = `${window.location.href}/stats.json`;
             break;
         default:
             break;
     }
-    $(list).each((index, item) => {
+    $(parent).each((index, item) => {
         $(item).css({
             maxWidth: 'unset',
         });
@@ -553,39 +579,165 @@ function doUpdates(page){
             });
             $(stats).append(updatechecks);
 
-            getupdates(url, $(updatechecks));
+            getjsondata(url, 'update_checks', updatesperiods, $(updatechecks));
         }
     });
 }
 
+function doInstalls(page){
+    let daily, parent, target, total, url;
+    switch (page) {
+        case 'user':
+        case 'search':
+            daily = dailyinstalls;
+            parent = listitem;
+            target = scriptstats;
+            total = totalinstalls;
+            break;        
+        case 'script':
+            daily = '.script-show-daily-installs';
+            parent = `#script-meta`;
+            target = `#script-stats`;
+            total = '.script-show-total-installs';
+            url = `${window.location.href}/stats.json`;
+            break;
+        default:
+            break;
+    }
+    $(daily).css({
+        display: 'none',
+    });
+    $(total).css({
+        display: 'none',
+    });
+
+    $(parent).each((index, item) => {
+        $(item).css({
+            maxWidth: 'unset',
+        });
+        const stats = $(item).find(target);
+        if (page != 'script') url = `${$(item).find(scripturl).attr('href')}/stats.json`;
+
+        const installsperiods = GM_config.get('installsperiods');
+        if (Object.keys(installsperiods).length > 0) {
+            const dt = $('<dt></dt>', {
+                class: 'script-list-installs',
+                style: 'cursor: default',
+                width: 'auto',
+            });
+            
+            let text = 'Installs (';
+            let title = 'Installs (';
+            for (const period in installsperiods) {
+                text += `${period.charAt(0)}|`;
+                title +=`${period}|`;
+            };
+            text = text.replace(/\|$/, '):');
+            title = title.replace(/\|$/, ')');
+            dt.text(text).attr('title', title).append(`
+            <style>
+                .inline-script-stats dt,dd,span {
+                    cursor: default;
+                    width: auto !important;
+                }
+                .script-list-installs span {
+                    padding: 0 5px;
+                }
+                .script-list-installs span:not(:last-child) {
+                    border-right: 1px dotted whitesmoke;
+                }
+            </style>`).appendTo($(stats));
+
+            const installs = $('<dd></dd>', {
+                class: 'script-list-installs',
+            });
+            $(stats).append(installs);
+
+            getjsondata(url, 'installs', installsperiods, $(installs));
+        }
+    });
+}
+
+function displayImage(){
+    $(listitem).each((index, item) => {
+        const url = `${$(item).find(scripturl).attr('href')}`;
+        const height = $(item).height();
+
+        $(item).children('article').css({
+            display: 'inline-block',
+            margin: '0',
+            width: '75%',
+        });
+        const div = $('<div></div>').appendTo($(item)).css({
+            display: 'inline-block',
+            height: `${height}px`,
+            float: 'right',
+            margin: '0',
+            overflow: 'hidden',
+            padding: '5px',
+            width: '20%',
+        });
+        fetch(url).then((response) => {
+            response.text().then((data) => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, 'text/html');
+                const el = doc.querySelector(`#additional-info img:first-child`).parentElement;
+                const src = el.getAttribute('href');
+
+                // console.log('displayImage:', src, el);
+                const width = $(div).width();
+                const img = $('<img/>', {
+                    src: src,
+                    width: `${width}px`,
+                });
+                $(div).append(`
+                    <style>
+                        ${listitem}::after {
+                            clear: both;
+                        }
+                    </style>
+                `).append(img);
+            });
+        });
+    });
+}
+
 function router(path){
+    const ratingscore = GM_config.get('ratingscore');
+    const displayimage = GM_config.get('displayimage');
+    const installs = GM_config.get('installs');
     const updates = GM_config.get('updates');
     const userprofile = GM_config.get('userprofile');
-    const ratingscore = GM_config.get('ratingscore');
 
     switch (true) {
         case route.userpage.test(path):
-            // console.log('router:', 'user', path);
+            console.log('router:', 'user', path);
             if (userprofile) doProfile();
             doCollapse();
             doCompact();
             if (ratingscore) doRating('user');
             doList();
+            if (installs) doInstalls('user');
             if (updates) doUpdates('user');
+            if (displayimage) displayImage();
             break;
         case route.searchpage.test(path):
-            // console.log('router:', 'search', path);
+            console.log('router:', 'search', path);
             if (ratingscore) doRating('search');
             doCompact();
             doList();
+            if (installs) doInstalls('search');
             if (updates) doUpdates('search');
+            if (displayimage) displayImage();
             break;
         case route.scriptpage.test(path):
-            // console.log('router:', 'script', path);
+            console.log('router:', 'script', path);
             if (ratingscore) doRating('script');
+            if (installs) doInstalls('script');
             if (updates) doUpdates('script');
             break;
         default:
+            console.log('router:', 'default', path);
             break;
     }
 }
@@ -594,6 +746,11 @@ function router(path){
     'use strict';
 
     $(document).ready(() => {
+        const width = GM_config.get('width');
+        $(maincontainer).css({
+            maxWidth: width,
+        });
+
         router(window.location.pathname);
     });
 })();

@@ -90,6 +90,9 @@ various tweaks for greasyfork.org site for enhanced usability and additional fea
 * collapsed user profile info, control panel, discussions and script sets on user page
 * opening script page in new tab with options of background loading, tab position and parent linkage
 * update checks statistics
+* alternative installs statistics
+* custom main container width
+* display a script image in the scripts list
 * use settings to turn on/off this options
 
 #### [![](https://cdn0.iconfinder.com/data/icons/typicons-2/24/message-16.png) Hola Mundo](https://github.com/almaceleste/userscripts/raw/master/src/Hola_Mundo.user.js 'install')  
