@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.6.0
+// @version         0.6.1
 // @description     various tweaks for greasyfork.org site for enhanced usability and additional features
 // @description:ru  различные твики для сайта greasyfork.org для повышения удобства использования и дополнительных функций
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -681,10 +681,16 @@ function displayImage(){
             response.text().then((data) => {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(data, 'text/html');
-                const el = doc.querySelector(`#additional-info img:first-child`).parentElement;
-                const src = el.getAttribute('href');
+                const el = doc.querySelector(`#additional-info img:first-child`);
+                let src = el.getAttribute('src');
 
-                // console.log('displayImage:', src, el);
+                if (el.parentElement.hasAttribute('href')) {
+                    const href = el.parentElement.getAttribute('href');
+                    const types = ['apng', 'bmp', 'gif', 'ico', 'jfi', 'jfif', 'jif', 'jpe', 'jpeg', 'jpg', 'pjp', 'pjpeg', 'png', 'psd', 'svg', 'tif', 'tiff', 'webp'];
+                    const ext = href.split('/').pop().split('#').shift().split('?').shift().split('.').pop();
+                    if (types.includes(ext)) src = href;
+                }
+
                 const width = $(div).width();
                 const img = $('<img/>', {
                     src: src,
