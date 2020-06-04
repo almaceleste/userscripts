@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.6.1
+// @version         0.6.2*
 // @description     various tweaks for greasyfork.org site for enhanced usability and additional features
 // @description:ru  различные твики для сайта greasyfork.org для повышения удобства использования и дополнительных функций
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -24,6 +24,9 @@
 // @grant           GM_setValue
 // @grant           GM_registerMenuCommand
 // @grant           GM_openInTab
+// @grant           GM_xmlhttpRequest
+// @connect         *
+
 // @grant           GM_getResourceText
 
 // @resource        css https://github.com/almaceleste/userscripts/raw/master/css/default.css
@@ -658,6 +661,12 @@ function doInstalls(page){
     });
 }
 
+function isImage(url){
+    const types = ['apng', 'bmp', 'gif', 'ico', 'jfi', 'jfif', 'jif', 'jpe', 'jpeg', 'jpg', 'pjp', 'pjpeg', 'png', 'psd', 'svg', 'tif', 'tiff', 'webp'];
+    const ext = url.split('/').pop().split('#').shift().split('?').shift().split('.').pop();
+    return types.includes(ext);
+}
+
 function displayImage(){
     $(listitem).each((index, item) => {
         const url = `${$(item).find(scripturl).attr('href')}`;
@@ -686,9 +695,7 @@ function displayImage(){
 
                 if (el.parentElement.hasAttribute('href')) {
                     const href = el.parentElement.getAttribute('href');
-                    const types = ['apng', 'bmp', 'gif', 'ico', 'jfi', 'jfif', 'jif', 'jpe', 'jpeg', 'jpg', 'pjp', 'pjpeg', 'png', 'psd', 'svg', 'tif', 'tiff', 'webp'];
-                    const ext = href.split('/').pop().split('#').shift().split('?').shift().split('.').pop();
-                    if (types.includes(ext)) src = href;
+                    if (isImage(href)) src = href;
                 }
 
                 const width = $(div).width();
