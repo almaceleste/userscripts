@@ -33,7 +33,7 @@
 .editor_400p_container_o {
     min-height: unset;
 }
-.tv_content > .section:first-child {
+.tv_content:not(.tv_content_alt) > .section:first-child {
     bottom: 0;
     left: 0;
     position: absolute;
