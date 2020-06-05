@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.6.2*
+// @version         0.6.2
 // @description     various tweaks for greasyfork.org site for enhanced usability and additional features
 // @description:ru  различные твики для сайта greasyfork.org для повышения удобства использования и дополнительных функций
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
