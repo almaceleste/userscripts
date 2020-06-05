@@ -24,9 +24,6 @@
 // @grant           GM_setValue
 // @grant           GM_registerMenuCommand
 // @grant           GM_openInTab
-// @grant           GM_xmlhttpRequest
-// @connect         *
-
 // @grant           GM_getResourceText
 
 // @resource        css https://github.com/almaceleste/userscripts/raw/master/css/default.css
