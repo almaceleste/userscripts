@@ -562,7 +562,9 @@ function doUpdates(page){
             title = title.replace(/\|$/, ')');
             dt.text(text).attr('title', title).append(`
             <style>
-                .inline-script-stats dt,dd,span {
+                .inline-script-stats dt,
+                .inline-script-stats dd,
+                .inline-script-stats span {
                     cursor: default;
                     width: auto !important;
                 }
@@ -636,7 +638,9 @@ function doInstalls(page){
             title = title.replace(/\|$/, ')');
             dt.text(text).attr('title', title).append(`
             <style>
-                .inline-script-stats dt,dd,span {
+                .inline-script-stats dt,
+                .inline-script-stats dd,
+                .inline-script-stats span {
                     cursor: default;
                     width: auto !important;
                 }
