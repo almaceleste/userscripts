@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name            OpenUserCSS Tweaks
 // @namespace       almaceleste
-// @version         0.2.1
+// @version         0.2.2
 // @description     some useful tweaks, that make working with the OpenUserCSS.org more convenient
-// @description:ru  некоторые полезные настройки, которые делают работу с OpenUserCSS.org более удобной 
-// @author          (ɔ) Paola Captanovska
+// @description:ru  некоторые полезные настройки, которые делают работу с OpenUserCSS.org более удобной
+// @author          (ɔ) almaceleste  (https://almaceleste.github.io)
 // @license         AGPL-3.0-or-later; http://www.gnu.org/licenses/agpl
 // @icon            https://openusercss.org/img/openusercss.icon-x16.png
 // @icon64          https://openusercss.org/img/openusercss.icon-x640.png
@@ -14,7 +14,7 @@
 // @homepageURL     https://github.com/almaceleste/userscripts
 // @supportURL      https://github.com/almaceleste/userscripts/issues
 // @updateURL       https://github.com/almaceleste/userscripts/raw/master/src/OpenUserCSS_Tweaks.user.js
-// @downloadURL     https://github.com/almaceleste/userscripts/raw/master/src/OpenUserCSS_Tweaks.user.js
+// @downloadURL     https://github.com/almaceleste/userscripts/raw/master/dist/OpenUserCSS_Tweaks.user.js
 // @downloadURL     https://openuserjs.org/install/almaceleste/OpenUserCSS_Tweaks.user.js
 
 // @require         https://code.jquery.com/jquery-3.3.1.js
@@ -24,6 +24,9 @@
 // @grant           GM_setValue
 // @grant           GM_registerMenuCommand
 // @grant           GM_openInTab
+// @grant           GM_getResourceText
+
+// @resource        css https://github.com/almaceleste/userscripts/raw/master/css/default.css
 
 // @match           http*://openusercss.org/*
 // ==/UserScript==
@@ -52,6 +55,7 @@ site.navbar = `${site.layout} > .ouc-navbar-wrapper > .ouc-navbar`;
 site.routeroot = `${site.layout} > .ouc-app-root > .ouc-route-root`;
 site.section = `${site.routeroot} .container .section`;
 site.level = `${site.section} > .level`;
+site.levelright = `${site.level} > .level-right`;
 site.main = `${site.section} > .columns`;
 site.columnleft = `${site.main} > .column:nth-of-type(1)`;
 site.columnright = `${site.main} > .column:nth-of-type(2)`;
@@ -66,10 +70,18 @@ search.theme = profile.theme;
 search.author = `${site.columnleft} > .columns > .column`;
 theme.card = `${site.columnleft} .box`;
 theme.image = `${theme.card} .ouc-responsive-image-wrapper .ouc-responsive-image`;
+theme.installbutton = `${site.levelright} > .tile:nth-of-type(1) > .tile:nth-of-type(3) a`;
+edit.savebutton = `${site.levelright} > button[type='submit']`;
 edit.form = `${site.section} > .ouc-new-theme-form`;
 edit.theme = `${edit.form} > .card:nth-of-type(1)`;
 edit.variables = `${edit.form} > .card:nth-of-type(2) > .card-content`;
 edit.variable = `${edit.variables} > div.field.box`;
+edit.editor = `${edit.form} > .card:nth-of-type(5) .ouc-editor-wrapper > .ouc-editor`;
+edit.scrollbar = `${edit.editor} > .ace_scrollbar`;
+edit.code = `${edit.editor} > .ace_scroller > .ace_content > .ace_text-layer`;
+edit.codeline = `${edit.code} > .ace_line > span`;
+edit.metadatastart = `${edit.codeline}:contains('/* ==UserStyle==')`;
+edit.metadataend = `${edit.codeline}:contains('==/UserStyle== */')`;
 edit.header = `${edit.theme} > .card-header`;
 edit.content = `${edit.theme} > .card-content`;
 edit.screenshots = `${edit.content} > .field:nth-of-type(4)`;
@@ -84,48 +96,34 @@ const options = {
     existing: true
 };
 
-const windowcss = `
-    #ouctCfg {
-        background-color: lightblue;
-    }
-    #ouctCfg .reset_holder {
-        float: left;
-        position: relative;
-        bottom: -1em;
-    }
-    #ouctCfg .saveclose_buttons {
-        margin: .7em;
-    }
-    #ouctCfg_field_url {
-        background: none !important;
-        border: none;
-        cursor: pointer;      
-        padding: 0 !important;
-        text-decoration: underline;
-    }
-    #ouctCfg_field_url:hover,
-    #ouctCfg_resetLink:hover {
-        filter: drop-shadow(0 0 1px dodgerblue);
-    }
-`;
+// config settings
+const configId = 'ouctCfg';
+const iconUrl = GM_info.script.icon64;
+const pattern = {};
+pattern[`#${configId}`] = /#configId/g;
+pattern[`${iconUrl}`] = /iconUrl/g;
+
+let css = GM_getResourceText('css');
+Object.keys(pattern).forEach((key) => {
+    css = css.replace(pattern[key], key);
+});
+const windowcss = css;
 const iframecss = `
-    height: 30.5em;
-    width: 25em;
+    height: 485px;
+    width: 435px;
     border: 1px solid;
     border-radius: 3px;
     position: fixed;
     z-index: 9999;
 `;
 
-GM_registerMenuCommand(`${GM_info.script.name} Settings`, opencfg);
-
-function opencfg(){
+GM_registerMenuCommand(`${GM_info.script.name} Settings`, () => {
 	GM_config.open();
-	ouctCfg.style = iframecss;
-}
+    GM_config.frame.style = iframecss;
+});
 
 GM_config.init({
-    id: 'ouctCfg',
+    id: `${configId}`,
     title: `${GM_info.script.name} ${GM_info.script.version}`,
     fields: {
         version: {
@@ -201,12 +199,19 @@ GM_config.init({
         },
         deletevariables: {
             section: ['', 'Edit Page Settings'],
-            label: 'do not create variables',
+            label: 'do not create variables (experimental)',
             labelPos: 'right',
             title: '',
             type: 'checkbox',
-            default: true,
+            default: false,
         },
+        // deletemetadata: {
+        //     label: 'automatically delete metadata (experimental)',
+        //     labelPos: 'right',
+        //     title: '',
+        //     type: 'checkbox',
+        //     default: false,
+        // },
         editsticky: {
             label: 'sticky header',
             labelPos: 'right',
@@ -214,6 +219,14 @@ GM_config.init({
             type: 'checkbox',
             default: true,
         },
+        // fixinstall: {
+        //     section: ['', 'Theme Page Settings'],
+        //     label: 'fix Install as usercss (experimental)',
+        //     labelPos: 'right',
+        //     title: '',
+        //     type: 'checkbox',
+        //     default: false,
+        // },
         fiximages: {
             section: ['', 'Miscellaneous Settings'],
             label: 'fix image size',
@@ -229,7 +242,7 @@ GM_config.init({
             type: 'checkbox',
             default: true,
         },
-        url: {
+        support: {
             section: ['', 'Support'],
             label: 'almaceleste.github.io',
             type: 'button',
@@ -250,6 +263,7 @@ GM_config.init({
     },
 });
 
+// script code
 function getData(obj, data){
     return $(obj).children(`[itemprop=${data}]`).attr('value');
 }
@@ -413,6 +427,24 @@ function doEdit(){
             $(v).remove();
         });
     }
+    // if (GM_config.get('deletemetadata')){
+    //     $(edit.savebutton).on({
+    //         click: (e) => {
+    //             e.preventDefault();
+    //             $(edit.scrollbar).scrollTop(0);
+    //             $(edit.metadatastart).nextUntil(edit.metadataend).remove();
+
+    //         },
+    //         submit: (e) => {
+    //             e.preventDefault();
+    //             $(edit.scrollbar).scrollTop(0);
+    //             $(edit.metadatastart).nextUntil(edit.metadataend).remove();
+
+    //         }
+    //     });
+    //     $(edit.code).arrive(edit.variable, options, (v) => {
+    //     });
+    // }
     if (GM_config.get('editsticky')){
         const top = $(site.navbar).height();
         $(edit.header).css({
@@ -422,6 +454,79 @@ function doEdit(){
         });
     }
 }
+
+// function fixinstall(){
+//     // console.log('fixinstall:', theme.installbutton);
+//     $(theme.installbutton).on({
+//         click: (e) => {
+//             e.preventDefault();
+//             const url = $(e.target).attr('href');
+//             const name = url.split('/').pop().split('#').shift().split('?').shift();
+//             fetch(url).then((response) => {
+//                 response.text().then((usercss) => {
+//                     const pattern = /\/\* ==UserStyle==[\s\S]*==\/UserStyle== \*\/[\s\S]*(\/\* ==UserStyle==[\s\S]*)/;
+//                     if (pattern.test(usercss)) {
+//                         usercss = usercss.replace(pattern, '$1');
+//                     }
+
+//                     // const install = window.open(`chrome-extension://apmmpaebfobifelkijhaljbmpcgbjbdo/install-usercss.html?${encodeURIComponent(usercss)}`, '_self');
+//                     // const install = window.open(`data:text/css;charset=utf-8,${encodeURIComponent(usercss)}`, '_blank');
+//                     // install.document.write(usercss);
+//                     // var install = window.open(url, '_self');
+//                     // install.document.onload = function() {
+//                     //     install.document.write('¡hola, mundo!');
+//                     //     console.log('¡hola, mundo!');
+//                     //     $('body > pre').text(usercss);
+//                     // }
+
+//                     // test
+//                     // var newWin = window.open(url, 'example', 'width=600,height=400');
+//                     // newWin.onload = function() {
+//                     //     // создать div в документе нового окна
+//                     //     var div = newWin.document.createElement('div'),
+//                     //     body = newWin.document.body;
+//                     //     div.innerHTML = 'Добро пожаловать!'
+//                     //     div.style.fontSize = '30px'
+//                     //     // вставить первым элементом в body нового окна
+//                     //     body.insertBefore(div, body.firstChild);
+//                     // }
+
+//                     // install.onload = function() {
+//                         // install.document.write(usercss);
+//                         // install.focus();
+//                     // }
+//                     // console.log('fixinstall:', install);
+
+//                     // var newWin = window.open("about:blank", "hello", "width=200,height=200");
+//                     // newWin.document.write("Привет, мир!");
+
+//                     // const a = $('<a/>', {
+//                     //     href: `data:text/css;charset=utf-8,${encodeURIComponent(usercss)}`,
+//                     //     download: name,
+//                     //     // style: 'display:none',
+//                     //     target: '_blank',
+//                     //     text: 'click me',
+//                     //     type: 'text/css;charset=utf-8',
+//                     // });
+//                     // a.appendTo(site.level).click();
+
+//                     // GM_openInTab(`data:text/js;charset=utf-8,${encodeURIComponent(usercss)}`, {
+//                     //     active: true,
+//                     //     insert: true,
+//                     //     setParent: true
+//                     // });
+//                 });
+//             });
+//             // const install = window.open(`${url}`, '_self');
+//             // install.onload = function(){
+//             //     console.log('fixinstall:', install);
+//             //     $('body > pre').text(usercss);
+//             // }
+//         },
+//         load: () => {}
+//     });
+
+// }
 
 function fiximages(path){
     if (GM_config.get('fiximages')) {
@@ -439,7 +544,7 @@ function fiximages(path){
                             load: (e) => {
                                 const width = $(e.target).width();
                                 let height = $(e.target).height();
-    
+
                                 if (height == 0 || height > width) {
                                     height = width;
                                 }
@@ -473,7 +578,7 @@ function doThings(){
 
         switch (true) {
             case profile.path.test(pathname):
-                // console.log('doThings:', profile.path, pathname);
+                console.log('doThings:', profile.path, pathname);
                 if (isOwnProfile(state.pathname)) {
                     if (GM_config.get('stats')) {
                         $(document).arrive(profile.statsbutton, options, () => {
@@ -489,15 +594,16 @@ function doThings(){
                 doProfile();
                 break;
             case theme.path.test(pathname):
-                // console.log('doThings:', theme.path, pathname);
+                console.log('doThings:', theme.path, pathname);
                 fiximages(theme.image);
+                // fixinstall();
                 break;
             case site.path.test(pathname):
-                // console.log('doThings:', site.path, pathname);
+                console.log('doThings:', site.path, pathname);
                 fiximages(site.image);
                 break;
             case search.path.test(pathname):
-                // console.log('doThings:', search.path, pathname);
+                console.log('doThings:', search.path, pathname);
                 fiximages(search.image);
                 $(document).arrive(search.theme, options, (t) => {
                     doHighlight($(t));
@@ -509,12 +615,12 @@ function doThings(){
                 });
                 break;
             case edit.path.test(pathname):
-                // console.log('doThings:', edit.path, pathname);
+                console.log('doThings:', edit.path, pathname);
                 doEdit();
                 fiximages(edit.image);
                 break;
             default:
-                // console.log('doThings:', 'default', pathname);
+                console.log('doThings:', 'default', pathname);
                 break;
         }
 
