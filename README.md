@@ -85,10 +85,11 @@ opens external links in new tab on all sites (at the moment does not support dyn
 #### [![](https://greasyfork.org/assets/blacklogo16-bc64b9f7afdc9be4cbfa58bdd5fc2e5c098ad4bca3ad513a27b15602083fd5bc.png) Greasy Fork tweaks](https://github.com/almaceleste/userscripts/raw/master/src/Greasy_Fork_tweaks.user.js 'install')  
 [![Greasy Fork tweaks](assets/img/gft-small.png)](assets/img/gft-big.png 'Greasy Fork tweaks')  
 various tweaks for greasyfork.org site for enhanced usability and additional features
-* script version number in the list of scripts and compact script information
+* script version number in the script list
+* compact script list view
 * rating score next to the rating counts
-* collapsed user profile info, control panel, discussions and script sets on user page
-* opening script page in new tab with options of background loading, tab position and parent linkage
+* collapsed user profile info, control panel, discussions and script sets on the user page
+* opening the script page in a new tab with options for background loading, tab position and return to the parent tab after closing
 * update checks statistics
 * alternative installs statistics
 * custom main container width
