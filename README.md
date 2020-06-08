@@ -93,7 +93,7 @@ various tweaks for greasyfork.org site for enhanced usability and additional fea
 * update checks statistics
 * alternative installs statistics
 * custom main container width
-* display a script image in the scripts list
+* a script image in the script list (supports zoom extensions such as Imagus and Hover Zoom)
 * use settings to turn on/off this options
 
 #### [![](https://cdn0.iconfinder.com/data/icons/typicons-2/24/message-16.png) Hola Mundo](https://github.com/almaceleste/userscripts/raw/master/src/Hola_Mundo.user.js 'install')  
