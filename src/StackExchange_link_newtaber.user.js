@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name            StackExchange link newtaber
 // @namespace       almaceleste
-// @version         0.4
-// @description     this code opens links from posts, answers, comments and user signatures in the new tab instead of the annoying in-place opening
-// @description:ru  этот код открывает ссылки из постов, ответов, комментариев и подписей пользователей в новой вкладке вместо надоедливого открытия в текущей
-// @author          (ɔ) Paola Captanovska
-// @license         AGPL-3.0; http://www.gnu.org/licenses/agpl.txt
+// @version         0.4.1
+// @description     opens links from posts, answers, comments and user signatures in the new tab instead of the annoying in-place opening
+// @description:ru  открывает ссылки из постов, ответов, комментариев и подписей пользователей в новой вкладке вместо надоедливого открытия в текущей
+// @author          (ɔ) almaceleste  (https://almaceleste.github.io)
+// @license         AGPL-3.0-or-later; http://www.gnu.org/licenses/agpl.txt
 // @icon            https://cdn1.iconfinder.com/data/icons/simple-icons/32/stackexchange-32-black.png
 // @icon64          https://cdn1.iconfinder.com/data/icons/simple-icons/128/stackexchange-128-black.png
 
@@ -21,6 +21,10 @@
 // @grant           GM_getValue
 // @grant           GM_setValue
 // @grant           GM_registerMenuCommand
+// @grant           GM_openInTab
+// @grant           GM_getResourceText
+
+// @resource        css https://github.com/almaceleste/userscripts/raw/master/css/default.css
 
 // @match           https://*.stackexchange.com/questions/*
 // @match           https://*.stackoverflow.com/questions/*
@@ -35,59 +39,83 @@
 // @author almaceleste
 // ==/OpenUserJS==
 
+// script variables
 const postlink = '.post-text a';
 const commentlink = '.comment-copy a';
 const userdetailslink = '.user-details a';
 
-const windowcss = '#newtaberCfg {background-color: lightblue;} #newtaberCfg .reset_holder {float: left; position: relative; bottom: -1em;} #newtaberCfg .saveclose_buttons {margin: .7em;}';
-const iframecss = 'height: 17.2em; width: 30em; border: 1px solid; border-radius: 3px; position: fixed; z-index: 999;';
+// config settings
+const configId = 'newtaberCfg';
+const iconUrl = GM_info.script.icon64;
+const pattern = {};
+pattern[`#${configId}`] = /#configId/g;
+pattern[`${iconUrl}`] = /iconUrl/g;
 
-GM_registerMenuCommand('StackExchange link newtaber Settings', opencfg);
+let css = GM_getResourceText('css');
+Object.keys(pattern).forEach((key) => {
+    css = css.replace(pattern[key], key);
+});
+const windowcss = css;
+const iframecss = `
+    height: 245px;
+    width: 435px;
+    border: 1px solid;
+    border-radius: 3px;
+    position: fixed;
+    z-index: 9999;
+`;
 
-function opencfg()
-{
+GM_registerMenuCommand(`${GM_info.script.name} Settings`, () => {
 	GM_config.open();
-	newtaberCfg.style = iframecss;
-}
+    GM_config.frame.style = iframecss;
+});
 
-GM_config.init(
-{
-    id: 'newtaberCfg',
-    title: 'StackExchange link newtaber',
-    fields:
-    {
-        postlink:
-        {
+GM_config.init({
+    id: `${configId}`,
+    title: `${GM_info.script.name} ${GM_info.script.version}`,
+    fields: {
+        postlink: {
             section: ['Link types', 'Choose link types to open in new tab'],
             label: 'post links',
             labelPos: 'right',
             type: 'checkbox',
             default: true,
         },
-        commentlink:
-        {
+        commentlink: {
             label: 'comment links',
             labelPos: 'right',
             type: 'checkbox',
             default: true,
         },
-        userdetailslink:
-        {
+        userdetailslink: {
             label: 'userdetails links',
             labelPos: 'right',
             type: 'checkbox',
             default: true,
         },
+        support: {
+            section: ['', 'Support'],
+            label: 'almaceleste.github.io',
+            title: 'more info on almaceleste.github.io',
+            type: 'button',
+            click: () => {
+                GM_openInTab('https://almaceleste.github.io', {
+                    active: true,
+                    insert: true,
+                    setParent: true
+                });
+            }
+        },
     },
     css: windowcss,
-    events:
-    {
+    events: {
         save: function() {
             GM_config.close();
         }
     },
 });
 
+// script code
 (function() {
     'use strict';
 
@@ -99,12 +127,5 @@ GM_config.init(
 
     var pattern = links.join(', ');
 
-    // $(pattern).each(function() {
-        // $(this).click(function(event) {
-            // event.preventDefault();
-            // event.stopPropagation();
-            // window.open(this.href, '_blank');
-        // });
-    // });
     $(pattern).attr('target', '_blank');
 })();
