@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name            External link newtaber
 // @namespace       almaceleste
-// @version         0.3.2
+// @version         0.3.3
 // @description     opens external links in a new tab on all sites (now can work with dynamic link lists, such as search results)
 // @description:ru  открывает внешние ссылки в новой вкладке на всех сайтах (теперь должно работать с динамическими списками ссылок, такими как результаты поисковых запросов)
-// @author          (ɔ) Paola Captanovska
+// @author          (ɔ) almaceleste  (https://almaceleste.github.io)
 // @license         AGPL-3.0-or-later; http://www.gnu.org/licenses/agpl.txt
 // @icon            https://cdn1.iconfinder.com/data/icons/feather-2/24/external-link-32.png
 // @icon64          https://cdn1.iconfinder.com/data/icons/feather-2/24/external-link-128.png
@@ -22,6 +22,9 @@
 // @grant           GM_setValue
 // @grant           GM_registerMenuCommand
 // @grant           GM_openInTab
+// @grant           GM_getResourceText
+
+// @resource        css https://github.com/almaceleste/userscripts/raw/master/css/default.css
 
 // @match           http*://*/*
 // ==/UserScript==
@@ -30,87 +33,33 @@
 // @author almaceleste
 // ==/OpenUserJS==
 
-const configId = 'allnewtaberCfg';
-const windowcss = `
-    #${configId} {
-        background-color: darkslategray;
-        color: whitesmoke;
-    }
-    #${configId} a,
-    #${configId} button,
-    #${configId} input,
-    #${configId} select,
-    #${configId} select option,
-    #${configId} .section_desc {
-        color: whitesmoke !important;
-    }
-    #${configId} a,
-    #${configId} button,
-    #${configId} input,
-    #${configId} .section_desc {
-        font-size: .8em !important;
-    }
-    #${configId} button,
-    #${configId} input,
-    #${configId} select,
-    #${configId} select option,
-    #${configId} .section_desc {
-        background-color: #333;
-        border: 1px solid #222;
-    }
-    #${configId} button{
-        height: 1.65em !important;
-    }
-    #${configId}_header {
-        font-size: 1.3em !important;
-    }
-    #${configId}.section_header {
-        background-color: #454545;
-        border: 1px solid #222;
-        font-size: 1em !important;
-    }
-    #${configId} .field_label {
-        font-size: .7em !important;
-    }
-    #${configId}_buttons_holder {
-        position: fixed;
-        width: 97%;
-        bottom: 0;
-    }
-    #${configId} .reset_holder {
-        float: left;
-        position: relative;
-        bottom: -1em;
-    }
-    #${configId} .saveclose_buttons {
-        margin: .7em;
-    }
-    #${configId}_field_support {
-        background: none !important;
-        border: none !important;
-        cursor: pointer !important;      
-        padding: 0 !important;
-        text-decoration: underline !important;
-    }
-    #${configId}_field_support:hover,
-    #${configId}_resetLink:hover {
-        filter: drop-shadow(0 0 1px dodgerblue);
-    }
-`;
-const iframecss = `
-    height: 28em;
-    width: 30em;
-    border: 1px solid;
-    border-radius: 3px;
-    position: fixed;
-    z-index: 999;
-`;
-
+// script global variables
 var host = window.location.hostname;
 var flat = host.replace(/\..*/, '');
 var root = host.replace(/^[^.]*\./, '');
 var child = '*.' + host;
 var next = '*.' + root;
+
+// config settings
+const configId = 'allnewtaberCfg';
+const iconUrl = GM_info.script.icon64;
+const pattern = {};
+pattern[`#${configId}`] = /#configId/g;
+pattern[`${iconUrl}`] = /iconUrl/g;
+
+let css = GM_getResourceText('css');
+Object.keys(pattern).forEach((key) => {
+    css = css.replace(pattern[key], key);
+});
+const windowcss = css;
+const iframecss = `
+    height: 375px;
+    width: 435px;
+    border: 1px solid;
+    border-radius: 3px;
+    position: fixed;
+    z-index: 9999;
+`;
 
 GM_registerMenuCommand(`${GM_info.script.name} Settings`, () => {
 	GM_config.open();
@@ -193,6 +142,7 @@ GM_config.init({
     },
 });
 
+// script code
 (function() {
     'use strict';
 
