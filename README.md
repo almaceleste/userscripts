@@ -73,8 +73,9 @@ opens the extension pages in the new tab and and changes default sorting of the 
 * use settings to choose sorting type of extensions list.    
 
 #### [![](https://cdn1.iconfinder.com/data/icons/system-shade-circles/512/opensuse-16.png) OpenSuse Software tweaks](https://github.com/almaceleste/userscripts/raw/master/OpenSuse_Software_tweaks.user.js 'install')  
-opens package pages in new tab and minifies bulky pacckage list on the [OpenSuse Software Search](https://software.opensuse.org/search) site.  
-* use settings to choose tweaks  
+[![search](assets/img/osst-search-small.webp)](assets/img/osst-search-big.webp 'search page') [![package](assets/img/osst-package-small.webp)](assets/img/osst-package-big.webp 'package page')  
+opens package pages in new tab and minifies bulky package list on the [OpenSuse Software Search](https://software.opensuse.org/search) site.
+* use settings to choose tweaks
 
 #### [![](https://cdn1.iconfinder.com/data/icons/feather-2/24/external-link-16.png) External link newtaber](https://github.com/almaceleste/userscripts/raw/master/src/External_link_newtaber.user.js 'install')  
 [![External link newtaber](assets/img/eln-small.png)](assets/img/eln-big.png)  
