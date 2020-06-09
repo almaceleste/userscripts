@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            External link newtaber
 // @namespace       almaceleste
-// @version         0.3.3
+// @version         0.3.4
 // @description     opens external links in a new tab on all sites (now can work with dynamic link lists, such as search results)
 // @description:ru  открывает внешние ссылки в новой вкладке на всех сайтах (теперь должно работать с динамическими списками ссылок, такими как результаты поисковых запросов)
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -34,11 +34,12 @@
 // ==/OpenUserJS==
 
 // script global variables
-var host = window.location.hostname;
-var flat = host.replace(/\..*/, '');
-var root = host.replace(/^[^.]*\./, '');
-var child = '*.' + host;
-var next = '*.' + root;
+let host = window.location.hostname;
+const root = '*.' + host.split('.').pop();
+const flat = host.replace(/\..*/, '');
+let parent = host.replace(/^[^.]*\./, '');
+const child = '*.' + host;
+const neighbor = '*.' + parent;
 
 // config settings
 const configId = 'allnewtaberCfg';
@@ -70,33 +71,33 @@ GM_config.init({
     id: `${configId}`,
     title: `${GM_info.script.name} ${GM_info.script.version}`,
     fields: {
-        level: {
+        rootzone: {
             section: ['', 'Exclude these domains (do not open in new tab)'],
-            label: 'do not exclude parent and neighbor sites if parent site is a root domain like .com',
+            label: `parent and neighbor sites if parent site is a root domain (${root})`,
+            labelPos: 'right',
+            type: 'checkbox',
+            default: false,
+        },
+        parent: {
+            label: `parent site links (${parent})`,
             labelPos: 'right',
             type: 'checkbox',
             default: true,
         },
-        root: {
-            label: 'parent site links (' + root + ')',
-            labelPos: 'right',
-            type: 'checkbox',
-            default: true,
-        },
-        next: {
-            label: 'neighbor site links (' + next + ')',
+        neighbor: {
+            label: `neighbor site links (${neighbor})`,
             labelPos: 'right',
             type: 'checkbox',
             default: true,
         },
         host: {
-            label: 'this site links (' + host + ')',
+            label: `this site links (${host})`,
             labelPos: 'right',
             type: 'checkbox',
             default: true,
         },
         child: {
-            label: 'child site links (' + child + ')',
+            label: `child site links (${child})`,
             labelPos: 'right',
             type: 'checkbox',
             default: true,
@@ -147,39 +148,39 @@ GM_config.init({
     'use strict';
 
     const empty = new RegExp('^$');
-    var patternroot = empty;
-    var patternhost = empty;
+    let patternparent = empty;
+    let patternhost = empty;
     host = host.replace(/\./g, '\\\.');
-    root = root.replace(/\./g, '\\\.');
+    parent = parent.replace(/\./g, '\\\.');
     const background = GM_config.get('background');
     const insert = GM_config.get('insert');
     const setParent = GM_config.get('setParent');
     const options = {active: !background, insert: insert, setParent: setParent};
 
-    if (GM_config.get('root')){patternroot = new RegExp('^' + root + '$');}    // abc.x               => ^abc\.x$
-    if (GM_config.get('next')){
-        if (GM_config.get('root')){
-            patternroot = new RegExp('[^(' + flat + '\.)]?' + root + '$');     // abc.x + *.abc.x     => [^(w\.)]?abc\.x$
+    if (GM_config.get('parent')){patternparent = new RegExp(`^${parent}$`);}    // abc.x               => ^abc\.x$
+    if (GM_config.get('neighbor')){
+        if (GM_config.get('parent')){
+            patternparent = new RegExp(`[^(${flat}\.)]?${parent}$`);     // abc.x + *.abc.x     => [^(w\.)]?abc\.x$
         }
-        else {patternroot = new RegExp('[^(' + flat + ')]?\.' + root + '$');}  // *.abc.x             => [^(w)]?\.abc\.x$
+        else {patternparent = new RegExp(`[^(${flat})]?\.${parent}$`);}  // *.abc.x             => [^(w)]?\.abc\.x$
     }
-    if (GM_config.get('level') && root.search(/\..+\./) == -1){patternroot = empty;}
-    if (GM_config.get('host')){patternhost = new RegExp('^' + host + '$');}    // w.abc.x             => ^w\.abc\.x$
+    if (!GM_config.get('rootzone') && parent.search(/\..+\./) == -1){patternparent = empty;}
+    if (GM_config.get('host')){patternhost = new RegExp(`^${host}$`);}    // w.abc.x             => ^w\.abc\.x$
     if (GM_config.get('child')){
         if (GM_config.get('host')){
-            patternhost = new RegExp('(.+\.)?' + host + '$');                  // w.abc.x + *.w.abc.x => (.+\.)?w\.abc\.x$
+            patternhost = new RegExp(`(.+\.)?${host}$`);                  // w.abc.x + *.w.abc.x => (.+\.)?w\.abc\.x$
         }
-        else {patternhost = new RegExp('.+\.' + host + '$');}                  // *.w.abc.x           => .+\.w\.abc\.x$
+        else {patternhost = new RegExp(`.+\.${host}$`);}                  // *.w.abc.x           => .+\.w\.abc\.x$
     }
 
     window.onload = function(){
-        var anchors = document.getElementsByTagName('a');
-        for (var i = 0; i < anchors.length; i++) {
-            var a = anchors[i];
-            var target = a.host;
+        const anchors = document.getElementsByTagName('a');
+        for (let i = 0; i < anchors.length; i++) {
+            const a = anchors[i];
+            const target = a.host;
             if (a.hasAttribute('href')){
                 if (target && !empty.test(target)){
-                    if (!patternroot.test(target) && !patternhost.test(target)){
+                    if (!patternparent.test(target) && !patternhost.test(target)){
                         a.addEventListener('click', newtaber);
                     }
                 }
