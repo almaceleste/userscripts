@@ -13,7 +13,7 @@
 // @homepageURL     https://openuserjs.org/users/almaceleste
 // @homepageURL     https://github.com/almaceleste/userscripts
 // @supportURL      https://github.com/almaceleste/userscripts/issues
-// @updateURL       https://github.com/almaceleste/userscripts/raw/master/src/OpenSuse_Software_tweaks.meta.js
+// @updateURL       https://github.com/almaceleste/userscripts/raw/master/src/OpenSuse_Software_tweaks.user.js
 // @downloadURL     https://github.com/almaceleste/userscripts/raw/master/src/OpenSuse_Software_tweaks.user.js
 // @downloadURL     https://openuserjs.org/install/almaceleste/OpenSuse_Software_tweaks.user.js
 
