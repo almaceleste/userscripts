@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            UserStyles.Org Tweaks
 // @namespace       almaceleste
-// @version         0.1.0
+// @version         0.1.1
 // @description     some fixes for userstyle.org
 // @description:ru  несколько исправлений для userstyle.org
 // @author          GNU Affero GPL 3.0 🄯 2020 almaceleste  (https://almaceleste.github.io)
@@ -13,9 +13,9 @@
 // @homepageURL     https://openuserjs.org/users/almaceleste
 // @homepageURL     https://github.com/almaceleste/userscripts
 // @supportURL      https://github.com/almaceleste/userscripts/issues
-// @updateURL       https://github.com/almaceleste/userscripts/raw/master/src/UserStylesOrg_Tweaks.user.js
-// @downloadURL     https://github.com/almaceleste/userscripts/raw/master/src/UserStylesOrg_Tweaks.user.js
-// @downloadURL     https://openuserjs.org/install/almaceleste/UserStylesOrg_Tweaks.user.js
+// @updateURL       https://github.com/almaceleste/userscripts/raw/master/src/UserStyles.Org_Tweaks.user.js
+// @downloadURL     https://github.com/almaceleste/userscripts/raw/master/src/UserStyles.Org_Tweaks.user.js
+// @downloadURL     https://openuserjs.org/install/almaceleste/UserStyles.Org_Tweaks.user.js
 
 // @require         https://code.jquery.com/jquery-3.3.1.js
 // @require         https://raw.githubusercontent.com/uzairfarooq/arrive/master/minified/arrive.min.js
