@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Greasy Fork tweaks
 // @namespace       almaceleste
-// @version         0.6.2
+// @version         0.6.3
 // @description     various tweaks for greasyfork.org site for enhanced usability and additional features
 // @description:ru  различные твики для сайта greasyfork.org для повышения удобства использования и дополнительных функций
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -56,7 +56,7 @@ const scripturl = 'article h2 a';
 
 const userprofile = {};
 userprofile.path = '#user-profile';
-userprofile.header = 'body > div.width-constraint > section:first-child > h2';
+userprofile.header = 'body > div.width-constraint > section:first-of-type > h2:first-of-type';
 
 const sections = {};
 sections.controlpanel = '#control-panel';
