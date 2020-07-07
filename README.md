@@ -97,7 +97,7 @@ various tweaks for greasyfork.org site for enhanced usability and additional fea
 * a script image in the script list (supports zoom extensions such as Imagus and Hover Zoom)
 * use settings to turn on/off this options
 
-#### [![](https://userstyles.org/ui/images/icons/favicon.png) UserStyles.Org Tweaks](https://github.com/almaceleste/userscripts/raw/master/src/UserStylesOrg_Tweaks.user.js 'install')  
+#### [![](https://userstyles.org/ui/images/icons/favicon.png) UserStyles.Org Tweaks](https://github.com/almaceleste/userscripts/raw/master/src/UserStyles.Org_Tweaks.user.js 'install')  
 [![UserStyles.Org Tweaks](assets/img/usot-before-after-small.webp)](assets/img/usot-before-after-big.webp 'UserStyles.Org Tweaks')  
 some fixes for userstyle.org  
 on edit or new style pages you could:  
