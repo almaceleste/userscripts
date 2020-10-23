@@ -99,11 +99,12 @@ various tweaks for greasyfork.org site for enhanced usability and additional fea
 
 #### [![](https://userstyles.org/ui/images/icons/favicon.png) UserStyles.Org Tweaks](https://github.com/almaceleste/userscripts/raw/master/src/UserStyles.Org_Tweaks.user.js 'install')  
 [![UserStyles.Org Tweaks](assets/img/usot-before-after-small.webp)](assets/img/usot-before-after-big.webp 'UserStyles.Org Tweaks')  
-some fixes for userstyle.org  
+some fixes and tweaks for userstyle.org  
 on edit or new style pages you could:  
 * change the width of the editing frame
 * fix frame height when adding new settings and options or resizing text area
 * fix textarea width
+* add code parsing button to the new/edit page (only for variables yet)
 * use settings to turn on/off this options
 * new features may appear soon
 

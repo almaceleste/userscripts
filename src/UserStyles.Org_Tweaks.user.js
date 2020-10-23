@@ -2,8 +2,8 @@
 // @name            UserStyles.Org Tweaks
 // @namespace       almaceleste
 // @version         0.2.0
-// @description     some fixes for userstyle.org
-// @description:ru  несколько исправлений для userstyle.org
+// @description     some fixes and tweaks for userstyle.org
+// @description:ru  несколько исправлений и твиков для userstyle.org
 // @author          GNU Affero GPL 3.0 🄯 2020 almaceleste  (https://almaceleste.github.io)
 // @license         AGPL-3.0-or-later; http://www.gnu.org/licenses/agpl.txt
 // @icon            https://userstyles.org/ui/images/icons/favicon.png
