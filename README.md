@@ -35,6 +35,14 @@ makes the youtube player visible while scrolling - minimizes the player box from
 * ~~does not work when you open video from the youtube channel in the same tab~~
 * when minimized, the progress bar displays the correct visible info, but when you hover over it shows the wrong time and a tooltip preview and when you click it moves to the this position rather than the expected one (this is the reason for youtube's deep code, and I don't know how to fix this yet)  
 
+#### [![](https://cdn.openedu.ru/EMQUAJW/default/default/images/favicon.bd3d272022e9.ico) OpenEdu.Ru Tweaks](https://github.com/almaceleste/userscripts/raw/master/src/OpenEdu.Ru_Tweaks.user.js 'install')  
+some tweaks for [openedu.ru](https://openedu.ru)  
+
+**features**
+* always use HD video quality for course videos (if available)
+* new features may appear soon
+* use settings to enable/disable options.  
+
 #### [![](https://cdn1.iconfinder.com/data/icons/jumpicon-basic-ui-line-1/32/-_Eye-Show-View-Watch-See-16.png) Watch Transition](https://github.com/almaceleste/userscripts/raw/master/src/Watch_Transition.user.js 'install')  
 [![collapsed](assets/img/wt-collapsed-small.png)](assets/img/wt-collapsed-big.png 'collapsed message') [![expanded](assets/img/wt-expanded-small.png)](assets/img/wt-expanded-big.png 'expanded message')  
 some modern sites, like Youtube and others, use ajax transitions for inner-site navigation as opposed to regular navigation. it makes difficult to write scripts which are related to the site url.  
