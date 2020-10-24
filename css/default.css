@@ -42,7 +42,12 @@
     transform: translateX(-100%);
     width: 24px;
 }
-#configId.section_header {
+#configId .config_header,
+#configId .section_desc,
+#configId .section_header {
+    cursor: default;
+}
+#configId .section_header {
     background-color: #454545;
     border: 1px solid #222;
     font-size: 1em !important;
