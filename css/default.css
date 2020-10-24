@@ -45,7 +45,7 @@
 #configId .config_header,
 #configId .section_desc,
 #configId .section_header {
-    cursor: pointer;
+    cursor: default;
 }
 #configId .section_header {
     background-color: #454545;
