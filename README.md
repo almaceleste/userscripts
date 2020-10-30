@@ -40,6 +40,7 @@ some tweaks for [openedu.ru](https://openedu.ru)
 
 **features**
 * always use HD video quality for course videos (if available)
+* always use keyboard shortcuts to control video
 * new features may appear soon
 * use settings to enable/disable options.  
 
