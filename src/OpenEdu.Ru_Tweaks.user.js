@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            OpenEdu.Ru Tweaks
 // @namespace       almaceleste
-// @version         0.1.0
+// @version         0.2.0
 // @description     some tweaks for openedu.ru
 // @description:ru  твики для openedu.ru
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -88,6 +88,16 @@ GM_config.init({
             type: 'checkbox',
             default: true,
         },
+        videokeybinding: {
+            label: 'video keybinding',
+            labelPos: 'right',
+            title: `always use keyboard shortcuts to control video:
+    <Space> - play/pause
+    <Left>     - backward
+    <Right>  - forward`,
+            type: 'checkbox',
+            default: true,
+        },
         support: {
             section: ['', 'Support'],
             label: 'almaceleste.github.io',
@@ -117,14 +127,79 @@ GM_config.init({
     'use strict';
 
     // set variables
-    let player = '.tc-wrapper > .video-wrapper > .video-player';
-    let video = `${player} video > source`;
-    let qualitybtn = '.tc-wrapper .video-controls .secondary-controls > button.control.quality-control';
+    const video = '.tc-wrapper > .video-wrapper';
+    const player = `${video} > .video-player`;
+    const source = `${player} video > source`;
+    const controls = `${video} > .video-controls`;
+    const progress = `${controls} > .slider > .progress-handle`;
+    const pause = `${controls} .vcr > .control.video_control`;
+    const qualitybtn = `${controls} .secondary-controls > button.control.quality-control`;
 
-    if (GM_config.get('videoquality')) {
-        $(document).arrive(player, existing, () => {
-            let src = $(video).attr('src');
+    $(document).arrive(player, existing, () => {
+        if (GM_config.get('videoquality')) {
+            const src = $(source).attr('src');
             if (src.search(/sd\.mp4/)) $(qualitybtn).trigger('click');
-        })
-    }
+        }
+        if (GM_config.get('videokeybinding')) {
+            // $(progress).focus();
+            $(progress).attr('id', 'progress-handle');
+            const el = document.getElementById('progress-handle');
+            const ev = document.createEvent("Events");
+            ev.initEvent("keydown", false, true);
+            $(document).on({
+                keydown: (e) => {
+                    // console.log('on:', e.type, e.keyCode, e);
+                    if (e.target.localName != 'input') {
+                        if (e.target.id != 'progress-handle') {
+                            let n = 0;
+                            switch (e.keyCode) {
+                                case 37: // left or
+                                    e.preventDefault();
+                                    $(progress).focus();
+                                    ev.which = 37;
+                                    ev.keyCode = 37;
+                                    while (n < 5) {
+                                        el.dispatchEvent(ev);
+                                        n++;
+                                    }
+                                    break;
+                                case 39: // right
+                                    e.preventDefault();
+                                    $(progress).focus();
+                                    ev.which = 39;
+                                    ev.keyCode = 39;
+                                    while (n < 5) {
+                                        el.dispatchEvent(ev);
+                                        n++;
+                                    }
+                                    break;
+                                case 38: // up
+                                    break;
+                                case 40: // down
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                },
+                keypress: (e) => {
+                    // console.log('on:', e.type, e.keyCode, e);
+                    if (e.target.localName != 'input') {
+                        switch (e.keyCode) {
+                            case 32: // space
+                                e.preventDefault();
+                                $(pause).trigger('click');
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                },
+                keyup: (e) => {
+                    if (e.target.id == 'progress-handle') $(progress).blur();
+                }
+            });
+        }
+    })
 })();
