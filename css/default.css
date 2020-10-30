@@ -56,9 +56,11 @@
 #configId .option_label {
     font-size: .7em !important;
 }
+#configId .multicheckbox > ul,
 #configId .multiselect > ul {
     margin: 0;
 }
+#configId .multicheckbox > ul > li,
 #configId .multiselect > ul > li {
     display: inline-block;
 }
@@ -78,7 +80,7 @@
 #configId_field_support {
     background: none !important;
     border: none !important;
-    cursor: pointer !important;      
+    cursor: pointer !important;
     padding: 0 !important;
     text-decoration: underline !important;
 }
