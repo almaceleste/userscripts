@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            UserStyles.Org Tweaks
 // @namespace       almaceleste
-// @version         0.2.0
+// @version         0.2.1
 // @description     some fixes and tweaks for userstyle.org
 // @description:ru  несколько исправлений и твиков для userstyle.org
 // @author          GNU Affero GPL 3.0 🄯 2020 almaceleste  (https://almaceleste.github.io)
@@ -135,7 +135,7 @@ GM_config.init({
         },
         parsetargets: {
             title: 'only variables for the uso preprocessor yet',
-            type: 'multiselect',
+            type: 'multicheckbox',
             options: {
                 // name: true,
                 // description: true,
@@ -158,18 +158,18 @@ GM_config.init({
         },
     },
     types: {
-        multiselect: {
+        multicheckbox: {
             default: {},
             toNode: function() {
                 let field = this.settings,
-                    value = this.value,
+                    values = this.value,
                     options = field.options,
                     id = this.id,
                     configId = this.configId,
                     labelPos = field.labelPos,
                     create = this.create;
+                // console.log('toNode:', field, values, options);
 
-                // console.log('toNode:', field, value, options);
                 function addLabel(pos, labelEl, parentNode, beforeEl) {
                     if (!beforeEl) beforeEl = parentNode.firstChild;
                     switch (pos) {
@@ -186,7 +186,7 @@ GM_config.init({
                 }
 
                 let retNode = create('div', {
-                        className: 'config_var multiselect',
+                        className: 'config_var multicheckbox',
                         id: `${configId}_${id}_var`,
                         title: field.title || ''
                     }),
@@ -200,22 +200,21 @@ GM_config.init({
                         id: `${configId}_${id}_field_label`,
                         for: `${configId}_field_${id}`,
                     }, field.label) : null;
-
                 let wrap = create('ul', {
                     id: `${configId}_field_${id}`
                 });
                 this.node = wrap;
 
-                for (const key in options) {
+                for (const key in values) {
                     // console.log('toNode:', key);
                     const inputId = `${configId}_${id}_${key}_checkbox`;
                     const li = wrap.appendChild(create('li', {
                     }));
                     li.appendChild(create('input', {
-                        checked: value.hasOwnProperty(key),
+                        checked: values[key],
                         id: inputId,
                         type: 'checkbox',
-                        value: options[key],
+                        value: key,
                     }));
                     li.appendChild(create('label', {
                         className: 'option_label',
@@ -230,28 +229,24 @@ GM_config.init({
                     // else insert it after
                     if (!labelPos)
                         labelPos = firstProp == "label" ? "left" : "right";
-
                     addLabel(labelPos, label, retNode);
                 }
-
                 return retNode;
             },
             toValue: function() {
                 let node = this.node,
                     id = node.id,
-                    options = this.settings.options,
                     rval = {};
-
-                // console.log('toValue:', node, options, this);
+                // console.log('toValue:', node, this);
 
                 if (!node) return rval;
 
-                let nodelist = node.querySelectorAll(`#${id} input:checked`);
+                let nodelist = node.querySelectorAll(`#${id} input`);
                 // console.log('nodelist:', document.querySelectorAll(`#${id} input:checked`), nodelist);
                 nodelist.forEach((input) => {
                     // console.log('toValue:', input);
-                    const value = input.value;
-                    const key = Object.keys(options).find((key) => options[key] == value);
+                    const value = input.checked;
+                    const key = input.value;
                     rval[key] = value;
                 });
 
@@ -261,18 +256,12 @@ GM_config.init({
             reset: function() {
                 let node = this.node,
                     values = this.default;
-
                 // console.log('reset:', node, values, Object.values(values));
+
                 const inputs = node.getElementsByTagName('input');
                 for (const index in inputs) {
                     const input = inputs[index];
-                    // console.log('reset:', input.value, Object.values(values).includes(input.value) || Object.values(values).includes(+input.value));
-                    if (Object.values(values).includes(input.value) || Object.values(values).includes(+input.value)) {
-                        if (!input.checked) input.click();
-                    }
-                    else {
-                        if (input.checked) input.click();
-                    }
+                    input.checked = values[input.value];
                 }
             }
         }
