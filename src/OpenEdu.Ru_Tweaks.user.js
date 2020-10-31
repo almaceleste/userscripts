@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            OpenEdu.Ru Tweaks
 // @namespace       almaceleste
-// @version         0.2.0
+// @version         0.3.0
 // @description     some tweaks for openedu.ru
 // @description:ru  твики для openedu.ru
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -61,7 +61,7 @@ Object.keys(pattern).forEach((key) => {
 const windowcss = css;
 // main parameters of the settings window (frame). specific to each script due to the different amount of the parameters in each script
 const iframecss = `
-    height: 185px;
+    height: 205px;
     width: 435px;
     border: 1px solid;
     border-radius: 3px;
@@ -92,11 +92,28 @@ GM_config.init({
             label: 'video keybinding',
             labelPos: 'right',
             title: `always use keyboard shortcuts to control video:
-    <Space> - play/pause
-    <Left>     - backward
-    <Right>  - forward`,
+    <Space>             - play/pause
+    <Left>/<Right> - backward/forward (5 sec)
+    <Down>/<Up>  - fast backward/forward (10 sec)`,
             type: 'checkbox',
             default: true,
+        },
+        videokeybindings: {
+            title: `
+<Space>             - play/pause
+<Left>/<Right> - backward/forward (5 sec)
+<Down>/<Up>  - fast backward/forward (10 sec)`,
+            type: 'multicheckbox',
+            options: {
+                pause: true,
+                rewind: true,
+                fastrewind: true
+            },
+            default: {
+                pause: true,
+                rewind: true,
+                fastrewind: true
+            },
         },
         support: {
             section: ['', 'Support'],
@@ -111,6 +128,115 @@ GM_config.init({
                 });
             }
         },
+    },
+    types: {
+        multicheckbox: {
+            default: {},
+            toNode: function() {
+                let field = this.settings,
+                    values = this.value,
+                    options = field.options,
+                    id = this.id,
+                    configId = this.configId,
+                    labelPos = field.labelPos,
+                    create = this.create;
+                // console.log('toNode:', field, values, options);
+
+                function addLabel(pos, labelEl, parentNode, beforeEl) {
+                    if (!beforeEl) beforeEl = parentNode.firstChild;
+                    switch (pos) {
+                        case 'right': case 'below':
+                            if (pos == 'below')
+                                parentNode.appendChild(create('br', {}));
+                            parentNode.appendChild(labelEl);
+                            break;
+                        default:
+                            if (pos == 'above')
+                                parentNode.insertBefore(create('br', {}), beforeEl);
+                            parentNode.insertBefore(labelEl, beforeEl);
+                    }
+                }
+
+                let retNode = create('div', {
+                        className: 'config_var multicheckbox',
+                        id: `${configId}_${id}_var`,
+                        title: field.title || ''
+                    }),
+                    firstProp;
+
+                // Retrieve the first prop
+                for (let i in field) { firstProp = i; break; }
+
+                let label = field.label ? create('label', {
+                        className: 'field_label',
+                        id: `${configId}_${id}_field_label`,
+                        for: `${configId}_field_${id}`,
+                    }, field.label) : null;
+                let wrap = create('ul', {
+                    id: `${configId}_field_${id}`
+                });
+                this.node = wrap;
+
+                for (const key in values) {
+                    // console.log('toNode:', key);
+                    const inputId = `${configId}_${id}_${key}_checkbox`;
+                    const li = wrap.appendChild(create('li', {
+                    }));
+                    li.appendChild(create('input', {
+                        checked: values[key],
+                        id: inputId,
+                        type: 'checkbox',
+                        value: key,
+                    }));
+                    li.appendChild(create('label', {
+                        className: 'option_label',
+                        for: inputId,
+                    }, key));
+                }
+
+                retNode.appendChild(wrap);
+
+                if (label) {
+                    // If the label is passed first, insert it before the field
+                    // else insert it after
+                    if (!labelPos)
+                        labelPos = firstProp == "label" ? "left" : "right";
+                    addLabel(labelPos, label, retNode);
+                }
+                return retNode;
+            },
+            toValue: function() {
+                let node = this.node,
+                    id = node.id,
+                    rval = {};
+                // console.log('toValue:', node, this);
+
+                if (!node) return rval;
+
+                let nodelist = node.querySelectorAll(`#${id} input`);
+                // console.log('nodelist:', document.querySelectorAll(`#${id} input:checked`), nodelist);
+                nodelist.forEach((input) => {
+                    // console.log('toValue:', input);
+                    const value = input.checked;
+                    const key = input.value;
+                    rval[key] = value;
+                });
+
+                // console.log('toValue:', rval);
+                return rval;
+            },
+            reset: function() {
+                let node = this.node,
+                    values = this.default;
+                // console.log('reset:', node, values, Object.values(values));
+
+                const inputs = node.getElementsByTagName('input');
+                for (const index in inputs) {
+                    const input = inputs[index];
+                    input.checked = values[input.value];
+                }
+            }
+        }
     },
     css: windowcss,
     events: {
@@ -141,41 +267,66 @@ GM_config.init({
             if (src.search(/sd\.mp4/)) $(qualitybtn).trigger('click');
         }
         if (GM_config.get('videokeybinding')) {
-            // $(progress).focus();
+            // const keybindings = GM_config.get('videokeybindings');
             $(progress).attr('id', 'progress-handle');
             const el = document.getElementById('progress-handle');
             const ev = document.createEvent("Events");
             ev.initEvent("keydown", false, true);
-            $(document).on({
+            $(window).on({
                 keydown: (e) => {
+                    const keybindings = GM_config.get('videokeybindings');
                     // console.log('on:', e.type, e.keyCode, e);
                     if (e.target.localName != 'input') {
                         if (e.target.id != 'progress-handle') {
                             let n = 0;
                             switch (e.keyCode) {
-                                case 37: // left or
-                                    e.preventDefault();
-                                    $(progress).focus();
-                                    ev.which = 37;
-                                    ev.keyCode = 37;
-                                    while (n < 5) {
-                                        el.dispatchEvent(ev);
-                                        n++;
+                                case 37: // left
+                                    if (keybindings.rewind) {
+                                        // e.preventDefault();
+                                        $(progress).focus();
+                                        ev.which = 37;
+                                        ev.keyCode = 37;
+                                        while (n < 5) {
+                                            el.dispatchEvent(ev);
+                                            n++;
+                                        }
                                     }
                                     break;
                                 case 39: // right
-                                    e.preventDefault();
-                                    $(progress).focus();
-                                    ev.which = 39;
-                                    ev.keyCode = 39;
-                                    while (n < 5) {
-                                        el.dispatchEvent(ev);
-                                        n++;
+                                    if (keybindings.rewind) {
+                                        // e.preventDefault();
+                                        $(progress).focus();
+                                        ev.which = 39;
+                                        ev.keyCode = 39;
+                                        while (n < 5) {
+                                            el.dispatchEvent(ev);
+                                            n++;
+                                        }
                                     }
                                     break;
                                 case 38: // up
+                                    if (keybindings.fastrewind) {
+                                        // e.preventDefault();
+                                        $(progress).focus();
+                                        ev.which = 39;
+                                        ev.keyCode = 39;
+                                        while (n < 10) {
+                                            el.dispatchEvent(ev);
+                                            n++;
+                                        }
+                                    }
                                     break;
                                 case 40: // down
+                                    if (keybindings.fastrewind) {
+                                        // e.preventDefault();
+                                        $(progress).focus();
+                                        ev.which = 37;
+                                        ev.keyCode = 37;
+                                        while (n < 10) {
+                                            el.dispatchEvent(ev);
+                                            n++;
+                                        }
+                                    }
                                     break;
                                 default:
                                     break;
@@ -184,12 +335,15 @@ GM_config.init({
                     }
                 },
                 keypress: (e) => {
+                    const keybindings = GM_config.get('videokeybindings');
                     // console.log('on:', e.type, e.keyCode, e);
                     if (e.target.localName != 'input') {
                         switch (e.keyCode) {
                             case 32: // space
-                                e.preventDefault();
-                                $(pause).trigger('click');
+                                if (keybindings.pause) {
+                                    e.preventDefault();
+                                    $(pause).trigger('click');
+                                }
                                 break;
                             default:
                                 break;
@@ -199,6 +353,28 @@ GM_config.init({
                 keyup: (e) => {
                     if (e.target.id == 'progress-handle') $(progress).blur();
                 }
+            });
+            window.addEventListener('keydown', (e) => {
+                const keybindings = GM_config.get('videokeybindings');
+                if (e.target.localName != 'input') {
+                    switch (e.keyCode) {
+                        case 37: // left
+                        case 39: // right
+                            if (keybindings.rewind)
+                                e.preventDefault();
+                            break;
+                        case 38: // up
+                        case 40: // down
+                            if (keybindings.fastrewind)
+                                e.preventDefault();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }, {
+                capture: true,
+                // passive: false
             });
         }
     })
