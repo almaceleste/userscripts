@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            StackExchange link newtaber
 // @namespace       almaceleste
-// @version         0.4.1
+// @version         0.4.2
 // @description     opens links from posts, answers, comments and user signatures in the new tab instead of the annoying in-place opening
 // @description:ru  открывает ссылки из постов, ответов, комментариев и подписей пользователей в новой вкладке вместо надоедливого открытия в текущей
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -40,8 +40,8 @@
 // ==/OpenUserJS==
 
 // script variables
-const postlink = '.post-text a';
-const commentlink = '.comment-copy a';
+const postlink = '.js-post-body a';
+const commentlink = '.comment-body a';
 const userdetailslink = '.user-details a';
 
 // config settings
