@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name            OpenEdu.Ru Tweaks
 // @namespace       almaceleste
-// @version         0.3.0
+// @version         0.4.0
 // @description     some tweaks for openedu.ru
-// @description:ru  твики для openedu.ru
+// @description:ru  некоторые твики для openedu.ru
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
 // @license         AGPL-3.0-or-later; http://www.gnu.org/licenses/agpl
 // @icon            https://cdn.openedu.ru/EMQUAJW/default/default/images/favicon.bd3d272022e9.ico
@@ -102,17 +102,20 @@ GM_config.init({
             title: `
 <Space>             - play/pause
 <Left>/<Right> - backward/forward (5 sec)
-<Down>/<Up>  - fast backward/forward (10 sec)`,
+<Down>/<Up>  - fast backward/forward (10 sec)
+<1...4>    - video speed control (0.75x, 1.0x, 1.25x, 1.50x)`,
             type: 'multicheckbox',
             options: {
                 pause: true,
                 rewind: true,
-                fastrewind: true
+                fastrewind: true,
+                speedcontrol: true,
             },
             default: {
                 pause: true,
                 rewind: true,
-                fastrewind: true
+                fastrewind: true,
+                speedcontrol: true,
             },
         },
         support: {
@@ -140,7 +143,7 @@ GM_config.init({
                     configId = this.configId,
                     labelPos = field.labelPos,
                     create = this.create;
-                // console.log('toNode:', field, values, options);
+                console.log('toNode:', field, values, options);
 
                 function addLabel(pos, labelEl, parentNode, beforeEl) {
                     if (!beforeEl) beforeEl = parentNode.firstChild;
@@ -177,13 +180,14 @@ GM_config.init({
                 });
                 this.node = wrap;
 
-                for (const key in values) {
-                    // console.log('toNode:', key);
+                // for (const key in values) {
+                for (const key in options) {
+                        // console.log('toNode:', key);
                     const inputId = `${configId}_${id}_${key}_checkbox`;
                     const li = wrap.appendChild(create('li', {
                     }));
                     li.appendChild(create('input', {
-                        checked: values[key],
+                        checked: values.hasOwnProperty(key) ? values[key] : options[key],
                         id: inputId,
                         type: 'checkbox',
                         value: key,
@@ -259,7 +263,13 @@ GM_config.init({
     const controls = `${video} > .video-controls`;
     const progress = `${controls} > .slider > .progress-handle`;
     const pause = `${controls} .vcr > .control.video_control`;
-    const qualitybtn = `${controls} .secondary-controls > button.control.quality-control`;
+    const secondarycontrols = `${controls} .secondary-controls`;
+    const qualitybtn = `${secondarycontrols} > button.control.quality-control`;
+    const videospeeds = `${secondarycontrols} > .speeds > .video-speeds`;
+    const videospeed1 = `${videospeeds} > li:nth-last-child(1) > button.control`;
+    const videospeed2 = `${videospeeds} > li:nth-last-child(2) > button.control`;
+    const videospeed3 = `${videospeeds} > li:nth-last-child(3) > button.control`;
+    const videospeed4 = `${videospeeds} > li:nth-last-child(4) > button.control`;
 
     $(document).arrive(player, existing, () => {
         if (GM_config.get('videoquality')) {
@@ -343,6 +353,30 @@ GM_config.init({
                                 if (keybindings.pause) {
                                     e.preventDefault();
                                     $(pause).trigger('click');
+                                }
+                                break;
+                            case 49: // 1
+                                if (keybindings.speedcontrol) {
+                                    e.preventDefault();
+                                    $(videospeed1).trigger('click');
+                                }
+                                break;
+                            case 50: // 2
+                                if (keybindings.speedcontrol) {
+                                    e.preventDefault();
+                                    $(videospeed2).trigger('click');
+                                }
+                                break;
+                            case 51: // 3
+                                if (keybindings.speedcontrol) {
+                                    e.preventDefault();
+                                    $(videospeed3).trigger('click');
+                                }
+                                break;
+                            case 52: // 4
+                                if (keybindings.speedcontrol) {
+                                    e.preventDefault();
+                                    $(videospeed4).trigger('click');
                                 }
                                 break;
                             default:
