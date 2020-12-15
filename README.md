@@ -43,6 +43,7 @@ some tweaks for [openedu.ru](https://openedu.ru)
 * always use keyboard shortcuts to control video (space/left/right)
 * added fast rewind with up and down buttons
 * added video speed control with 1...4 buttons
+* added control over side subtitles
 * new features may appear soon
 * use settings to enable/disable options.  
 
