@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            OpenEdu.Ru Tweaks
 // @namespace       almaceleste
-// @version         0.4.0
+// @version         0.5.0
 // @description     some tweaks for openedu.ru
 // @description:ru  некоторые твики для openedu.ru
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -61,7 +61,7 @@ Object.keys(pattern).forEach((key) => {
 const windowcss = css;
 // main parameters of the settings window (frame). specific to each script due to the different amount of the parameters in each script
 const iframecss = `
-    height: 205px;
+    height: 250px;
     width: 435px;
     border: 1px solid;
     border-radius: 3px;
@@ -116,6 +116,23 @@ GM_config.init({
                 rewind: true,
                 fastrewind: true,
                 speedcontrol: true,
+            },
+        },
+        managesidesubtitles: {
+            title: 'whether or not to control side subtitles',
+            label: 'manage side subtitles',
+            labelPos: 'right',
+            type: 'checkbox',
+            default: true,
+        },
+        sidesubtitles: {
+            title: 'check this option to enable subtitles, uncheck to disable',
+            type: 'multicheckbox',
+            options: {
+                'side subtitles': false
+            },
+            default: {
+                'side subtitles': false
             },
         },
         support: {
@@ -270,6 +287,7 @@ GM_config.init({
     const videospeed2 = `${videospeeds} > li:nth-last-child(2) > button.control`;
     const videospeed3 = `${videospeeds} > li:nth-last-child(3) > button.control`;
     const videospeed4 = `${videospeeds} > li:nth-last-child(4) > button.control`;
+    const sidesubtitlesbtn = `${secondarycontrols} > .grouped-controls > .toggle-transcript`;
 
     $(document).arrive(player, existing, () => {
         if (GM_config.get('videoquality')) {
@@ -409,6 +427,14 @@ GM_config.init({
             }, {
                 capture: true,
                 // passive: false
+            });
+        }
+        if (GM_config.get('managesidesubtitles')) {
+            const sidesubtitles = GM_config.get('sidesubtitles')['side subtitles'];
+            $(document).arrive(sidesubtitlesbtn, existing, () => {
+                if (sidesubtitles != $(sidesubtitlesbtn).hasClass('is-active')) {
+                    $(sidesubtitlesbtn).click();
+                }
             });
         }
     })
