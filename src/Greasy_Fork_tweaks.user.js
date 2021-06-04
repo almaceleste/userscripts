@@ -6,8 +6,8 @@
 // @description:ru  различные твики для сайта greasyfork.org для повышения удобства использования и дополнительных функций
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
 // @license         AGPL-3.0-or-later; http://www.gnu.org/licenses/agpl.txt
-// @icon            https://greasyfork.org/assets/blacklogo16-bc64b9f7afdc9be4cbfa58bdd5fc2e5c098ad4bca3ad513a27b15602083fd5bc.png
-// @icon64          https://greasyfork.org/assets/blacklogo96-e0c2c76180916332b7516ad47e1e206b42d131d36ff4afe98da3b1ba61fd5d6c.png
+// @icon            https://raw.githubusercontent.com/JasonBarnabe/greasyfork/master/public/images/blacklogo16.png
+// @icon64          https://raw.githubusercontent.com/JasonBarnabe/greasyfork/master/public/images/blacklogo96.png
 
 // @homepageURL     https://greasyfork.org/en/users/174037-almaceleste
 // @homepageURL     https://openuserjs.org/users/almaceleste
