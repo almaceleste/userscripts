@@ -1,0 +1,19 @@
+{
+  "name": "userscripts",
+  "version": "1.0.0",
+  "description": "this is the repo of my userscripts. I use some external libraries ([jQuery](https://jquery.com/), [arrive.js](https://github.com/uzairfarooq/arrive), [GM_config](https://github.com/sizzlemctwizzle/GM_config/wiki)) in my userscripts.",
+  "main": "''",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/almaceleste/userscripts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/almaceleste/userscripts/issues"
+  },
+  "homepage": "https://github.com/almaceleste/userscripts#readme"
+}

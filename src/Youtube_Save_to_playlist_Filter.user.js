@@ -115,21 +115,13 @@ function getFocus(target) {
 (function() {
     'use strict';
 
-    // set variables
+    // set global function variables
     const saveDialog = 'body > ytd-app > ytd-popup-container > tp-yt-paper-dialog > ytd-add-to-playlist-renderer';
     const header = `${saveDialog} > #header`;
-    const headerTitle = `${header} > #title`;
-    const playlistPath = `${saveDialog} > #playlists > ytd-playlist-add-to-option-renderer`;
-    const playlistName = `${playlistPath} > #checkbox > #checkboxLabel > #checkbox-container > #checkbox-label > #label`;
-    const saveButton = '#flexible-item-buttons > ytd-button-renderer > yt-button-shape > button[aria-label="Save to playlist"]';
-    const saveMenuButton = 'tp-yt-paper-listbox > ytd-menu-service-item-renderer';
-    const saveMenuLabel = `tp-yt-paper-item > yt-formatted-string:contains('Save')`;
-    const newPlaylistName = '#labelAndInputContainer > iron-input > input';
 
     // get settings
     const filterEvent = GM_config.get('realtime') ? 'keyup' : 'change';
     const focused = GM_config.get('focused');
-    const syncName = GM_config.get('syncName');
 
     const filterDiv = $('<div>');
     const filterInput = $('<input id="save-filter" type="text" placeholder="filter">');
@@ -157,7 +149,11 @@ function getFocus(target) {
     });
     filterInput.on(filterEvent, e => {
         const pattern = e.target.value;
+        const playlistPath = `${saveDialog} > #playlists > ytd-playlist-add-to-option-renderer`;
+
         if (pattern) {
+            const playlistName = `${playlistPath} > #checkbox > #checkboxLabel > #checkbox-container > #checkbox-label > #label`;
+
             $(playlistPath).hide();
             $(`${playlistName}[title*="${pattern}"]`).closest(playlistPath).show();
         }
@@ -171,6 +167,9 @@ function getFocus(target) {
     filterDiv.append(filterInput, clearButton);
 
     if (focused) {
+        const saveButton = '#flexible-item-buttons > ytd-button-renderer > yt-button-shape > button[aria-label="Save to playlist"]';
+        const saveMenuButton = 'tp-yt-paper-listbox > ytd-menu-service-item-renderer';
+
         document.arrive(saveButton, {existing: true}, b => {
             $(b).on('click', () => {
                 getFocus(filterInput);
@@ -178,6 +177,7 @@ function getFocus(target) {
         });
 
         document.arrive(saveMenuButton, {existing: true}, b => {
+            const saveMenuLabel = `tp-yt-paper-item > yt-formatted-string:contains('Save')`;
             $(b).has(saveMenuLabel).on('click', () => {
                 getFocus(filterInput);
             });
@@ -185,18 +185,24 @@ function getFocus(target) {
     }
 
     document.arrive(header, {onceonly: true}, h => {
-        const t = $(h).children(headerTitle);
-        const p = $(h).parent();
-        t.css({
+        const syncName = GM_config.get('syncName');
+        const headerTitle = `${header} > #title`;
+
+        const title = $(h).children(headerTitle);
+        const parent = $(h).parent();
+
+        title.css({
             'flex': 'unset',
             'flex-basis': 'auto',
         });
-        t.after(filterDiv);
+        title.after(filterDiv);
         if (focused) {
             getFocus(filterInput);
         }
         if (syncName) {
-            p.arrive(newPlaylistName, {onceonly: true, existing: true}, n => {
+            const newPlaylistName = '#labelAndInputContainer > iron-input > input';
+
+            parent.arrive(newPlaylistName, {onceonly: true, existing: true}, n => {
                 n = $(n);
                 n.on('keyup', () => {
                     filterInput.val(n.val());

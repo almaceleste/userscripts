@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            External link newtaber
 // @namespace       almaceleste
-// @version         0.3.4
+// @version         0.3.4*
 // @description     opens external links in a new tab on all sites (now can work with dynamic link lists, such as search results)
 // @description:ru  открывает внешние ссылки в новой вкладке на всех сайтах (теперь должно работать с динамическими списками ссылок, такими как результаты поисковых запросов)
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -143,6 +143,8 @@ GM_config.init({
     },
 });
 
+// functions
+
 // script code
 (function() {
     'use strict';
@@ -173,24 +175,77 @@ GM_config.init({
         else {patternhost = new RegExp(`.+\.${host}$`);}                  // *.w.abc.x           => .+\.w\.abc\.x$
     }
 
-    window.onload = function(){
+    // document.onload = createObserver(document, 'a', addNewtaber);
+    createObserver(document, 'a', addNewtaber);
+
+    // window.onload = function(){
         const anchors = document.getElementsByTagName('a');
-        for (let i = 0; i < anchors.length; i++) {
-            const a = anchors[i];
-            const target = a.host;
-            if (a.hasAttribute('href')){
-                if (target && !empty.test(target)){
-                    if (!patternparent.test(target) && !patternhost.test(target)){
-                        a.addEventListener('click', newtaber);
-                    }
+        for (let a of anchors) {
+            // console.log('window.onload:', a);
+            addNewtaber(a);
+        }
+    // }
+
+    function addNewtaber(a) {
+        const target = a.host;
+        if (a.hasAttribute('href')){
+            if (target && !empty.test(target)){
+                if (!patternparent.test(target) && !patternhost.test(target)){
+                    console.log('addNewtaber:', a, a.href);
+                    a.addEventListener('click', newtaber);
                 }
             }
         }
     }
 
     function newtaber(e){
+        console.log('newtaber:', e);
         e.preventDefault();
         e.stopPropagation();
         GM_openInTab(this.href, options);
+    }
+
+    function createObserver(target, tag, callback) {
+        console.log('createObserver:', target, tag, callback);
+        // const observer = new MutationObserver((mutationsList, observer) => {
+        //     for (let mutation of mutationsList) {
+        //         mutation.addedNodes.forEach((node) => {
+        //             if (node.localName === tag) {
+        //                 console.log('observer:', node, node.href);
+        //                 callback(node);
+        //             }
+        //         });
+        //     }
+        // });
+
+        // observer.observe(target, {
+        //     childList: true,
+        //     subtree: true
+        // });
+
+        // Конфигурация observer (за какими изменениями наблюдать)
+        const config = {
+            childList: true,
+            subtree: true
+        };
+
+        // Функция обратного вызова при срабатывании мутации
+        const cb = function(mutationsList, observer) {
+            for (let mutation of mutationsList) {
+                // console.log('mutation:', mutation);
+                mutation.addedNodes.forEach((node) => {
+                    if (node.localName === tag) {
+                        // console.log('observer:', node);
+                        callback(node);
+                    }
+                });
+            }
+        };
+
+        // Создаем экземпляр наблюдателя с указанной функцией обратного вызова
+        const observer = new MutationObserver(cb);
+
+        // Начинаем наблюдение за настроенными изменениями целевого элемента
+        observer.observe(document, config);
     }
 })();

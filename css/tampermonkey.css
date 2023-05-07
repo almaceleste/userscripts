@@ -1,7 +1,11 @@
 /* main page */
+.head_container {
+    min-width: unset;
+}
 .tv_container_fit {
     bottom: 0;
     left: 0;
+    min-width: unset;
     position: absolute;
     right: 0;
     top: 4.1em;
@@ -85,6 +89,11 @@
 }
 .viewer_upper > div > h3,h4 {
     font-size: 1.2em !important;
+}
+/* editor */
+.tv_table,
+.tv_table.tv_table_alt {
+    min-width: unset;
 }
 
 /* for x-resolution 1280+ */

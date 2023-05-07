@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Youtube Player Always On Top
 // @namespace       almaceleste
-// @version         0.5.0
+// @version         0.5.0*
 // @description     this code makes the youtube player visible while scrolling
 // @description:ru  этот код делает плеер youtube видимым при прокрутке
 // @author          (ɔ) Paola Captanovska
@@ -524,7 +524,7 @@ function createButton(){
             $(window).on({
                 transitionend: (e) => {
                     const c = 'yt-page-navigation-progress';
-                    if (e.target.id = 'progress' && e.target.classList.contains(c)) {
+                    if (e.target.id == 'progress' && e.target.classList.contains(c)) {
                         if (matchPath(pattern)) {
                             app.watch = true;
                             doThings();
