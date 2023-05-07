@@ -46,7 +46,7 @@ Object.keys(pattern).forEach((key) => {
 const windowcss = css;
 // main parameters of the settings window (frame). specific to each script due to the different amount of the parameters in each script
 const iframecss = `
-    height: 235px;
+    height: 260px;
     width: 455px;
     border: 1px solid;
     border-radius: 3px;
