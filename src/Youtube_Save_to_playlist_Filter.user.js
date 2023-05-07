@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Youtube Save to playlist Filter
 // @namespace       almaceleste
-// @version         0.0.2
+// @version         0.0.3
 // @description     filter for playlists in the "Save to" menu on Youtube
 // @description:ru  фильтр для прейлистов в меню сохранения Youtube
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -78,13 +78,19 @@ GM_config.init({
             type: 'checkbox',
             default: true,
         },
+        caseInsensitivity: {
+            label: 'case-insensitive',
+            labelPos: 'right',
+            type: 'checkbox',
+            default: true,
+        },
         moveChecked: {
             label: 'move checked playlists to the top',
             labelPos: 'right',
             type: 'checkbox',
             default: true,
         },
-            syncName: {
+        syncName: {
             label: 'synchronize filter with "New playlist" field',
             labelPos: 'right',
             type: 'checkbox',
@@ -117,6 +123,12 @@ function getFocus(target) {
     setTimeout(() => {target.trigger('focus');}, 1000);
 }
 
+function contains(text, pattern, flag) {
+    const re = new RegExp(pattern, flag);
+
+    return re.test(text);
+}
+
 // userscript main function that started when page are loaded
 (function() {
     'use strict';
@@ -127,6 +139,7 @@ function getFocus(target) {
 
     // get settings
     const filterEvent = GM_config.get('realtime') ? 'keyup' : 'change';
+    const caseFlag = GM_config.get('caseInsensitivity') ? 'i' : '';
     const focused = GM_config.get('focused');
 
     const filterDiv = $('<div>');
@@ -161,7 +174,7 @@ function getFocus(target) {
             const playlistName = `${playlistPath} > #checkbox > #checkboxLabel > #checkbox-container > #checkbox-label > #label`;
 
             $(playlistPath).hide();
-            $(`${playlistName}[title*="${pattern}"]`).closest(playlistPath).show();
+            $(playlistName).filter((i, e) => contains(e.getAttribute('title'), pattern, caseFlag)).closest(playlistPath).show();
         }
         else $(playlistPath).show();
     });
