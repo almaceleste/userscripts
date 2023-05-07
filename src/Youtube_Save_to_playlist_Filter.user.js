@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Youtube Save to playlist Filter
 // @namespace       almaceleste
-// @version         0.0.1*
+// @version         0.0.2
 // @description     filter for playlists in the "Save to" menu on Youtube
 // @description:ru  фильтр для прейлистов в меню сохранения Youtube
 // @author          (ɔ) almaceleste  (https://almaceleste.github.io)
@@ -78,7 +78,13 @@ GM_config.init({
             type: 'checkbox',
             default: true,
         },
-        syncName: {
+        moveChecked: {
+            label: 'move checked playlists to the top',
+            labelPos: 'right',
+            type: 'checkbox',
+            default: true,
+        },
+            syncName: {
             label: 'synchronize filter with "New playlist" field',
             labelPos: 'right',
             type: 'checkbox',
@@ -185,6 +191,7 @@ function getFocus(target) {
     }
 
     document.arrive(header, {onceonly: true}, h => {
+        const moveChecked = GM_config.get('moveChecked');
         const syncName = GM_config.get('syncName');
         const headerTitle = `${header} > #title`;
 
@@ -198,6 +205,16 @@ function getFocus(target) {
         title.after(filterDiv);
         if (focused) {
             getFocus(filterInput);
+        }
+        if (moveChecked) {
+            const checked = `#checkbox[aria-checked="true"]:not([moved])`;
+            parent.arrive(checked, {onceonly: true, existing: true}, c => {
+                const check = $(c);
+                const playlist = check.parent();
+                const playlists = playlist.parent();
+                playlist.prependTo(playlists);
+                check.attr('moved', 'true');
+            });
         }
         if (syncName) {
             const newPlaylistName = '#labelAndInputContainer > iron-input > input';
